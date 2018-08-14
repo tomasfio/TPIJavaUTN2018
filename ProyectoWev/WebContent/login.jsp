@@ -18,7 +18,7 @@
             <div id="cabecera" > Login del usuario</div>
  
             <div id="cuerpo">
-                <form action="loginUsu" method="post" >
+                <form action="SingIn" method="POST" >
                     <p><label >Usuario:</label></p>
                         <p><input name="usuario" type="text" id="usuario" placeholder="Ingresa Usuario"></p>
  
