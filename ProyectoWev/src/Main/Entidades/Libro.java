@@ -10,7 +10,7 @@ public class Libro {
 	private Date fecha;
 	private String edicion;
 	private double precio;
-	private SubCategoria SubCategoria;
+	private Categoria Categoria;
 	
 	public int getISBN() {
 		return ISBN;
@@ -54,10 +54,10 @@ public class Libro {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	public SubCategoria getSubCategoria() {
-		return SubCategoria;
+	public Categoria getCategoria() {
+		return Categoria;
 	}
-	public void setSubCategoria(SubCategoria subCategoria) {
-		SubCategoria = subCategoria;
+	public void setCategoria(Categoria Categoria) {
+		this.Categoria = Categoria;
 	}
 }

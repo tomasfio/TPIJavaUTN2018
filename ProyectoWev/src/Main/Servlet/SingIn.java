@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Main.Entidades.*;
+import Main.Datos.*;
+
 
 /**
  * Servlet implementation class SingIn
@@ -33,7 +36,16 @@ public class SingIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Se conceto al servlet");
+		UsuarioData usuData = new UsuarioData();
+		Usuario usu = usuData.GetByUsuCon(request.getParameter("usuario"), request.getParameter("pass"));
+		if (usu != null)
+		{
+			System.out.println("Se conceto al servlet");
+		}
+		else 
+		{
+			System.out.println("Usuario y/o contraseña incorrecta");
+		}
 	}
 
 }

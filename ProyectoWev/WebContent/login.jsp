@@ -23,7 +23,7 @@
                         <p><input name="usuario" type="text" id="usuario" placeholder="Ingresa Usuario"></p>
  
                     <p><label>Contraseña:</label></p>
-                        <p><input name="contrasenia" type="password" id="contrasenia" placeholder="Ingresa Password" ></p>
+                        <p><input name="pass" type="password" id="pass" placeholder="Ingresa Password" ></p>
  
                     <p id="bot"><input type="submit" id="submit" name="submit" value="Ingresar" class="boton"></p>
                 </form>

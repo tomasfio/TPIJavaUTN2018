@@ -2,7 +2,6 @@ package Main.Datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.ResourceBundle;
 
 public class Base {
 	private static Connection con=null;
@@ -12,25 +11,24 @@ public class Base {
 		try {
 			if(con == null)
 			{
-				//con esto determinamos cuando finalize el programa
+				// con esto determinamos cuando finalize el progreso
 				Runtime.getRuntime().addShutdownHook(new MiShDwnHook());
 				
-				ResourceBundle rb = ResourceBundle.getBundle("jdbc");
-				String driver = rb.getString("driver");
-				String url = rb.getString("url");
-				String pwd = rb.getString("pwd");
-				String usr = rb.getString("usr");
+				//ResourceBundle rb=ResourceBundle.getBundle("jdbc");
+				String driver = "com.mysql.cj.jdbc.Driver"; //rb.getString("driver");
+				String url = "jdbc:mysql://localhost:3306/tpjava?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //rb.getString("url");
+				String pwd = "admin"; //rb.getString("pwd");
+				String usr = "root"; //rb.getString("usr");
 				
 				Class.forName(driver);
 				con = DriverManager.getConnection(url,usr,pwd);
 			}
-			
 			return con;
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-			throw new RuntimeException("Error al crear la conexion",ex);
+			throw new RuntimeException("error al crear la conexion",ex);
 		}
 	}
 	
