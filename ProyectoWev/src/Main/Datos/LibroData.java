@@ -20,13 +20,13 @@ public class LibroData {
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(0,lib.getISBN());
-			pstm.setString(2, lib.getTitulo());
-			pstm.setString(3, lib.getDescripcion());
-			pstm.setString(4, lib.getAutor());
-			pstm.setDate(5, (java.sql.Date)lib.getFecha());
-			pstm.setString(6, lib.getEdicion());
-			pstm.setDouble(7, lib.getPrecio());
-			pstm.setInt(8, lib.getCategoria().getIdCategiria());
+			pstm.setString(1, lib.getTitulo());
+			pstm.setString(2, lib.getDescripcion());
+			pstm.setString(3, lib.getAutor());
+			pstm.setDate(4, (java.sql.Date)lib.getFecha());
+			pstm.setString(5, lib.getEdicion());
+			pstm.setDouble(6, lib.getPrecio());
+			pstm.setInt(7, lib.getCategoria().getIdCategiria());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -106,13 +106,13 @@ public class LibroData {
 			sql = "UPDATE libros SET titulo = ?, descripcion = ?,autor = ?,fecha = ?,edicion = ?, precio = ?,idCategorio = ? WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, lib.getTitulo());
-			pstm.setString(2, lib.getDescripcion());
-			pstm.setString(3, lib.getAutor());
-			pstm.setDate(4, (java.sql.Date)lib.getFecha());
-			pstm.setString(5, lib.getEdicion());
-			pstm.setDouble(6, lib.getPrecio());
-			pstm.setInt(7, lib.getCategoria().getIdCategiria());
+			pstm.setString(0, lib.getTitulo());
+			pstm.setString(1, lib.getDescripcion());
+			pstm.setString(2, lib.getAutor());
+			pstm.setDate(3, (java.sql.Date)lib.getFecha());
+			pstm.setString(4, lib.getEdicion());
+			pstm.setDouble(5, lib.getPrecio());
+			pstm.setInt(6, lib.getCategoria().getIdCategiria());
 			
 			int res = pstm.executeUpdate();
 			
