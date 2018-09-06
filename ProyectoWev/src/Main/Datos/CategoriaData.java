@@ -133,4 +133,93 @@ public class CategoriaData {
 			}
 		}
 	}
+
+	public boolean Delete(Categoria cat)
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "DELETE FROM Categorias WHERE idCategoria = ?";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, cat.getIdCategiria());
+			
+			int rtdo = pstm.executeUpdate();
+			
+			if(rtdo == 0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+
+	public boolean Update(Categoria cat) 
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "UPDATE Categorias SET descripcion = ? WHERE idCategoria = ?";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, cat.getDescipcion());
+			pstm.setInt(2, cat.getIdCategiria());
+			
+			int res = pstm.executeUpdate();
+			
+			if(res == 0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
 }

@@ -11,13 +11,12 @@ public class UsuarioData {
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
-		ResultSet rs = null;
 		
 		try 
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql += "INSERT INTO usuarios(usuario,contraseña,nombre,apellido,email,tipoUsuario,fechaDeAlta,confirmado) VALUES(?,?,?,?,?,?,?,?)";
+			sql += "INSERT INTO usuarios(usuario,contraseña,nombre,apellido,email,tipoUsuario,fechaDeAlta) VALUES(?,?,?,?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(0, usu.getUsuario());
@@ -27,7 +26,6 @@ public class UsuarioData {
 			pstm.setString(4, usu.getEmail());
 			pstm.setInt(5, usu.getTipoUsuario());
 			pstm.setDate(6, (java.sql.Date) usu.getFechaDeAlta());
-			pstm.setBoolean(7, true);
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -45,7 +43,6 @@ public class UsuarioData {
 		{
 			try 
 			{
-				if(rs != null) rs.close();
 				if(pstm != null) pstm.close();
 			}
 			catch(Exception ex)
@@ -59,8 +56,7 @@ public class UsuarioData {
 	public boolean Delete(Usuario usu)
 	{
 		Connection con = null;
-		PreparedStatement pstm = null;
-		
+		PreparedStatement pstm = null;	
 		
 		try
 		{
