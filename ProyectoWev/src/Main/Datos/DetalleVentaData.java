@@ -1,13 +1,13 @@
 package Main.Datos;
 
-import java.util.Collection;
-import java.util.Vector;
-import java.sql.*;
 import Main.Entidades.*;
+import java.sql.*;
+import java.util.Vector;
+import java.util.Collection;
 
-public class VentaData {
-
-	public boolean Insert(Venta ven)
+public class DetalleVentaData {
+	
+	public boolean Insert(DetalleVenta det)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -15,13 +15,13 @@ public class VentaData {
 		try
 		{
 			con = Base.getConnection();
-			String sql = "";
-			sql = "INSERT INTO Ventas(idUsuario,importe,idEntrega) VALUES(?,?,?)";
+			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad) VALUES(?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0,ven.getUsuario().getIdUsuario());
-			pstm.setDouble(1, ven.getImporte());
-			pstm.setInt(2, ven.getEntrega().getIdEntrega());
+			pstm.setDate(0, (java.sql.Date)det.getFechaVenta());
+			pstm.setInt(1, det.getVenta().getIdVenta());
+			pstm.setInt(2, det.getLibro().getISBN());
+			pstm.setInt(3, det.getCantidad());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -35,7 +35,7 @@ public class VentaData {
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
 		}
-		finally
+		finally 
 		{
 			try
 			{
@@ -48,8 +48,8 @@ public class VentaData {
 			}
 		}
 	}
-	
-	public boolean Delete(Venta ven)
+		
+	public boolean Delete(DetalleVenta det)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -58,10 +58,12 @@ public class VentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "DELETE FROM ventas WHERE idVenta = ?";
+			sql = "DELETE FROM detalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, ven.getIdVenta());
+			pstm.setInt(0, det.getVenta().getIdVenta());
+			pstm.setInt(1, det.getLibro().getISBN());
+			pstm.setDate(2, (java.sql.Date)det.getFechaVenta());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -88,8 +90,8 @@ public class VentaData {
 			}
 		}
 	}
-	
-	public boolean Update(Venta ven)
+
+	public boolean Update(DetalleVenta det)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -98,13 +100,13 @@ public class VentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE ventas SET idUsuario = ? ,importe = ?, idEntrega = ? WHERE idVenta = ?";
+			sql = "UPDATE detalleVentas SET cantidad = ? WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, ven.getUsuario().getIdUsuario());
-			pstm.setDouble(1, ven.getImporte());
-			pstm.setInt(2, ven.getEntrega().getIdEntrega());
-			pstm.setInt(3, ven.getIdVenta());
+			pstm.setInt(0, det.getCantidad());
+			pstm.setDouble(1, det.getVenta().getIdVenta());
+			pstm.setInt(2, det.getLibro().getISBN());
+			pstm.setDate(3, (java.sql.Date)det.getFechaVenta());
 			
 			int res = pstm.executeUpdate();
 			
@@ -131,35 +133,38 @@ public class VentaData {
 			}
 		}
 	}
-	
-	public Venta GetOne(int id)
+
+	public DetalleVenta GetOne(int idVenta,int isbn, Date fechaVenta)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		UsuarioData usuData = new UsuarioData();
-		EntregaData entData = new EntregaData();
+		LibroData libData = new LibroData();
+		VentaData venData = new VentaData();
 		
 		try
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM Ventas WHERE idVenta = ? ";
+			sql = "SELECT * FROM DetalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, id);
+			pstm.setInt(0, idVenta);
+			pstm.setInt(1, isbn);
+			pstm.setDate(2, fechaVenta);
 			rs = pstm.executeQuery();
 			
-			Venta ven = null;
+			DetalleVenta det = null;
 			
 			while(rs.next())
 			{
-				ven = new Venta();
-				ven.setIdVenta(rs.getInt("idVenta"));
-				ven.setUsuario(usuData.GetOne(rs.getInt("idUsuario")));
-				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
+				det = new DetalleVenta();
+				det.setFechaVenta(rs.getDate("fechaVenta"));
+				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
+				det.setLibro(libData.GetOne(rs.getInt("ISBN")));
+				det.setCantidad(rs.getInt("cantidad"));
 			}
-			return ven;
+			return det;
 		}
 		catch(Exception ex)
 		{
@@ -181,36 +186,38 @@ public class VentaData {
 		}
 	}
 	
-	public Collection<Venta> GetAll()
+	public Collection<DetalleVenta> GetAll()
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		UsuarioData usuData = new UsuarioData();
-		EntregaData entData = new EntregaData();
+		LibroData libData = new LibroData();
+		VentaData venData = new VentaData();
+		
 		try
 		{
 			con = Base.getConnection();
-			String sql = "SELECT * FROM Ventas";
+			String sql = "";
+			sql = "SELECT * FROM DetalleVentas";
 			
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			
-			Vector<Venta> ventas = new Vector<Venta>();
-			Venta ven = null;
+			Vector<DetalleVenta> detalles = new Vector<DetalleVenta>();
+			DetalleVenta det = null;
 			
 			while(rs.next())
 			{
-				ven = new Venta();
-				ven.setIdVenta(rs.getInt("idVenta"));
-				ven.setUsuario(usuData.GetOne(rs.getInt("idUsuario")));
-				ven.setImporte(rs.getDouble("importe"));
-				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
-				ventas.add(ven);
+				det = new DetalleVenta();
+				det.setFechaVenta(rs.getDate("fechaVenta"));
+				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
+				det.setLibro(libData.GetOne(rs.getInt("ISBN")));
+				det.setCantidad(rs.getInt("cantidad"));
+				detalles.add(det);
 			}
-			return ventas;
+			return detalles;
 		}
-		catch(Exception ex) 
+		catch(Exception ex)
 		{
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
@@ -219,8 +226,8 @@ public class VentaData {
 		{
 			try
 			{
-				if(rs != null) rs.close();
 				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
 			}
 			catch(Exception ex)
 			{
