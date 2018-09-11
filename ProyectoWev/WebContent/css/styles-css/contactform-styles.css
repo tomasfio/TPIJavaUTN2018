@@ -1,0 +1,33 @@
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
+}
+
+ul {
+  list-style-type: none;
+}
+
+.data {
+    font-size: 16px;
+    padding: 7px;
+}
+
+.fonticon {
+    color: #1d4077;
+    padding-right: 10px;
+}
+
+.map {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.row {
+    margin-bottom: 5px;
+}

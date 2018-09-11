@@ -1,0 +1,61 @@
+@CHARSET "ISO-8859-1";
+/*
+ * Autor: Andres
+ * Ultima modificacion: 24/03/2017
+ */
+body {
+  background-color: #f1f1f1
+}
+
+.container {
+    width: 30%;
+    height: auto;
+    padding: 0;
+    border: 1px solid #999;
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0,0,0,.5);
+    margin-top: 10%;
+    margin-bottom: auto;
+    border-radius: 7px;
+
+}
+
+.container-header, h4{
+    background-color: #222;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+    padding: 15px 0px;
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+}
+
+.container-footer {
+    background-color: #f9f9f9;
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.container-body {
+    padding:40px 50px;
+    background: #fff;
+    text-align: center;
+}
+
+.align {
+  float: right;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}

@@ -1,0 +1,27 @@
+.title-sponsors {
+  text-align: center;
+  font-family: monospace;
+}
+.img-sponsor {
+  width: 80%;
+  height: 110px;
+  margin-left: 7%;
+
+}
+h1.error401 {
+    font-size: 96px;
+    text-align: center;
+    font-weight: bold;
+}
+
+p.error401 {
+  text-align: center;
+  font-size: 16px;
+}
+
+.texto {
+  text-align: center;
+  font-size: 14px;
+  font-family: cursive;
+  color: red;
+}
