@@ -8,7 +8,7 @@
 	   type="text/css"/>
     <link href="css/styles-css/custom-register.css" rel="stylesheet"
 	   type="text/css"/>
-    <title>Tienda - Registrarse</title>
+    <title>Libreria - Registrarse</title>
 </head>
 <body>
 
@@ -23,7 +23,7 @@
 
         <!-- Cuerpo -->
         <div class="container-body">
-            <form action="#" method="post" name="singUp" id="singUp">
+            <form action="SingUp" method="post" name="singUp" id="singUp">
 
               <div class="form-group">
                   <label for="nombre">Nombre</label>

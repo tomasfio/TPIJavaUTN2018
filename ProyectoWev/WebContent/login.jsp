@@ -8,7 +8,7 @@
 	   type="text/css"/>
     <link href="css/styles-css/custom-login.css" rel="stylesheet"
 	   type="text/css"/>
-    <title>StoreWare - Login</title>
+    <title>Libreria - Login</title>
 </head>
 <body>
 

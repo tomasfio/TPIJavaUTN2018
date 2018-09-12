@@ -195,6 +195,51 @@ public class UsuarioData {
 		}
 	}
 	
+	public boolean GetByUserName(String usr)
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "SELECT * FROM Usuarios WHERE nombre = ?";
+			pstm = con.prepareStatement(sql);
+			pstm.setString(0, usr);
+			rs = pstm.executeQuery();
+			
+			rs.last();
+			if(rs.getRow() > 0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+		
+	}
+	
 	public Collection<Usuario> GetAll()
 	{
 		Connection con = null;
