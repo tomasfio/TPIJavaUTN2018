@@ -19,9 +19,9 @@ public class VentaData {
 			sql = "INSERT INTO Ventas(idUsuario,importe,idEntrega) VALUES(?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0,ven.getUsuario().getIdUsuario());
-			pstm.setDouble(1, ven.getImporte());
-			pstm.setInt(2, ven.getEntrega().getIdEntrega());
+			pstm.setInt(1,ven.getUsuario().getIdUsuario());
+			pstm.setDouble(2, ven.getImporte());
+			pstm.setInt(3, ven.getEntrega().getIdEntrega());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -61,7 +61,7 @@ public class VentaData {
 			sql = "DELETE FROM ventas WHERE idVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, ven.getIdVenta());
+			pstm.setInt(1, ven.getIdVenta());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -101,10 +101,10 @@ public class VentaData {
 			sql = "UPDATE ventas SET idUsuario = ? ,importe = ?, idEntrega = ? WHERE idVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, ven.getUsuario().getIdUsuario());
-			pstm.setDouble(1, ven.getImporte());
-			pstm.setInt(2, ven.getEntrega().getIdEntrega());
-			pstm.setInt(3, ven.getIdVenta());
+			pstm.setInt(1, ven.getUsuario().getIdUsuario());
+			pstm.setDouble(2, ven.getImporte());
+			pstm.setInt(3, ven.getEntrega().getIdEntrega());
+			pstm.setInt(4, ven.getIdVenta());
 			
 			int res = pstm.executeUpdate();
 			
@@ -147,7 +147,7 @@ public class VentaData {
 			sql = "SELECT * FROM Ventas WHERE idVenta = ? ";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, id);
+			pstm.setInt(1, id);
 			rs = pstm.executeQuery();
 			
 			Venta ven = null;

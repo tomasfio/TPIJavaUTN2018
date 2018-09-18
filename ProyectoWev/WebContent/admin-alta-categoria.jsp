@@ -27,12 +27,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.jsp">Libreria</a><a href="#" class="navbar-brand">•</a><a class="navbar-brand" href="#">Control Panel</a>
+                    <a class="navbar-brand" href="index.jsp">Tienda</a><a href="#" class="navbar-brand">•</a><a class="navbar-brand" href="">Control Panel</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a><span class="glyphicon glyphicon-user"></span><b></b></a></li>
+                      <li><a><span class="glyphicon glyphicon-user"></span><b> </b></a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                     </ul>
                 </div>
@@ -44,9 +44,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <p class="lead">Bienvenido</p>
+                    <p class="lead">Bienvenido </p>
                     <ul class="nav nav-pills nav-stacked">
-                        <li role="presentation"><a href="">Listado de Categorias</a>
+                         <li role="presentation"><a href="">Listado de Categorias</a>
                     	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
                         <li role="presentation"><a href="admin-alta-libros.jsp">Nuevo Libro</a></li>
@@ -56,40 +56,19 @@
                 </div>
 
                 <div class="col-md-7 col-md-offset-1">
-                    <h1>Alta de un nuevo libro</h1> <hr>
+                    <h1>Alta de un nuevo producto</h1> <hr>
 
                     <form class="form-group" action="#" method="post">
-                    	<div class="form-group">
-                    		<input type="number" class="form-control" name="ISBN" placeholder="ISBN del libro..." required>
-                    	</div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="titulo" placeholder="Nombre del libro..." required>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre de la categoria..." required>
                         </div>
                         <div class="form-group">
-                        	<input type="text" class="form-control" name="descripcion" placeholder="Descripcion del libro... " required>
-                        </div>
-                        <div class="form-group">
-                        	<input type="text" class="form-control" name="autor" placeholder="Titulo del libro..." required>
-                        </div>
-                        <div class="form-group">
-                        	<input type="date" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
-                        </div>
-                        <div class="form-group">
-                        	<input type="text" class="form-control" name="edicion" placeholder="Edicion del libro..." required>
-                        </div>
-                        <div class="form-group">
-                        	<input type="number" min="0" class="form-control" name="precio" placeholder="Precio del libro..." required>
-                        </div>
-                        <div class="form-group">
-                            <select name="categoria" class="form-control">
-                                <option>Categorias</option>
-                            </select>
+                            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion de la categoria..." required>
                         </div>
                         <div class="form-group">
                             <button type="reset" value="Reset" class="btn btn-default" >Limpiar</button>
-                            <input type="submit" class="btn btn-primary pull-right" name="submit" value="Cargar producto">
+                            <input type="submit" class="btn btn-primary pull-right" name="submit" value="Cargar categoria">
                         </div>
-                        
                     </form>
                 </div>
             </div>
@@ -102,7 +81,7 @@
         <footer>
             <div class="row" style="text-align:center">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Libreria 2018 - All rights reserved.</p>
+                    <p>Copyright &copy; Tienda 2018 - All rights reserved.</p>
                 </div>
             </div>
         </footer>

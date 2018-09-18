@@ -18,10 +18,10 @@ public class DetalleVentaData {
 			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad) VALUES(?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setDate(0, (java.sql.Date)det.getFechaVenta());
-			pstm.setInt(1, det.getVenta().getIdVenta());
-			pstm.setInt(2, det.getLibro().getISBN());
-			pstm.setInt(3, det.getCantidad());
+			pstm.setDate(1, (java.sql.Date)det.getFechaVenta());
+			pstm.setInt(2, det.getVenta().getIdVenta());
+			pstm.setInt(3, det.getLibro().getISBN());
+			pstm.setInt(4, det.getCantidad());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -61,9 +61,9 @@ public class DetalleVentaData {
 			sql = "DELETE FROM detalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, det.getVenta().getIdVenta());
-			pstm.setInt(1, det.getLibro().getISBN());
-			pstm.setDate(2, (java.sql.Date)det.getFechaVenta());
+			pstm.setInt(1, det.getVenta().getIdVenta());
+			pstm.setInt(2, det.getLibro().getISBN());
+			pstm.setDate(3, (java.sql.Date)det.getFechaVenta());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -103,10 +103,10 @@ public class DetalleVentaData {
 			sql = "UPDATE detalleVentas SET cantidad = ? WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, det.getCantidad());
-			pstm.setDouble(1, det.getVenta().getIdVenta());
-			pstm.setInt(2, det.getLibro().getISBN());
-			pstm.setDate(3, (java.sql.Date)det.getFechaVenta());
+			pstm.setInt(1, det.getCantidad());
+			pstm.setDouble(2, det.getVenta().getIdVenta());
+			pstm.setInt(3, det.getLibro().getISBN());
+			pstm.setDate(4, (java.sql.Date)det.getFechaVenta());
 			
 			int res = pstm.executeUpdate();
 			
@@ -149,9 +149,9 @@ public class DetalleVentaData {
 			sql = "SELECT * FROM DetalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, idVenta);
-			pstm.setInt(1, isbn);
-			pstm.setDate(2, fechaVenta);
+			pstm.setInt(1, idVenta);
+			pstm.setInt(2, isbn);
+			pstm.setDate(3, fechaVenta);
 			rs = pstm.executeQuery();
 			
 			DetalleVenta det = null;

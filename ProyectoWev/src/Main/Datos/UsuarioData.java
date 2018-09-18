@@ -16,18 +16,22 @@ public class UsuarioData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql += "INSERT INTO usuarios(usuario,contraseña,nombre,apellido,email,tipoUsuario,fechaDeAlta) VALUES(?,?,?,?,?,?,?,?)";
+			sql += "INSERT INTO usuarios(usuario,contraseña,nombre,apellido,email,tipoUsuario,fechaDeAlta) VALUES(?,?,?,?,?,?,NOW())";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setString(0, usu.getUsuario());
-			pstm.setString(1, usu.getContraseña());
-			pstm.setString(2, usu.getNombre());
-			pstm.setString(3, usu.getApellido());
-			pstm.setString(4, usu.getEmail());
-			pstm.setInt(5, usu.getTipoUsuario());
-			pstm.setDate(6, (java.sql.Date) usu.getFechaDeAlta());
+			//pstm.RETURN_GENERATED_KEYS();
+			pstm.setString(1, usu.getUsuario());
+			pstm.setString(2, usu.getContraseña());
+			pstm.setString(3, usu.getNombre());
+			pstm.setString(4, usu.getApellido());
+			pstm.setString(5, usu.getEmail());
+			pstm.setInt(6, usu.getTipoUsuario());
+			//pstm.setTimestamp(7, new java.sql.Timestamp(usu.getFechaDeAlta()));
 			
 			int resultado = pstm.executeUpdate();
+			
+			//Recupera la key autogenerada
+			//ResultSet rs = pstm.getGeneratedKeys();
 			
 			if (resultado == 1)
 				return true;
@@ -206,7 +210,7 @@ public class UsuarioData {
 			con = Base.getConnection();
 			String sql = "SELECT * FROM Usuarios WHERE nombre = ?";
 			pstm = con.prepareStatement(sql);
-			pstm.setString(0, usr);
+			pstm.setString(1, usr);
 			rs = pstm.executeQuery();
 			
 			rs.last();

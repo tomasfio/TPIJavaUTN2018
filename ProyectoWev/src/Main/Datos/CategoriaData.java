@@ -28,6 +28,7 @@ public class CategoriaData {
 			{
 				cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
+				cat.setNombre(rs.getString("nombre"));
 				cat.setDescripcion(rs.getString("descripcion"));
 				cats.add(cat);
 			}
@@ -75,6 +76,7 @@ public class CategoriaData {
 			{
 				cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
+				cat.setNombre(rs.getString("nombre"));
 				cat.setDescripcion(rs.getString("descripcion"));
 			}
 			return cat;
@@ -108,10 +110,10 @@ public class CategoriaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Categoria(idCategoria,descripcion) VALUES(?.?)";
+			sql = "INSERT INTO Categoria(nombre,descripcion) VALUES(?.?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, cat.getIdCategiria());
+			pstm.setString(1, cat.getNombre());
 			pstm.setString(2, cat.getDescipcion());
 			pstm.executeQuery();
 		}
@@ -187,11 +189,12 @@ public class CategoriaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE Categorias SET descripcion = ? WHERE idCategoria = ?";
+			sql = "UPDATE Categorias SET nombre = ? , descripcion = ? WHERE idCategoria = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, cat.getDescipcion());
-			pstm.setInt(2, cat.getIdCategiria());
+			pstm.setString(1, cat.getNombre());
+			pstm.setString(2, cat.getDescipcion());
+			pstm.setInt(3, cat.getIdCategiria());
 			
 			int res = pstm.executeUpdate();
 			

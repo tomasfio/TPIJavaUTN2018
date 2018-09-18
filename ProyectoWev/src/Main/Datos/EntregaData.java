@@ -68,7 +68,7 @@ public class EntregaData {
 			sql = "SELECT * FROM Entregas WHERE idEntrega = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(0, id);
+			pstm.setInt(1, id);
 			rs = pstm.executeQuery();
 			
 			Entrega ent = null;
