@@ -51,14 +51,8 @@ public class altaUsuario extends HttpServlet {
 		UsuarioData usuData = new UsuarioData();
 		if(usuData.GetByUserName(usu.getUsuario()))
 		{
-			if(usuData.Insert(usu))
-			{
-				//Mensaje que se registro el usuario correctamente
-			}
-			else
-			{
-				//Mensaje que no se pudo registrar el usuario
-			}
+			usuData.Insert(usu);
+			//Mensaje que se registro el usuario correctamente'
 		}
 		else
 		{

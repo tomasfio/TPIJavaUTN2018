@@ -1,3 +1,6 @@
+<%@page import="Main.Negocio.CategoriaLogic"%>
+<%@page import="Main.Entidades.Categoria" %>
+<%@page import="java.util.Collection" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,7 +85,11 @@
                         </div>
                         <div class="form-group">
                             <select name="categoria" class="form-control">
-                                <option>Categorias</option>
+                           	<%
+                            	CategoriaLogic cl = new CategoriaLogic();
+                				Collection<Categoria> cats = cl.GetAll();
+                				for(Categoria cat: cats){%>
+                                <option><%cat.getNombre().toString(); %></option><%}%>
                             </select>
                         </div>
                         <div class="form-group">

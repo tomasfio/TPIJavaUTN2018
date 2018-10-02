@@ -4,10 +4,8 @@
     <!-- Autor: Tomás
          Ultima modificacion: 11/09/2018 -->
     <meta charset="utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet"
-	   type="text/css"/>
-    <link href="css/styles-css/custom-login.css" rel="stylesheet"
-	   type="text/css"/>
+    <link href="/PaginaVentasLibros/WebContent/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/styles-css/custom-login.css" rel="stylesheet" type="text/css"/>
     <title>Libreria - Login</title>
 </head>
 <body>
@@ -35,7 +33,7 @@
                 <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
             </form>
         </div>
-
+        
         <!-- Pie -->
         <div class="container-footer">
             <a href="index.php" class="btn btn-danger btn-default pull-left">

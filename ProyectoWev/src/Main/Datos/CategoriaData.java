@@ -64,7 +64,7 @@ public class CategoriaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM Categoria WHERE idCategoria = ?";
+			sql = "SELECT * FROM Categorias WHERE idCategoria = ?";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1, id);
@@ -101,7 +101,7 @@ public class CategoriaData {
 		}
 	}
 	
-	public void Insert(Categoria cat)
+	public boolean Insert(Categoria cat)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -110,12 +110,16 @@ public class CategoriaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Categoria(nombre,descripcion) VALUES(?.?)";
+			sql = "INSERT INTO Categorias(nombre,descripcion) VALUES(?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, cat.getNombre());
 			pstm.setString(2, cat.getDescipcion());
-			pstm.executeQuery();
+			int resultado = pstm.executeUpdate();
+			if(resultado == 1)
+				return true;
+			else
+				return false;
 		}
 		catch(Exception ex)
 		{
@@ -148,7 +152,7 @@ public class CategoriaData {
 			sql = "DELETE FROM Categorias WHERE idCategoria = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, cat.getIdCategiria());
+			pstm.setInt(1, cat.getIdCategoria());
 			
 			int rtdo = pstm.executeUpdate();
 			
@@ -194,7 +198,7 @@ public class CategoriaData {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, cat.getNombre());
 			pstm.setString(2, cat.getDescipcion());
-			pstm.setInt(3, cat.getIdCategiria());
+			pstm.setInt(3, cat.getIdCategoria());
 			
 			int res = pstm.executeUpdate();
 			

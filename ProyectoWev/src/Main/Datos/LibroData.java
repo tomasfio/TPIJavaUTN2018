@@ -26,7 +26,7 @@ public class LibroData {
 			pstm.setDate(5, (java.sql.Date)lib.getFecha());
 			pstm.setString(6, lib.getEdicion());
 			pstm.setDouble(7, lib.getPrecio());
-			pstm.setInt(8, lib.getCategoria().getIdCategiria());
+			pstm.setInt(8, lib.getCategoria().getIdCategoria());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -112,7 +112,7 @@ public class LibroData {
 			pstm.setDate(4, (java.sql.Date)lib.getFecha());
 			pstm.setString(5, lib.getEdicion());
 			pstm.setDouble(6, lib.getPrecio());
-			pstm.setInt(7, lib.getCategoria().getIdCategiria());
+			pstm.setInt(7, lib.getCategoria().getIdCategoria());
 			
 			int res = pstm.executeUpdate();
 			

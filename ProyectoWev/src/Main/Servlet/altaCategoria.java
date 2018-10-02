@@ -1,27 +1,26 @@
 package Main.Servlet;
 
+import Main.Datos.CategoriaData;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.Entidades.*;
-import Main.Datos.*;
+import Main.Entidades.Categoria;
 
 /**
- * Servlet implementation class altaLibro
+ * Servlet implementation class altaCategoria
  */
-@WebServlet({ "/altaLibro", "/AltaLibro", "/altalibro", "/Altalibro" })
-public class altaLibro extends HttpServlet {
+@WebServlet({ "/altaCategoria", "/altacategoria", "/AltaCategoria", "/Altacategoria" })
+public class altaCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public altaLibro() {
+    public altaCategoria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,29 +32,23 @@ public class altaLibro extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Libro libro = new Libro();
-		libro.setISBN(Integer.parseInt(request.getParameter("ISBN")));
-		libro.setTitulo(request.getParameter("titulo"));
-		libro.setDescripcion(request.getParameter("descripcion"));
-		libro.setAutor(request.getParameter("autor"));
-		//libro.setFecha(request.getParameter("fecha"));
-		libro.setEdicion(request.getParameter("edicion"));
-		libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
+		Categoria cat = new Categoria();
+		cat.setNombre(request.getParameter("nombre"));
+		cat.setDescripcion(request.getParameter("descripcion"));
 		
-		LibroData libData = new LibroData();
-		if(libData.Insert(libro))
+		CategoriaData catData = new CategoriaData();
+		if(catData.Insert(cat))
 		{
-			//Mensaje de registro exitoso
+			//Mensaje que se registro correctamente
 		}
 		else
 		{
-			//Mensaje de registro no existoso
+			
 		}
 	}
 

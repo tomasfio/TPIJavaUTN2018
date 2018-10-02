@@ -40,7 +40,7 @@ public class SingIn extends HttpServlet {
 		Usuario usu = usuData.GetByUsuCon(request.getParameter("usuario"), request.getParameter("pass"));
 		if (usu != null)
 		{
-			System.out.println("Se conceto al servlet");
+			
 		}
 		else 
 		{

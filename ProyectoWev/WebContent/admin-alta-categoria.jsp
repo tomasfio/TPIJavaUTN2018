@@ -46,7 +46,7 @@
                 <div class="col-md-3">
                     <p class="lead">Bienvenido </p>
                     <ul class="nav nav-pills nav-stacked">
-                         <li role="presentation"><a href="">Listado de Categorias</a>
+                        <li role="presentation"><a href="">Listado de Categorias</a>
                     	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
                         <li role="presentation"><a href="admin-alta-libros.jsp">Nuevo Libro</a></li>
@@ -58,7 +58,7 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Alta de un nuevo producto</h1> <hr>
 
-                    <form class="form-group" action="#" method="post">
+                    <form class="form-group" action="AltaCategoria" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" name="nombre" placeholder="Nombre de la categoria..." required>
                         </div>

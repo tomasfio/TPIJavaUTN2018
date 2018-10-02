@@ -47,7 +47,7 @@
                     <p class="lead">Bienvenido </p>
                     <ul class="nav nav-pills nav-stacked">
                     	<li role="presentation"><a href="">Listado de Categorias</a>
-                    	<li role="presentation"><a href="">Nueva Categoria</a>
+                    	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
                         <li role="presentation"><a href="admin-alta-libros.jsp">Nuevo Libro</a></li>
                         <li role="presentation"><a href="">Listado de usuarios</a></li>

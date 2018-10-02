@@ -5,7 +5,7 @@ public class Categoria {
 	private String nombre;
 	private String descripcion;
 	
-	public int getIdCategiria()
+	public int getIdCategoria()
 	{
 		return idCategoria;
 	}
