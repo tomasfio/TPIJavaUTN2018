@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
-import Main.Datos.UsuarioData;
+import Main.Negocio.UsuarioLogic;
 import Main.Entidades.Usuario;
 
 /**
@@ -48,12 +48,12 @@ public class SingUp extends HttpServlet {
 		usu.setFechaDeAlta(fechaActual);
 		usu.setTipoUsuario(0);
 		
-		UsuarioData usuData = new UsuarioData();
+		UsuarioLogic ul = new UsuarioLogic();
 		
-		if(usuData.GetByUserName(usu.getUsuario()))
+		if(ul.GetByUserName(usu))
 		{
 
-			if(usuData.Insert(usu))
+			if(ul.Insert(usu))
 			{
 				//Mostrar mensaje de que usuario valido
 			}

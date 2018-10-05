@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Main.Entidades.*;
-import Main.Datos.*;
+import Main.Negocio.*;
 
 /**
  * Servlet implementation class altaUsuario
@@ -48,10 +48,10 @@ public class altaUsuario extends HttpServlet {
 		usu.setUsuario(request.getParameter("usuario"));
 		usu.setContraseña(request.getParameter("contrasenia"));
 		
-		UsuarioData usuData = new UsuarioData();
-		if(usuData.GetByUserName(usu.getUsuario()))
+		UsuarioLogic ul = new UsuarioLogic();
+		if(ul.GetByUserName(usu))
 		{
-			usuData.Insert(usu);
+			ul.Insert(usu);
 			//Mensaje que se registro el usuario correctamente'
 		}
 		else

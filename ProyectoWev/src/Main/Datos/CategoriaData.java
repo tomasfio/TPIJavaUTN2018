@@ -54,7 +54,7 @@ public class CategoriaData {
 		}
 	}
 	
-	public Categoria GetOne(int id)
+	public Categoria GetOne(Categoria categoria)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -67,7 +67,7 @@ public class CategoriaData {
 			sql = "SELECT * FROM Categorias WHERE idCategoria = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, id);
+			pstm.setInt(1, categoria.getIdCategoria());
 			rs = pstm.executeQuery();
 			
 			Categoria cat = null;
@@ -101,7 +101,7 @@ public class CategoriaData {
 		}
 	}
 	
-	public boolean Insert(Categoria cat)
+	public Categoria Insert(Categoria cat)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -117,9 +117,9 @@ public class CategoriaData {
 			pstm.setString(2, cat.getDescipcion());
 			int resultado = pstm.executeUpdate();
 			if(resultado == 1)
-				return true;
+				return cat;
 			else
-				return false;
+				return null;
 		}
 		catch(Exception ex)
 		{

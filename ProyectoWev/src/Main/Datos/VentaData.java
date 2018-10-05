@@ -156,7 +156,10 @@ public class VentaData {
 			{
 				ven = new Venta();
 				ven.setIdVenta(rs.getInt("idVenta"));
-				ven.setUsuario(usuData.GetOne(rs.getInt("idUsuario")));
+				
+				Usuario usu = new Usuario();
+				usu.setIdUsuario(rs.getInt("idUsuario"));
+				ven.setUsuario(usuData.GetOne(usu));
 				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
 			}
 			return ven;
@@ -203,7 +206,11 @@ public class VentaData {
 			{
 				ven = new Venta();
 				ven.setIdVenta(rs.getInt("idVenta"));
-				ven.setUsuario(usuData.GetOne(rs.getInt("idUsuario")));
+				
+				Usuario usu = new Usuario();
+				usu.setIdUsuario(rs.getInt("idUsuario"));
+				
+				ven.setUsuario(usuData.GetOne(usu));
 				ven.setImporte(rs.getDouble("importe"));
 				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
 				ventas.add(ven);

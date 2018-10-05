@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Main.Entidades.*;
-import Main.Datos.*;
+import Main.Negocio.*;
 
 
 /**
@@ -36,8 +36,12 @@ public class SingIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioData usuData = new UsuarioData();
-		Usuario usu = usuData.GetByUsuCon(request.getParameter("usuario"), request.getParameter("pass"));
+		UsuarioLogic ul = new UsuarioLogic();
+		Usuario usu = new Usuario();
+		usu.setUsuario(request.getParameter("usuario"));
+		usu.setContraseña(request.getParameter("pass"));
+		
+		usu = ul.GetByUsuCon(usu);
 		if (usu != null)
 		{
 			

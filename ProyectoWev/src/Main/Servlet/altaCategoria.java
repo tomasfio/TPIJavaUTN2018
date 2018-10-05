@@ -1,6 +1,6 @@
 package Main.Servlet;
 
-import Main.Datos.CategoriaData;
+import Main.Negocio.CategoriaLogic;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +22,7 @@ public class altaCategoria extends HttpServlet {
      */
     public altaCategoria() {
         super();
+        
         // TODO Auto-generated constructor stub
     }
 
@@ -41,15 +42,10 @@ public class altaCategoria extends HttpServlet {
 		cat.setNombre(request.getParameter("nombre"));
 		cat.setDescripcion(request.getParameter("descripcion"));
 		
-		CategoriaData catData = new CategoriaData();
-		if(catData.Insert(cat))
-		{
-			//Mensaje que se registro correctamente
-		}
-		else
-		{
-			
-		}
+		CategoriaLogic cl = new CategoriaLogic();
+		
+		cat = cl.Insert(cat);
+		
 	}
 
 }

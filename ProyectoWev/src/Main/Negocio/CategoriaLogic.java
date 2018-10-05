@@ -16,5 +16,10 @@ public class CategoriaLogic {
 	{
 		return catData.GetAll();
 	}
+	
+	public Categoria Insert(Categoria cat)
+	{
+		return catData.Insert(cat);
+	}
 
 }

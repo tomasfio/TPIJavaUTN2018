@@ -1,6 +1,7 @@
 package Main.Servlet;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Main.Entidades.*;
-import Main.Datos.*;
+import Main.Negocio.*;
 
 /**
  * Servlet implementation class altaLibro
@@ -24,6 +25,10 @@ public class altaLibro extends HttpServlet {
     public altaLibro() {
         super();
         // TODO Auto-generated constructor stub
+        
+        CategoriaLogic cl = new CategoriaLogic();
+        Collection<Categoria> cats = cl.GetAll();
+        
     }
 
 	/**
@@ -48,7 +53,7 @@ public class altaLibro extends HttpServlet {
 		libro.setEdicion(request.getParameter("edicion"));
 		libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
 		
-		LibroData libData = new LibroData();
+		/*LibroData libData = new LibroData();
 		if(libData.Insert(libro))
 		{
 			//Mensaje de registro exitoso
@@ -56,7 +61,7 @@ public class altaLibro extends HttpServlet {
 		else
 		{
 			//Mensaje de registro no existoso
-		}
+		}*/
 	}
 
 }

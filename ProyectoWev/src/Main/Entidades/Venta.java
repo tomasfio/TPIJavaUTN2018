@@ -1,10 +1,13 @@
 package Main.Entidades;
 
+import java.util.*;
+
 public class Venta {
 	private int idVenta;
 	private Usuario Usuario;
 	private double importe;
 	private Entrega Entrega;
+	private ArrayList<DetalleVenta> DetallesVentas;
 	
 	public int getIdVenta() {
 		return idVenta;
@@ -29,5 +32,13 @@ public class Venta {
 	}
 	public void setEntrega(Entrega entrega) {
 		Entrega = entrega;
+	}
+	public ArrayList<DetalleVenta> getDetallesVentas()
+	{
+		return DetallesVentas;
+	}
+	public void setDetallesVentas(ArrayList<DetalleVenta> detallesVentas)
+	{
+		DetallesVentas = detallesVentas;
 	}
 }

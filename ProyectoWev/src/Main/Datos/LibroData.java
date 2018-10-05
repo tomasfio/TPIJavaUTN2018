@@ -169,7 +169,11 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
-				lib.setCategoria(catData.GetOne(rs.getInt("idCategoria")));
+				
+				Categoria cat = new Categoria();
+				cat.setIdCategoria(rs.getInt("idCategoria"));
+				
+				lib.setCategoria(catData.GetOne(cat));
 			}
 			return lib;
 		}
@@ -222,7 +226,12 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
-				lib.setCategoria(catData.GetOne(rs.getInt("idCategoria")));
+				
+				Categoria cat = new Categoria();
+				cat.setIdCategoria(rs.getInt("idCategoria"));
+				
+				lib.setCategoria(catData.GetOne(cat));
+				
 				Libros.add(lib);
 			}
 			return Libros;

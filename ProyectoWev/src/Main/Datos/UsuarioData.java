@@ -148,7 +148,7 @@ public class UsuarioData {
 		}
 	}
 	
-	public Usuario GetOne(int id)
+	public Usuario GetOne(Usuario usuario)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -161,7 +161,7 @@ public class UsuarioData {
 			sql = "SELECT * FROM Usuarios WHERE idUsuario = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, id);
+			pstm.setInt(1, usuario.getIdUsuario());
 			rs = pstm.executeQuery();
 			
 			Usuario usu = null;
@@ -199,7 +199,7 @@ public class UsuarioData {
 		}
 	}
 	
-	public boolean GetByUserName(String usr)
+	public boolean GetByUserName(Usuario usu)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -210,7 +210,7 @@ public class UsuarioData {
 			con = Base.getConnection();
 			String sql = "SELECT * FROM Usuarios WHERE nombre = ?";
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, usr);
+			pstm.setString(1, usu.getUsuario());
 			rs = pstm.executeQuery();
 			
 			rs.last();
@@ -295,7 +295,7 @@ public class UsuarioData {
 		}
 	}
 	
-	public Usuario GetByUsuCon(String nom,String pass)
+	public Usuario GetByUsuCon(Usuario usuario)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -308,8 +308,8 @@ public class UsuarioData {
 			sql += "SELECT * FROM Usuarios WHERE usuario = ? AND contraseña = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, nom);
-			pstm.setString(2, pass);
+			pstm.setString(1, usuario.getUsuario());
+			pstm.setString(2, usuario.getContraseña());
 			rs = pstm.executeQuery();
 			
 			Usuario usu = null;

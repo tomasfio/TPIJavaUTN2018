@@ -4,8 +4,14 @@ import java.util.Date;
 
 public class DetalleVenta {
 	private Date fechaVenta;
-	private Venta Venta;
 	private Libro Libro;
+	private Venta Venta;
+	public Venta getVenta() {
+		return Venta;
+	}
+	public void setVenta(Venta venta) {
+		Venta = venta;
+	}
 	private int cantidad;
 	
 	public Date getFechaVenta() {
@@ -13,12 +19,6 @@ public class DetalleVenta {
 	}
 	public void setFechaVenta(Date fechaVenta) {
 		this.fechaVenta = fechaVenta;
-	}
-	public Venta getVenta() {
-		return Venta;
-	}
-	public void setVenta(Venta Venta) {
-		this.Venta = Venta;
 	}
 	public Libro getLibro()
 	{

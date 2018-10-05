@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <select name="categoria" class="form-control">
                            	<%
-                            	CategoriaLogic cl = new CategoriaLogic();
+                           		CategoriaLogic cl = new CategoriaLogic();
                 				Collection<Categoria> cats = cl.GetAll();
                 				for(Categoria cat: cats){%>
                                 <option><%cat.getNombre().toString(); %></option><%}%>
