@@ -1,28 +1,28 @@
 package Main.Servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.Entidades.*;
 import Main.Negocio.*;
 
 /**
- * Servlet implementation class altaLibro
+ * Servlet implementation class Categoria
  */
-@WebServlet({ "/altaLibro", "/AltaLibro", "/altalibro", "/Altalibro" })
-public class altaLibro extends HttpServlet {
+@WebServlet("/Categoria")
+public class Categoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
+    public Categoria() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,31 +30,21 @@ public class altaLibro extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		CategoriaLogic ctrl = new CategoriaLogic();
+		
+		request.setAttribute("ListaCategoria", ctrl.GetAll());
+		
+		request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
+		
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Libro libro = new Libro();
-		libro.setISBN(Integer.parseInt(request.getParameter("ISBN")));
-		libro.setTitulo(request.getParameter("titulo"));
-		libro.setDescripcion(request.getParameter("descripcion"));
-		libro.setAutor(request.getParameter("autor"));
-		//libro.setFecha(request.getParameter("fecha"));
-		libro.setEdicion(request.getParameter("edicion"));
-		libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
-		
-		/*LibroData libData = new LibroData();
-		if(libData.Insert(libro))
-		{
-			//Mensaje de registro exitoso
-		}
-		else
-		{
-			//Mensaje de registro no existoso
-		}*/
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

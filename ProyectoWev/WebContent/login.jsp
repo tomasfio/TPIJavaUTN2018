@@ -4,8 +4,10 @@
     <!-- Autor: Tomás
          Ultima modificacion: 11/09/2018 -->
     <meta charset="utf-8">
-    <link href="/PaginaVentasLibros/WebContent/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/styles-css/custom-login.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+    	<%@include file="css/bootstrap.min.css"%>
+    	<%@include file="css/styles-css/custom-login.css"%>
+    </style>
     <title>Libreria - Login</title>
 </head>
 <body>

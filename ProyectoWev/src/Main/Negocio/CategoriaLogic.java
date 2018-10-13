@@ -12,7 +12,7 @@ public class CategoriaLogic {
 		catData = new CategoriaData();
 	}
 	
-	public Collection<Categoria> GetAll()
+	public ArrayList<Categoria> GetAll()
 	{
 		return catData.GetAll();
 	}

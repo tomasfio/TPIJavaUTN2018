@@ -1,13 +1,12 @@
 package Main.Datos;
 
 import Main.Entidades.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.sql.*;
-import java.util.Vector;
 
 public class CategoriaData {
 	
-	public Collection<Categoria> GetAll()
+	public ArrayList<Categoria> GetAll()
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -21,7 +20,7 @@ public class CategoriaData {
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			
-			Vector<Categoria> cats = new Vector<Categoria>();
+			ArrayList<Categoria> cats = new ArrayList<Categoria>();
 			Categoria cat = null;
 			
 			while(rs.next())

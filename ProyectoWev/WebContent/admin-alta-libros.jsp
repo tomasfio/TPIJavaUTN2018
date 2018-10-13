@@ -1,6 +1,7 @@
 <%@page import="Main.Negocio.CategoriaLogic"%>
 <%@page import="Main.Entidades.Categoria" %>
 <%@page import="java.util.Collection" %>
+<%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -87,7 +88,7 @@
                             <select name="categoria" class="form-control">
                            	<%
                            		CategoriaLogic cl = new CategoriaLogic();
-                				Collection<Categoria> cats = cl.GetAll();
+                				Collection<Categoria> cats = (ArrayList<Categoria>)request.getAttribute("ListaCategoria");
                 				for(Categoria cat: cats){%>
                                 <option><%cat.getNombre().toString(); %></option><%}%>
                             </select>
