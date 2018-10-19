@@ -9,9 +9,11 @@
 
         <title>Tienda - CP</title>
 
-        <link href="css/styles-css/cp-styles.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/shop-homepage.css" rel="stylesheet">
+		<style type="text/css">
+	    	<%@include file="css/styles-css/cp-styles.css"%>
+	    	<%@include file="css/bootstrap.min.css"%>
+	    	<%@include file="css/shop-homepage.css"%>
+	    </style>
 
     </head>
 

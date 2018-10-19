@@ -13,31 +13,32 @@
 
         <title>Tienda - CP</title>
 
-        <link href="css/styles-css/cp-styles.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/shop-homepage.css" rel="stylesheet">
+   	<style type="text/css">
+    	<%@include file="css/bootstrap.min.css"%>
+    	<%@include file="css/styles-css/cp-styles.css"%>
+    	<%@include file="css/shop-homepage.css"%>
+    </style>
+</head>
 
-    </head>
-
-    <body>
+<body>
         <!-- Navigation -->
         <nav class="navbar navbar-fixed-top" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">NavegaciÃ³n</span>
+                        <span class="sr-only">Navegación</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.jsp">Libreria</a><a href="#" class="navbar-brand">â€¢</a><a class="navbar-brand" href="#">Control Panel</a>
+                    <a class="navbar-brand" href="index.jsp">Libreria</a><a href="#" class="navbar-brand"></a><a class="navbar-brand" href="#">Control Panel</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                       <li><a><span class="glyphicon glyphicon-user"></span><b></b></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesiÃ³n</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                         <li role="presentation"><a href="">Listado de Categorias</a>
                     	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
-                        <li role="presentation"><a href="admin-alta-libros.jsp">Nuevo Libro</a></li>
+                        <li role="presentation"><a href="">Nuevo Libro</a></li>
                         <li role="presentation"><a href="">Listado de usuarios</a></li>
                         <li role="presentation" class="active"><a href="admin-alta-user.jsp">Nuevo usuario</a></li>
                     </ul>
@@ -88,7 +89,7 @@
                             <select name="categoria" class="form-control">
                            	<%
                            		CategoriaLogic cl = new CategoriaLogic();
-                				Collection<Categoria> cats = (ArrayList<Categoria>)request.getAttribute("ListaCategoria");
+                				ArrayList<Categoria> cats = (ArrayList<Categoria>)request.getAttribute("ListaCategoria");
                 				for(Categoria cat: cats){%>
                                 <option><%cat.getNombre().toString(); %></option><%}%>
                             </select>
