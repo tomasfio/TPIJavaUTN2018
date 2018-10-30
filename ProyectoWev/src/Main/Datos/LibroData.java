@@ -1,7 +1,6 @@
 package Main.Datos;
 
-import java.util.Collection;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.sql.*;
 import Main.Entidades.*;
 
@@ -16,17 +15,17 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Libros(ISBN,titulo,descripcion,autor,fecha,edicion,precio,idCategoria= VALUES(?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO Libros(ISBN,titulo,descripcion,autor,fecha,edicion,precio,idCategoria) VALUES(?,?,?,?,CURDATE(),?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1,lib.getISBN());
 			pstm.setString(2, lib.getTitulo());
 			pstm.setString(3, lib.getDescripcion());
 			pstm.setString(4, lib.getAutor());
-			pstm.setDate(5, (java.sql.Date)lib.getFecha());
-			pstm.setString(6, lib.getEdicion());
-			pstm.setDouble(7, lib.getPrecio());
-			pstm.setInt(8, lib.getCategoria().getIdCategoria());
+			/*pstm.setDate(5, new java.sql.Date(lib.getFecha().getTime()));*/
+			pstm.setString(5, lib.getEdicion());
+			pstm.setDouble(6, lib.getPrecio());
+			pstm.setInt(7, lib.getCategoria().getIdCategoria());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -197,7 +196,7 @@ public class LibroData {
 		}
 	}
 	
-	public Collection<Libro> GetAll()
+	public ArrayList<Libro> GetAll()
 	{
 		CategoriaData catData = new CategoriaData();
 		Connection con = null;
@@ -213,7 +212,7 @@ public class LibroData {
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			
-			Vector<Libro> Libros = new Vector<Libro>();
+			ArrayList<Libro> Libros = new ArrayList<Libro>();
 			Libro lib = null;
 			
 			while(rs.next())

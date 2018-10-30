@@ -1,8 +1,7 @@
 package Main.Servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.text.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,8 +27,7 @@ public class altaLibro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 	
 
@@ -37,24 +35,41 @@ public class altaLibro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Libro libro = new Libro();
-		libro.setISBN(Integer.parseInt(request.getParameter("ISBN")));
-		libro.setTitulo(request.getParameter("titulo"));
-		libro.setDescripcion(request.getParameter("descripcion"));
-		libro.setAutor(request.getParameter("autor"));
-		//libro.setFecha(request.getParameter("fecha"));
-		libro.setEdicion(request.getParameter("edicion"));
-		libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
-		
-		/*LibroData libData = new LibroData();
-		if(libData.Insert(libro))
-		{
-			//Mensaje de registro exitoso
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			Libro libro = new Libro();
+			CategoriaLogic cl = new CategoriaLogic();
+			
+			libro.setISBN(Integer.parseInt(request.getParameter("ISBN")));
+			libro.setTitulo(request.getParameter("titulo"));
+			libro.setDescripcion(request.getParameter("descripcion"));
+			libro.setAutor(request.getParameter("autor"));
+			/*libro.setFecha(format.parse(request.getParameter("fecha")));*/
+			libro.setEdicion(request.getParameter("edicion"));
+			libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
+			libro.setCategoria(cl.GetOne(new Main.Entidades.Categoria(Integer.parseInt((request.getParameter("categoria"))))));
+			
+			LibroLogic ll = new LibroLogic();
+			if(ll.Insert(libro))
+			{
+				request.setAttribute("registroLibro", true);
+			}
+			else
+			{
+				request.setAttribute("registroLibro", false);
+			}
+			
+			request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
 		}
-		else
-		{
-			//Mensaje de registro no existoso
+		/*catch (ParseException e){
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		}*/
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
 	}
 
 }

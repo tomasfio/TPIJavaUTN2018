@@ -21,5 +21,9 @@ public class CategoriaLogic {
 	{
 		return catData.Insert(cat);
 	}
+	
+	public Categoria GetOne(Categoria categoria) {
+		return catData.GetOne(categoria);
+	}
 
 }

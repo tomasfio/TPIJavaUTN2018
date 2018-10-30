@@ -54,7 +54,7 @@
                         <li role="presentation"><a href="">Listado de Categorias</a>
                     	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
-                        <li role="presentation"><a href="">Nuevo Libro</a></li>
+                        <li role="presentation"><a href="Categoria">Nuevo Libro</a></li>
                         <li role="presentation"><a href="">Listado de usuarios</a></li>
                         <li role="presentation" class="active"><a href="admin-alta-user.jsp">Nuevo usuario</a></li>
                     </ul>
@@ -63,18 +63,18 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Alta de un nuevo libro</h1> <hr>
 
-                    <form class="form-group" action="#" method="post">
+                    <form class="form-group" action="altaLibro" method="post">
                     	<div class="form-group">
                     		<input type="number" class="form-control" name="ISBN" placeholder="ISBN del libro..." required>
                     	</div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="titulo" placeholder="Nombre del libro..." required>
+                            <input type="text" class="form-control" name="titulo" placeholder="Titulo del libro..." required>
                         </div>
                         <div class="form-group">
                         	<input type="text" class="form-control" name="descripcion" placeholder="Descripcion del libro... " required>
                         </div>
                         <div class="form-group">
-                        	<input type="text" class="form-control" name="autor" placeholder="Titulo del libro..." required>
+                        	<input type="text" class="form-control" name="autor" placeholder="Autor del libro..." required>
                         </div>
                         <div class="form-group">
                         	<input type="date" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
@@ -83,21 +83,35 @@
                         	<input type="text" class="form-control" name="edicion" placeholder="Edicion del libro..." required>
                         </div>
                         <div class="form-group">
-                        	<input type="number" min="0" class="form-control" name="precio" placeholder="Precio del libro..." required>
+                        	<input type="number" step="any" min="0" class="form-control" name="precio" placeholder="Precio del libro..." required>
                         </div>
                         <div class="form-group">
                             <select name="categoria" class="form-control">
                            	<%
-                           		CategoriaLogic cl = new CategoriaLogic();
+                           	  if(request.getAttribute("ListaCategoria")!=null){
                 				ArrayList<Categoria> cats = (ArrayList<Categoria>)request.getAttribute("ListaCategoria");
                 				for(Categoria cat: cats){%>
-                                <option><%cat.getNombre().toString(); %></option><%}%>
+                                <option value="<%=cat.getIdCategoria()%>"><%=cat.getNombre().toString() %></option>
+                             <%	
+                             	}
+                			  }
+                			 %>
                             </select>
                         </div>
                         <div class="form-group">
                             <button type="reset" value="Reset" class="btn btn-default" >Limpiar</button>
                             <input type="submit" class="btn btn-primary pull-right" name="submit" value="Cargar producto">
                         </div>
+                        <%
+                        	if(request.getAttribute("registroLibro") != null){
+                        		if((boolean)request.getAttribute("registroLibro")){
+                        			%><p>El libro a sido dado de alta</p><%
+                        		}
+                        		else{
+                        			%><p>El libro no ha podido ser dado de alta</p><%
+                        		}
+                        	}
+                        %>
                         
                     </form>
                 </div>

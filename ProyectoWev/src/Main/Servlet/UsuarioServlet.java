@@ -6,20 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import Main.Negocio.*;
 
+
 /**
- * Servlet implementation class Categoria
+ * Servlet implementation class Usuario
  */
-@WebServlet("/Categoria")
-public class Categoria extends HttpServlet {
+@WebServlet("/Usuario")
+public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Categoria() {
+    public UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,13 +27,15 @@ public class Categoria extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
-		CategoriaLogic ctrl = new CategoriaLogic();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		request.setAttribute("ListaCategoria", ctrl.GetAll());
+		UsuarioLogic ul = new UsuarioLogic();
 		
-		request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
+		request.setAttribute("ListaUsuario", ul.GetAll());
 		
+		request.getRequestDispatcher("admin-baja-modi-user.jsp").forward(request, response);
 	}
 
 	/**
