@@ -39,4 +39,14 @@ public class UsuarioLogic {
 	public Usuario GetByUsuCon(Usuario usu) {
 		return usuData.GetByUsuCon(usu);
 	}
+	
+	public ArrayList<Usuario> GetByTipoUsuario(Usuario usu)
+	{
+		if(usu == null)
+		{
+			usu = new Usuario();
+			usu.setTipoUsuario(0);
+		}
+		return usuData.GetByTipoUsuario(usu);
+	}
 }

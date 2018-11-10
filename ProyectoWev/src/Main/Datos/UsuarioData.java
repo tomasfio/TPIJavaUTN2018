@@ -2,10 +2,61 @@ package Main.Datos;
 
 import java.util.Collection;
 import java.util.Vector;
+import java.util.ArrayList;
 import Main.Entidades.*;
 import java.sql.*;
 
 public class UsuarioData {
+	
+	public ArrayList<Usuario> GetByTipoUsuario(Usuario usuario){
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql += "SELECT * FROM usuarios WHERE tipoUsuario = ? ";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, usuario.getTipoUsuario());
+			
+			rs = pstm.executeQuery();
+			
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			Usuario usu = null;
+			
+			while(rs.next()) {
+				usu = new Usuario();
+				usu.setIdUsuario(rs.getInt("idUsuario"));
+				usu.setUsuario(rs.getString("usuario"));
+				usu.setNombre(rs.getString("nombre"));
+				usu.setApellido(rs.getString("apellido"));
+				usu.setEmail(rs.getString("email"));
+				usu.setTipoUsuario(rs.getInt("tipoUsuario"));
+				usuarios.add(usu);
+			}
+			return usuarios;
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally 
+		{
+			try 
+			{
+				if(rs != null) rs.close();
+				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
 	
 	public boolean Insert(Usuario usu)
 	{

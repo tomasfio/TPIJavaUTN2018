@@ -1,25 +1,25 @@
 package Main.Servlet;
 
+import Main.Entidades.Categoria;
+import Main.Negocio.CategoriaLogic;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Main.Negocio.*;
-
 
 /**
- * Servlet implementation class Usuario
+ * Servlet implementation class ListaCategorias
  */
-@WebServlet("/ListaUsuario")
-public class UsuarioServlet extends HttpServlet {
+@WebServlet("/ListaCategorias")
+public class ListaCategorias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsuarioServlet() {
+    public ListaCategorias() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,17 +28,11 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CategoriaLogic ctrl = new CategoriaLogic();
 		
-		UsuarioLogic ul = new UsuarioLogic();
+		request.setAttribute("ListaCategoria", ctrl.GetAll());
 		
-		Main.Entidades.Usuario usu = new Main.Entidades.Usuario();
-		
-		usu.setTipoUsuario(request.getParameter("tipo_usuario") != null ? Integer.parseInt(request.getParameter("tipo_usuario")) : 0);
-		
-		request.setAttribute("listaUsuarios", ul.GetByTipoUsuario(usu));
-		request.setAttribute("tipoUsuario", usu.getTipoUsuario());
-		
-		request.getRequestDispatcher("admin-cp-usuario.jsp").forward(request, response);
+		request.getRequestDispatcher("admin-cp-categoria.jsp").forward(request,response);
 	}
 
 	/**

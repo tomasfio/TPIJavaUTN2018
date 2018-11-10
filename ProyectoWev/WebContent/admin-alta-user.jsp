@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="Java" content="Libreria">
 
-        <title>Tienda - CP</title>
+        <title>Libreria - CP Alta usuario</title>
 
 		<style type="text/css">
 	    	<%@include file="css/styles-css/cp-styles.css"%>
