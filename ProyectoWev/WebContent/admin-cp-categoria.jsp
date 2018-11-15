@@ -53,7 +53,7 @@
                 <div class="col-md-3">
                     <p class="lead">Bienvenido </p>
                     <ul class="nav nav-pills nav-stacked">
-                        <li role="presentation"><a href="">Listado de Categorias</a>
+                        <li role="presentation"><a href="ListaCategorias">Listado de Categorias</a>
                     	<li role="presentation"><a href="admin-alta-categoria.jsp">Nueva Categoria</a>
                         <li role="presentation"><a href="">Listado de Libros</a></li>
                         <li role="presentation"><a href="Categoria">Nuevo Libro</a></li>
@@ -65,18 +65,26 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Listado de categorias</h1>
 					<hr>
-                     <form class="form-inline" action="" method="post">
+                     <form class="form-inline" action="CategoriaABM" method="get">
                           <div class="form-group">
-                              <a class="btn btn-success" href="#" role="button">Nuevo categoria</a>
+                              <a class="btn btn-success" href="admin-alta-categoria.jsp" role="button">Nuevo categoria</a>
                           </div>
                           <div class="form-group pull-right">
-                              <input type="number" min='0' class="form-control" name="id_user" id="id_user" placeholder="Ingrese ID" required>
-                              <button type="submit" class="btn btn-warning" name="update" value="update">Modificar</button>
-                              <button type="submit" class="btn btn-danger" name="delete" value="delete">Eliminar</button>
+                              <input type="number" min='0' class="form-control" name="id_categoria" id="id_categoria" placeholder="Ingrese ID" required>
+                              <button type="submit" class="btn btn-warning" name="btnUpdate" value="update">Modificar</button>
+                              <button type="submit" class="btn btn-danger" name="btnDelete" value="delete">Eliminar</button>
                           </div>
                       </form>
                       <br>
-
+                        <% 
+                    	if(request.getAttribute("existeCategoria") != null)
+                    	{
+                    		if(!(boolean)request.getAttribute("existeCategoria"))
+                    		{
+                    			%><p>El id ingresado no pertenece a ninguna categoria registrado en el sistema</p><%
+                    		}
+                    	}
+                   		%>
                       <table class="table table-striped">
                           <thead>
                               <tr>

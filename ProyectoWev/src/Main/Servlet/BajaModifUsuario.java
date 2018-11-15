@@ -1,6 +1,7 @@
 package Main.Servlet;
 
-import Main.Negocio.CategoriaLogic;
+import Main.Entidades.Usuario;
+import Main.Negocio.UsuarioLogic;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Main.Entidades.Usuario;
+import Main.Negocio.UsuarioLogic;
+
 /**
- * Servlet implementation class ListaCategorias
+ * Servlet implementation class BajaModifUsuario
  */
-@WebServlet("/ListaCategorias")
-public class ListaCategorias extends HttpServlet {
-	private static final long serialVersionUID = 1;
+@WebServlet({ "/BajaModifUsuario", "/bajamodifusuario", "/BajaModifusuario" })
+public class BajaModifUsuario extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListaCategorias() {
+    public BajaModifUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +31,20 @@ public class ListaCategorias extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategoriaLogic ctrl = new CategoriaLogic();
+		Usuario usu = new Usuario();
 		
-		request.setAttribute("ListaCategoria", ctrl.GetAll());
+		usu.setIdUsuario(Integer.parseInt(request.getParameter("id_baja")));
 		
-		request.getRequestDispatcher("admin-cp-categoria.jsp").forward(request,response);
+		UsuarioLogic ul = new UsuarioLogic();
+		if(ul.Delete(usu))
+		{
+			request.setAttribute("bajaUsuario", true);
+		}
+		else
+		{
+			request.setAttribute("bajaUsuario", false);
+		}
+		request.getRequestDispatcher("UsuarioABM").forward(request, response);
 	}
 
 	/**

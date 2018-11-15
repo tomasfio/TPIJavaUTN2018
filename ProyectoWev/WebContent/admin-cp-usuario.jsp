@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
-        <meta name="Entornos" content="StoreWare">
+        <meta name="Entornos" content="Libreria">
 
         <title>StoreWare - CP</title>
 
@@ -76,16 +76,23 @@
                             </span>
                         </div>
                     </form><hr>
-                     <form class="form-inline" action="" method="post">
+                     <form class="form-inline" action="UsuarioABM" method="GET">
                           <div class="form-group">
-                              <a class="btn btn-success" href="admin-alta-user.php" role="button">Nuevo usuario</a>
+                              <a class="btn btn-success" href="UsuarioABM" role="button">Nuevo usuario</a>
                           </div>
                           <div class="form-group pull-right">
                               <input type="number" min='0' class="form-control" name="id_user" id="id_user" placeholder="Ingrese ID" required>
-                              <button type="submit" class="btn btn-warning" name="update" value="update">Modificar</button>
-                              <button type="submit" class="btn btn-danger" name="delete" value="delete">Eliminar</button>
+                              <button type="submit" class="btn btn-warning" id="btnUpdate" name="btnUpdate" value="update">Modificar</button>
+                              <button type="submit" class="btn btn-danger" id="btnUpdate" name="btnDelete" value="delete">Eliminar</button>
                           </div>
                       </form>
+                      <%
+	                      if(request.getAttribute("existeUsuario") != null){
+	                      	if(!(boolean)request.getAttribute("existeUsuario")){
+                      %><p>El id ingresado no pertenece a ningun usuario registrado en el sistema</p><%
+                      		}
+                      	}
+                      %>
                       <br>
 
                       <table class="table table-striped">

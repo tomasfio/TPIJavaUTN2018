@@ -32,7 +32,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php">StoreWare</a><a href="#" class="navbar-brand">‚Ä¢</a><a class="navbar-brand" href="index-cp.php">Control Panel</a>
+                    <a class="navbar-brand" href="#">Libreria</a><a href="#" class="navbar-brand">‚Ä¢</a><a class="navbar-brand" href="#">Control Panel</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -61,79 +61,91 @@
                 </div>
 
                 <div class="col-md-7 col-md-offset-1">
-
-                    <?php if(mysqli_num_rows($resultado) > 0 && isset($_POST['update'])) { ?>
                     <% 
-                    	ArrayList<Usuario> usus = (ArrayList<Usuario>)request.getAttribute("ListaUsuario");
-                    	for(Usuario usu: usus)
-                    { %>
+                    	if(request.getAttribute("usuario") != null)
+                    	{
+                    %>
+                    <form class="form-group" action="BajaModifUsuario" method="GET">
+                    <%
+                    		Usuario usu = (Usuario)request.getAttribute("usuario");  
+                    		if(request.getAttribute("accion") == "update")
+                    		{
+                     %>
                         <h1>Modificaci√≥n de usuario</h1>
                         <hr>
-                        <form class="form-group" action="" method="post">
                             <div class="form-group">
-                                <label for="nombre">ID seleccionado:</label>
-                                <input type="number" class="form-control" name="id" value="<%usu.getIdUsuario(); %>" disabled>
+                                <label for="id">ID seleccionado:</label>
+                                <input type="number" class="form-control" name="id_modificar" id="id_modificar" value="<%=usu.getIdUsuario() %>" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" name="nombre" value="<%usu.getNombre(); %>" required>
+                                <input type="text" class="form-control" id="nombre_modificar" value="<%=usu.getNombre() %>" required>
                             </div>
                             <div class="form-group">
-                                <label for="precio">Apellido:</label>
-                                <input type="text" class="form-control" name="apellido" value="<%usu.getApellido(); %>" required>
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido_modificar" value="<%=usu.getApellido() %>" required>
                             </div>
                             <div class="form-group">
-                                <label for="stock">E-Mail:</label>
-                                <input type="email" min="0" class="form-control" name="email" value="<%usu.getEmail(); %>" required>
+                                <label for="email">E-Mail:</label>
+                                <input type="email"  class="form-control" id="email_modificar" value="<%=usu.getEmail() %>" required>
                             </div>
                             <div class="form-group">
-                                <label for="stock">Usuario:</label>
-                                <input type="text" min="0" class="form-control" name="usuario" value="<%usu.getUsuario(); %>" required>
+                                <label for="usuario">Usuario:</label>
+                                <input type="text"  class="form-control" id="usuario_modificar" value="<%=usu.getUsuario() %>" required>
                             </div>
                             <div class="form-group">
-                                <label for="stock">Contrase√±a:</label>
-                                <input type="text" min="0" class="form-control" name="password" value="<%usu.getContraseÒa(); %>" required>
+                                <label for="contraseÒa">Contrase√±a:</label>
+                                <input type="password"  class="form-control" id="password_modificar" value="" required>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-warning pull-right" name="submit" value="Modificar usuario">
                             </div>
-                        </form>
-                    <?php } else if(mysqli_num_rows($resultado) > 0 && isset($_POST['delete'])) { ?>
-                    <% { %>
-                        <h1>Baja de un usuario</h1>
-                        <hr>
-                        <form class="form-group" action="" method="post">
+                    <% } else if(request.getAttribute("accion") == "delete"){ %>
+	                        <h1>Baja de un usuario</h1>
+	                        <hr>
                             <div class="form-group">
-                                <label for="nombre">ID seleccionado:</label>
-                                <input type="number" class="form-control" name="id" value="<%usu.getIdUsuario(); %>" disabled>
+                                <label for="id">ID seleccionado:</label>
+                                <input type="number" class="form-control" name="id_baja" id="id_baja" value="<%=usu.getIdUsuario() %>" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" name="nombre" value="<%usu.getNombre(); %>" required>
+                                <input type="text" class="form-control" id="nombre_baja" value="<%=usu.getNombre() %>" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="precio">Apellido:</label>
-                                <input type="text" class="form-control" name="apellido" value="<%usu.getApellido(); %>" required>
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido_baja" value="<%=usu.getApellido() %>" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="stock">E-Mail:</label>
-                                <input type="email" min="0" class="form-control" name="email" value="<%usu.getEmail(); %>" required>
+                                <label for="email">E-Mail:</label>
+                                <input type="email" class="form-control" id="email_baja" value="<%=usu.getEmail() %>" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="stock">Usuario:</label>
-                                <input type="text" min="0" class="form-control" name="usuario" value="<%usu.getUsuario(); %>" required>
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario_baja" value="<%=usu.getUsuario() %>" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="stock">Contrase√±a:</label>
-                                <input type="text" min="0" class="form-control" name="password" value="<%usu.getContraseÒa(); %>" required>
+                                <label for="contraseÒa">Contrase√±a:</label>
+                                <input type="password" class="form-control" id="password_baja" value="<%=usu.getContraseÒa() %>" disabled>
                             </div>
-                        </form>
-                    <% } else { %>
+	                        <div class="form-group">
+	                                <input type="submit" class="btn btn-warning pull-right" name="submit" value="Eliminar usuario">
+	                        </div>
+                   	 	<% 
+	                    	} 
+						%>
+                            </form>
+                        <%
+	                    } 
+                   		else 
+                   		{ 
+                   		%>
                         <h1>Gesti√≥n de un producto</h1>
                         <hr>
                         <div class="alert alert-danger">No existe un usuario con el ID ingresado, o ha ocurrido un error en la transacci√≥n.</div>
                         <a class="btn btn-primary" href="" role="button">Volver al listado</a>
-                    <?php } ?>
+                    	<% 
+                   		} 
+                    	%>
                 </div>
         </div>
 

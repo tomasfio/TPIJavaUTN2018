@@ -25,5 +25,9 @@ public class CategoriaLogic {
 	public Categoria GetOne(Categoria categoria) {
 		return catData.GetOne(categoria);
 	}
+	
+	public boolean Detele(Categoria cat) {
+		return catData.Delete(cat);
+	}
 
 }
