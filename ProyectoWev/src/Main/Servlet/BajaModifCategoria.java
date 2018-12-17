@@ -30,7 +30,20 @@ public class BajaModifCategoria extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("btnUpdate") != null)
 		{
+			Main.Entidades.Categoria cat = new Main.Entidades.Categoria();
+			cat.setIdCategoria(Integer.parseInt(request.getParameter("id_modificar")));
+			cat.setNombre(request.getParameter("nombre_modificar"));
+			cat.setDescripcion(request.getParameter("dedescripcion_modificarsc"));
 			
+			CategoriaLogic cl = new CategoriaLogic();
+			if(cl.Update(cat)) {
+				request.setAttribute("modifCategoria", true);
+				request.getRequestDispatcher("ListaCategorias").forward(request, response);
+			}
+			else
+			{
+				request.setAttribute("modifCategoria", false);
+			}
 		}
 		else if(request.getParameter("btnDelete") !=null)
 		{

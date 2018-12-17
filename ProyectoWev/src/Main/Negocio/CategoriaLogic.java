@@ -29,5 +29,9 @@ public class CategoriaLogic {
 	public boolean Detele(Categoria cat) {
 		return catData.Delete(cat);
 	}
+	
+	public boolean Update(Categoria cat) {
+		return catData.Update(cat);
+	}
 
 }

@@ -80,7 +80,7 @@
                                 <input type="text" class="form-control" id="descripcion_modificar" value="<%=cat.getDescipcion() %>" required>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-warning pull-right" name="btnModificar" value="Modificar">
+                                <button type="submit" class="btn btn-warning" name="btnUpdate" value="update">Modificar</button>
                             </div>
                     <% } else if(request.getAttribute("accion") == "delete"){ %>
 	                        <h1>Baja de categoria</h1>
@@ -98,7 +98,7 @@
                                 <input type="text" class="form-control" id="descripcion_baja" value="<%=cat.getDescipcion() %>" disabled>
                             </div>
 	                        <div class="form-group">
-                                <input type="submit" class="btn btn-warning pull-right" name="btnDelete" value="Eliminar">
+                              <button type="submit" class="btn btn-danger" name="btnDelete" value="delete">Eliminar</button>
 	                        </div>
                    	 	<% 
 	                    	} 
