@@ -161,7 +161,7 @@ public class UsuarioData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE Usuarios SET nombre = ?, apelldio = ?,email = ? WHERE idUsuario = ?";
+			sql = "UPDATE Usuarios SET nombre = ?, apellido = ?,email = ? WHERE idUsuario = ?";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, usu.getNombre());
