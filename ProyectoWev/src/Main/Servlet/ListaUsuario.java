@@ -13,13 +13,13 @@ import Main.Negocio.*;
  * Servlet implementation class Usuario
  */
 @WebServlet("/ListaUsuario")
-public class UsuarioServlet extends HttpServlet {
+public class ListaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UsuarioServlet() {
+    public ListaUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }

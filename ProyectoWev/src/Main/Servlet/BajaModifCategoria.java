@@ -1,6 +1,5 @@
 package Main.Servlet;
 
-import Main.Entidades.Categoria;
 import Main.Negocio.CategoriaLogic;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,7 +32,7 @@ public class BajaModifCategoria extends HttpServlet {
 			Main.Entidades.Categoria cat = new Main.Entidades.Categoria();
 			cat.setIdCategoria(Integer.parseInt(request.getParameter("id_modificar")));
 			cat.setNombre(request.getParameter("nombre_modificar"));
-			cat.setDescripcion(request.getParameter("dedescripcion_modificarsc"));
+			cat.setDescripcion(request.getParameter("descripcion_modificar"));
 			
 			CategoriaLogic cl = new CategoriaLogic();
 			if(cl.Update(cat)) {
