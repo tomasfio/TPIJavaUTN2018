@@ -2,6 +2,8 @@ package Main.Servlet;
 
 import Main.Entidades.Usuario;
 import Main.Negocio.UsuarioLogic;
+import Main.Util.Autentificacion;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,37 +31,43 @@ public class BajaModifUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnDelete") != null) {
-			Usuario usu = new Usuario();
-			
-			usu.setIdUsuario(Integer.parseInt(request.getParameter("id_baja")));
-			
-			UsuarioLogic ul = new UsuarioLogic();
-			if(ul.Delete(usu))
-			{
-				request.setAttribute("bajaUsuario", true);
-				request.getRequestDispatcher("ListaUsuario").forward(request, response);
-			}
-			else
-			{
-				request.setAttribute("bajaUsuario", false);
-			}
+		Autentificacion aut = new Autentificacion();
+		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
+    		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
-		else if(request.getParameter("btnUpdate") != null) {
-			Usuario usu = new Usuario();
-			usu.setIdUsuario(Integer.parseInt(request.getParameter("id_modificar")));
-			usu.setNombre(request.getParameter("nombre_modificar"));
-			usu.setApellido(request.getParameter("apellido_modificar"));
-			usu.setEmail(request.getParameter("email_modificar"));
-			usu.setUsuario(request.getParameter("usuario_modificar"));
-			
-			UsuarioLogic ul = new UsuarioLogic();
-			if(ul.Update(usu)) {
-				request.setAttribute("modificarUsuario", true);
-				request.getRequestDispatcher("ListaUsuario").forward(request, response);
+		else {
+			if(request.getParameter("btnDelete") != null) {
+				Usuario usu = new Usuario();
+				
+				usu.setIdUsuario(Integer.parseInt(request.getParameter("id_baja")));
+				
+				UsuarioLogic ul = new UsuarioLogic();
+				if(ul.Delete(usu))
+				{
+					request.setAttribute("bajaUsuario", true);
+					request.getRequestDispatcher("ListaUsuario").forward(request, response);
+				}
+				else
+				{
+					request.setAttribute("bajaUsuario", false);
+				}
 			}
-			else {
-				request.setAttribute("modificarUsuario", false);
+			else if(request.getParameter("btnUpdate") != null) {
+				Usuario usu = new Usuario();
+				usu.setIdUsuario(Integer.parseInt(request.getParameter("id_modificar")));
+				usu.setNombre(request.getParameter("nombre_modificar"));
+				usu.setApellido(request.getParameter("apellido_modificar"));
+				usu.setEmail(request.getParameter("email_modificar"));
+				usu.setUsuario(request.getParameter("usuario_modificar"));
+				
+				UsuarioLogic ul = new UsuarioLogic();
+				if(ul.Update(usu)) {
+					request.setAttribute("modificarUsuario", true);
+					request.getRequestDispatcher("ListaUsuario").forward(request, response);
+				}
+				else {
+					request.setAttribute("modificarUsuario", false);
+				}
 			}
 		}
 	}

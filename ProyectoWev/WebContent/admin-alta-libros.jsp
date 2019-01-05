@@ -21,7 +21,7 @@
                     <p class="lead">Bienvenido</p>
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation"><a href="ListaCategorias">Listado de Categorias</a>
-                        <li role="presentation"><a href="">Listado de Libros</a></li>
+                        <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                     </ul>
                 </div>

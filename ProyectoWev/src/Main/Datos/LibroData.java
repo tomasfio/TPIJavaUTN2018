@@ -2,6 +2,8 @@ package Main.Datos;
 
 import java.util.ArrayList;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+
 import Main.Entidades.*;
 
 public class LibroData {
@@ -102,16 +104,16 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE libros SET titulo = ?, descripcion = ?,autor = ?,fecha = ?,edicion = ?, precio = ?,idCategorio = ? WHERE ISBN = ?";
+			sql = "UPDATE libros SET titulo = ?, descripcion = ?,autor = ?,fecha = ?,edicion = ?, precio = ? WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, lib.getTitulo());
 			pstm.setString(2, lib.getDescripcion());
 			pstm.setString(3, lib.getAutor());
-			pstm.setDate(4, (java.sql.Date)lib.getFecha());
+			pstm.setString(4, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(lib.getFecha()));
 			pstm.setString(5, lib.getEdicion());
 			pstm.setDouble(6, lib.getPrecio());
-			pstm.setInt(7, lib.getCategoria().getIdCategoria());
+			pstm.setInt(7, lib.getISBN());
 			
 			int res = pstm.executeUpdate();
 			
@@ -139,7 +141,7 @@ public class LibroData {
 		}
 	}
 
-	public Libro GetOne(int id)
+	public Libro GetOne(Libro lib)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -153,28 +155,28 @@ public class LibroData {
 			sql = "SELECT * FROM libros WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, id);
+			pstm.setInt(1, lib.getISBN());
 			rs = pstm.executeQuery();
 			
-			Libro lib = null;
+			Libro libro = null;
 			
 			while(rs.next())
 			{
-				lib = new Libro();
-				lib.setISBN(rs.getInt("ISBN"));
-				lib.setTitulo(rs.getString("titulo"));
-				lib.setDescripcion(rs.getString("descripcion"));
-				lib.setAutor(rs.getString("autor"));
-				lib.setFecha(rs.getDate("fecha"));
-				lib.setEdicion(rs.getString("edicion"));
-				lib.setPrecio(rs.getDouble("precio"));
+				libro = new Libro();
+				libro.setISBN(rs.getInt("ISBN"));
+				libro.setTitulo(rs.getString("titulo"));
+				libro.setDescripcion(rs.getString("descripcion"));
+				libro.setAutor(rs.getString("autor"));
+				libro.setFecha(rs.getDate("fecha"));
+				libro.setEdicion(rs.getString("edicion"));
+				libro.setPrecio(rs.getDouble("precio"));
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
 				
-				lib.setCategoria(catData.GetOne(cat));
+				libro.setCategoria(catData.GetOne(cat));
 			}
-			return lib;
+			return libro;
 		}
 		catch(Exception ex)
 		{

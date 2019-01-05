@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Main.Entidades.*;
 import Main.Negocio.*;
+import Main.Util.Autentificacion;
 
 /**
  * Servlet implementation class altaUsuario
@@ -38,25 +39,31 @@ public class altaUsuario extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usu = new Usuario();
-		usu.setNombre(request.getParameter("nombre"));
-		usu.setApellido(request.getParameter("apellido"));
-		usu.setEmail(request.getParameter("email"));
-		usu.setTipoUsuario(Integer.parseInt(request.getParameter("tipo_usu")));
-		Date fechaActual = new Date();
-		usu.setFechaDeAlta(fechaActual);
-		usu.setUsuario(request.getParameter("usuario"));
-		usu.setContraseña(request.getParameter("contrasenia"));
-		
-		UsuarioLogic ul = new UsuarioLogic();
-		if(ul.GetByUserName(usu))
-		{
-			ul.Insert(usu);
-			//Mensaje que se registro el usuario correctamente'
+		Autentificacion aut = new Autentificacion();
+		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
+    		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
-		else
-		{
-			//Mensaje de nombre de usuario ya registrado
+		else {
+			Usuario usu = new Usuario();
+			usu.setNombre(request.getParameter("nombre"));
+			usu.setApellido(request.getParameter("apellido"));
+			usu.setEmail(request.getParameter("email"));
+			usu.setTipoUsuario(Integer.parseInt(request.getParameter("tipo_usu")));
+			Date fechaActual = new Date();
+			usu.setFechaDeAlta(fechaActual);
+			usu.setUsuario(request.getParameter("usuario"));
+			usu.setContraseña(request.getParameter("contrasenia"));
+			
+			UsuarioLogic ul = new UsuarioLogic();
+			if(ul.GetByUserName(usu))
+			{
+				ul.Insert(usu);
+				//Mensaje que se registro el usuario correctamente'
+			}
+			else
+			{
+				//Mensaje de nombre de usuario ya registrado
+			}
 		}
 	}
 

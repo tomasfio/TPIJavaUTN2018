@@ -11,18 +11,17 @@ import Main.Entidades.Usuario;
 import Main.Negocio.*;
 import Main.Util.Autentificacion;
 
-
 /**
- * Servlet implementation class Usuario
+ * Servlet implementation class Categoria
  */
-@WebServlet("/ListaUsuario")
-public class ListaUsuario extends HttpServlet {
+@WebServlet("/FormAltaLibro")
+public class FormAltaLibro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListaUsuario() {
+    public FormAltaLibro() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +29,15 @@ public class ListaUsuario extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		Autentificacion aut = new Autentificacion();
 		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			UsuarioLogic ul = new UsuarioLogic();
-			
-			Main.Entidades.Usuario usu = new Main.Entidades.Usuario();
-			
-			usu.setTipoUsuario(request.getParameter("tipo_usuario") != null ? Integer.parseInt(request.getParameter("tipo_usuario")) : 0);
-			
-			request.setAttribute("listaUsuarios", ul.GetByTipoUsuario(usu));
-			request.setAttribute("tipoUsuario", usu.getTipoUsuario());
-			
-			request.getRequestDispatcher("admin-cp-usuario.jsp").forward(request, response);
+			CategoriaLogic ctrl = new CategoriaLogic();
+			request.setAttribute("ListaCategoria", ctrl.GetAll());
+			request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
 		}
 	}
 

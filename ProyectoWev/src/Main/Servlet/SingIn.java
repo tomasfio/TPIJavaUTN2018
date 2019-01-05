@@ -13,7 +13,7 @@ import Main.Negocio.*;
 /**
  * Servlet implementation class SingIn
  */
-@WebServlet({ "/SingIn", "/singin", "/SINGIN" })
+@WebServlet({ "/SingIn", "/Singin", "/SINGIN" })
 public class SingIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,11 +44,13 @@ public class SingIn extends HttpServlet {
 		usu = ul.GetByUsuCon(usu);
 		if (usu != null)
 		{
-			
+			request.getSession().setAttribute("user", usu);
+			request.getRequestDispatcher("ListaLibros").forward(request, response);
 		}
 		else 
 		{
-			System.out.println("Usuario y/o contraseña incorrecta");
+			request.setAttribute("autentificacion", false);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 

@@ -6,23 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import Main.Entidades.Usuario;
+import Main.Entidades.*;
 import Main.Negocio.*;
 import Main.Util.Autentificacion;
 
-
 /**
- * Servlet implementation class Usuario
+ * Servlet implementation class LibroABM
  */
-@WebServlet("/ListaUsuario")
-public class ListaUsuario extends HttpServlet {
+@WebServlet("/LibroABM")
+public class LibroABM extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListaUsuario() {
+    public LibroABM() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,16 +34,30 @@ public class ListaUsuario extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			UsuarioLogic ul = new UsuarioLogic();
-			
-			Main.Entidades.Usuario usu = new Main.Entidades.Usuario();
-			
-			usu.setTipoUsuario(request.getParameter("tipo_usuario") != null ? Integer.parseInt(request.getParameter("tipo_usuario")) : 0);
-			
-			request.setAttribute("listaUsuarios", ul.GetByTipoUsuario(usu));
-			request.setAttribute("tipoUsuario", usu.getTipoUsuario());
-			
-			request.getRequestDispatcher("admin-cp-usuario.jsp").forward(request, response);
+			if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) {
+				Libro libro = new Libro();
+				libro.setISBN(Integer.parseInt(request.getParameter("isbn")));
+				
+				LibroLogic ll = new LibroLogic();
+				libro = ll.GetOne(libro);
+				if(libro != null) {
+					request.setAttribute("libro", libro);
+					if(request.getParameter("btnUpdate") != null) {
+						request.setAttribute("accion", "update");;
+					}
+					else {
+						request.setAttribute("accion", "delete");
+					}
+					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request,response);
+				}
+				else {
+					request.setAttribute("existeLibro", false);
+					request.getRequestDispatcher("ListaLibros").forward(request, response);
+				}
+			}
+			else {
+				request.getRequestDispatcher("FormAltaLibro").forward(request, response);
+			}
 		}
 	}
 

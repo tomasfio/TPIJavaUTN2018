@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-    <!-- Autor: TomÃ¡s
-         Ultima modificacion: 11/09/2018 -->
     <meta charset="utf-8">
     <style type="text/css">
     	<%@include file="css/bootstrap.min.css"%>
     	<%@include file="css/styles-css/custom-login.css"%>
     </style>
-    <title>Libreria - Login</title>
+    <title>Login</title>
 </head>
 <body>
 
@@ -25,22 +22,33 @@
             <form action="SingIn" method="post">
                 <div class="form-group">
                     <label for="username">Usuario</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="gabe" required/>
+                    <input type="text" class="form-control" id="usuario" name="usuario" required/>
                 </div>
                 <div class="form-group">
-                    <label for="password">ContraseÃ±a</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="********" required>
+                    <label for="password">Contraseña</label>
+                    <input type="password" class="form-control" id="pass" name="pass" required>
                 </div>
                 <button type="submit" class="btn btn-info align" style="align: right;">
                 <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
             </form>
+            <%
+        	if(request.getAttribute("autentificacion") != null){
+        		if((boolean)request.getAttribute("autentificacion") == false){
+        			%>
+	        			<div class="form-group">
+	        				<label>El usuario y/o contraseña son incorrectos</label>
+	        			</div>
+        			<%
+        			}
+	        	}
+	        %>
         </div>
-        
+     
         <!-- Pie -->
         <div class="container-footer">
-            <a href="index.php" class="btn btn-danger btn-default pull-left">
+            <a href="#" class="btn btn-danger btn-default pull-left">
             <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
-            <p>Â¿No tienes cuenta? <a href="registro-login.html">Registrarse</a></p>
+            <p>¿No tienes cuenta? <a href="registro-login.jsp">Registrarse</a></p>
 
         </div>
     </div>

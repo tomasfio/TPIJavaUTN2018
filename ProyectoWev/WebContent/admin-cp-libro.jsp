@@ -1,5 +1,4 @@
-<%@page import="Main.Negocio.CategoriaLogic"%>
-<%@page import="Main.Entidades.Categoria" %>
+<%@page import="Main.Entidades.Libro" %>
 <%@page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
@@ -13,7 +12,11 @@
     	</style>
 
     </head>
-
+    
+    <%
+    	
+    %>
+    
     <body>
         <div class="container">
         <div class="row">
@@ -29,23 +32,23 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Listado de categorias</h1>
 					<hr>
-                     <form class="form-inline" action="CategoriaABM" method="get">
+                     <form class="form-inline" action="LibroABM" method="get">
                           <div class="form-group">
-                              <a class="btn btn-success" href="admin-alta-categoria.jsp" role="button">Nuevo categoria</a>
+                              <a class="btn btn-success" href="FormAltaLibro" role="button">Nuevo libro</a>
                           </div>
                           <div class="form-group pull-right">
-                              <input type="number" min='0' class="form-control" name="id_categoria" id="id_categoria" placeholder="Ingrese ID" required>
+                              <input type="number" min='0' class="form-control" name="isbn" id="isbn" placeholder="Ingrese ISBN" required>
                               <button type="submit" class="btn btn-warning" name="btnUpdate" value="update">Modificar</button>
                               <button type="submit" class="btn btn-danger" name="btnDelete" value="delete">Eliminar</button>
                           </div>
                       </form>
                       <br>
                         <% 
-                    	if(request.getAttribute("existeCategoria") != null)
+                    	if(request.getAttribute("existeLibro") != null)
                     	{
-                    		if(!(boolean)request.getAttribute("existeCategoria"))
+                    		if(!(boolean)request.getAttribute("existeLibro"))
                     		{
-                    			%><p>El id ingresado no pertenece a ninguna categoria registrado en el sistema</p><%
+                    			%><p>El id ingresado no pertenece a ninguna libro registrado en el sistema</p><%
                     		}
                     	}
                    		%>
@@ -55,18 +58,28 @@
                                   <td><b>ID</b></td>
                                   <td><b>Nombre</b></td>
                                   <td><b>Descripcion</b></td>
+                                  <td><b>Autor</b></td>
+                                  <td><b>Fecha</b></td>
+                                  <td><b>Edicion</b></td>
+                                  <td><b>Precio</b></td>
+                                  <td><b>Categoria</b></td>
                               </tr>
                           </thead>
                           <tbody>
                               <%
-                              if(request.getAttribute("ListaCategoria") != null){
-                              	ArrayList<Categoria> categorias = (ArrayList<Categoria>)request.getAttribute("ListaCategoria");
-                              	for(Categoria cat : categorias){
+                              if(request.getAttribute("listaLibros") != null){
+                              	ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
+                              	for(Libro lib : libros){
                               %>
                               	<tr>
-	                                  <td><%=Integer.toString(cat.getIdCategoria()) %></td>
-	                                  <td><%=cat.getNombre().toString() %></td>
-	                                  <td><%=cat.getDescipcion().toString() %></td> 
+	                                  <td><%=Integer.toString(lib.getISBN()) %></td>
+	                                  <td><%=lib.getTitulo().toString() %></td>
+	                                  <td><%=lib.getDescripcion() %></td> 
+	                                  <td><%=lib.getAutor() %></td>
+	                                  <td><%=lib.getFecha().toString() %></td>
+	                                  <td><%=lib.getEdicion().toString() %></td>
+	                                  <td><%=Double.toString(lib.getPrecio()) %></td>
+	                                  <td><%=lib.getCategoria().getNombre().toString() %></td>
                               	</tr>
                              <%
                               	}

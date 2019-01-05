@@ -18,4 +18,16 @@ public class LibroLogic {
 	public boolean Insert(Libro lib) {
 		return libData.Insert(lib);
 	}
+	
+	public Libro GetOne(Libro lib) {
+		return libData.GetOne(lib);
+	}
+	
+	public boolean Update(Libro lib) {
+		return libData.Update(lib);
+	}
+	
+	public boolean Delete(Libro lib) {
+		return libData.Delete(lib);
+	}
 }

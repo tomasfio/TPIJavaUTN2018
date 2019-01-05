@@ -1,6 +1,9 @@
 package Main.Servlet;
 
+import Main.Entidades.Usuario;
 import Main.Negocio.CategoriaLogic;
+import Main.Util.Autentificacion;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,11 +30,15 @@ public class ListaCategorias extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CategoriaLogic ctrl = new CategoriaLogic();
-		
-		request.setAttribute("ListaCategoria", ctrl.GetAll());
-		
-		request.getRequestDispatcher("admin-cp-categoria.jsp").forward(request,response);
+		Autentificacion aut = new Autentificacion();
+		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
+    		response.sendRedirect(request.getContextPath() + "/login.jsp");
+		}
+		else {
+			CategoriaLogic ctrl = new CategoriaLogic();
+			request.setAttribute("ListaCategoria", ctrl.GetAll());
+			request.getRequestDispatcher("admin-cp-categoria.jsp").forward(request,response);
+		}
 	}
 
 	/**
