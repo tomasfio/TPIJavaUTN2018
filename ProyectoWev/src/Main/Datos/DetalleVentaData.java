@@ -161,7 +161,7 @@ public class DetalleVentaData {
 				det = new DetalleVenta();
 				det.setFechaVenta(rs.getDate("fechaVenta"));
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
-				det.setLibro(libData.GetOne(rs.getInt("ISBN")));
+				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
 			}
 			return det;
@@ -211,7 +211,7 @@ public class DetalleVentaData {
 				det = new DetalleVenta();
 				det.setFechaVenta(rs.getDate("fechaVenta"));
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
-				det.setLibro(libData.GetOne(rs.getInt("ISBN")));
+				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
 				detalles.add(det);
 			}

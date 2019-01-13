@@ -53,6 +53,8 @@ public class altaCategoria extends HttpServlet {
 			CategoriaLogic cl = new CategoriaLogic();
 			
 			cat = cl.Insert(cat);
+			
+			request.getRequestDispatcher("ListaCategorias").forward(request, response);
 		}
 	}
 

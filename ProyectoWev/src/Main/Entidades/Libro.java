@@ -3,6 +3,15 @@ package Main.Entidades;
 import java.util.Date;
 
 public class Libro {
+	public Libro() {}
+	public Libro(int isbn) {
+		this.ISBN = isbn;
+	}
+	public Libro(int isbn,int idCat) {
+		this.ISBN = isbn;
+		this.Categoria = new Categoria(idCat);
+	}
+	
 	private int ISBN;
 	private String titulo;
 	private String descripcion;
@@ -11,6 +20,7 @@ public class Libro {
 	private String edicion;
 	private double precio;
 	private Categoria Categoria;
+	private String imagen;
 	
 	public int getISBN() {
 		return ISBN;
@@ -59,5 +69,11 @@ public class Libro {
 	}
 	public void setCategoria(Categoria Categoria) {
 		this.Categoria = Categoria;
+	}
+	public String getImagen() {
+		return imagen;
+	}	
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 }

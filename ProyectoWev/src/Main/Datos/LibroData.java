@@ -17,17 +17,18 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Libros(ISBN,titulo,descripcion,autor,fecha,edicion,precio,idCategoria) VALUES(?,?,?,?,CURDATE(),?,?,?)";
+			sql = "INSERT INTO Libros(ISBN,titulo,descripcion,autor,fecha,edicion,precio,idCategoria,imagen) VALUES(?,?,?,?,?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1,lib.getISBN());
 			pstm.setString(2, lib.getTitulo());
 			pstm.setString(3, lib.getDescripcion());
 			pstm.setString(4, lib.getAutor());
-			/*pstm.setDate(5, new java.sql.Date(lib.getFecha().getTime()));*/
-			pstm.setString(5, lib.getEdicion());
-			pstm.setDouble(6, lib.getPrecio());
-			pstm.setInt(7, lib.getCategoria().getIdCategoria());
+			pstm.setString(5, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(lib.getFecha()));
+			pstm.setString(6, lib.getEdicion());
+			pstm.setDouble(7, lib.getPrecio());
+			pstm.setInt(8, lib.getCategoria().getIdCategoria());
+			pstm.setString(9, lib.getImagen() != null ? lib.getImagen() : "NULL");
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -140,6 +141,72 @@ public class LibroData {
 			}
 		}
 	}
+	
+	public ArrayList<Libro> GetLibro(Libro libro)
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		CategoriaData catData = new CategoriaData();
+		
+		try {
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT * FROM libros " +
+				"WHERE titulo LIKE ? OR descripcion LIKE ? " +
+				"OR autor LIKE ? OR edicion LIKE ?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, "%" + libro.getTitulo() + "%");
+			pstm.setString(2, "%" + libro.getDescripcion() + "%");
+			pstm.setString(3, "%" + libro.getAutor() + "%");
+			pstm.setString(4, "%" + libro.getEdicion() + "%");
+			
+			rs = pstm.executeQuery();
+			ArrayList<Libro> Libros = new ArrayList<Libro>();
+			Libro lib = null;
+			
+			while(rs.next())
+			{
+				lib = new Libro();
+				lib.setISBN(rs.getInt("ISBN"));
+				lib.setTitulo(rs.getString("titulo"));
+				lib.setDescripcion(rs.getString("descripcion"));
+				lib.setAutor(rs.getString("autor"));
+				lib.setFecha(rs.getDate("fecha"));
+				lib.setEdicion(rs.getString("edicion"));
+				lib.setPrecio(rs.getDouble("precio"));
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				
+				Categoria cat = new Categoria();
+				cat.setIdCategoria(rs.getInt("idCategoria"));
+				
+				lib.setCategoria(catData.GetOne(cat));
+				
+				Libros.add(lib);
+			}
+			return Libros;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(rs != null) rs.close();
+				if(pstm != null) pstm.close(); 
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
 
 	public Libro GetOne(Libro lib)
 	{
@@ -170,6 +237,7 @@ public class LibroData {
 				libro.setFecha(rs.getDate("fecha"));
 				libro.setEdicion(rs.getString("edicion"));
 				libro.setPrecio(rs.getDouble("precio"));
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -227,6 +295,66 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				
+				Categoria cat = new Categoria();
+				cat.setIdCategoria(rs.getInt("idCategoria"));
+				
+				lib.setCategoria(catData.GetOne(cat));
+				
+				Libros.add(lib);
+			}
+			return Libros;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(rs != null) rs.close();
+				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+
+	public ArrayList<Libro> GetByCategoria(Libro libro){
+		CategoriaData catData = new CategoriaData();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT * FROM libros WHERE idCategoria = ? ORDER BY fecha";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, libro.getCategoria().getIdCategoria());
+			rs = pstm.executeQuery();
+			
+			ArrayList<Libro> Libros = new ArrayList<Libro>();
+			Libro lib = null;
+			
+			while(rs.next())
+			{
+				lib = new Libro();
+				lib.setISBN(rs.getInt("ISBN"));
+				lib.setTitulo(rs.getString("titulo"));
+				lib.setDescripcion(rs.getString("descripcion"));
+				lib.setAutor(rs.getString("autor"));
+				lib.setFecha(rs.getDate("fecha"));
+				lib.setEdicion(rs.getString("edicion"));
+				lib.setPrecio(rs.getDouble("precio"));
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));

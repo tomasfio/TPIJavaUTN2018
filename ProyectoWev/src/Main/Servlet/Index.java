@@ -6,21 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import Main.Entidades.*;
 import Main.Negocio.*;
-
+import java.util.ArrayList;
 
 /**
- * Servlet implementation class SingIn
+ * Servlet implementation class Index
  */
-@WebServlet({ "/SingIn", "/Singin", "/SINGIN" })
-public class SingIn extends HttpServlet {
+@WebServlet("/Index")
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SingIn() {
+    public Index() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,36 +30,30 @@ public class SingIn extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+		LibroLogic ll = new LibroLogic();
+		if(request.getAttribute("librosBuscardos") != null)
+		{
+			request.setAttribute("listaLibros", (ArrayList<Libro>)request.getAttribute("librosBuscardos"));
+		}
+		else if(request.getParameter("idCat") !=null)
+		{
+			request.setAttribute("listaLibros", ll.GetByCategoria(new Libro(0,Integer.parseInt(request.getParameter("idCat")))));
+		}
+		else
+		{
+			request.setAttribute("listaLibros", ll.GetAll());
+		}
+		CategoriaLogic cl = new CategoriaLogic();
+		request.setAttribute("listaCategoria", cl.GetAll());
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioLogic ul = new UsuarioLogic();
-		Usuario usu = new Usuario();
-		usu.setUsuario(request.getParameter("usuario"));
-		usu.setContraseña(request.getParameter("pass"));
-		
-		usu = ul.GetByUsuCon(usu);
-		if (usu != null)
-		{
-			request.getSession().setAttribute("user", usu);
-			if(usu.getTipoUsuario() == 0)
-			{
-				request.getRequestDispatcher("ListaLibros").forward(request, response);
-			}
-			else
-			{
-				request.getRequestDispatcher("Index").forward(request, response);
-			}
-		}
-		else 
-		{
-			request.setAttribute("autentificacion", false);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

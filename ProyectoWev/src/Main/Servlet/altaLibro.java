@@ -16,7 +16,7 @@ import Main.Util.Autentificacion;
 /**
  * Servlet implementation class altaLibro
  */
-@WebServlet({ "/altaLibro", "/AltaLibro", "/altalibro", "/Altalibro" })
+@WebServlet({"/AltaLibro","/Altalibro" })
 public class altaLibro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,14 +28,6 @@ public class altaLibro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Autentificacion aut = new Autentificacion();
 		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -51,10 +43,11 @@ public class altaLibro extends HttpServlet {
 				libro.setTitulo(request.getParameter("titulo"));
 				libro.setDescripcion(request.getParameter("descripcion"));
 				libro.setAutor(request.getParameter("autor"));
-				/*libro.setFecha(format.parse(request.getParameter("fecha")));*/
+				libro.setFecha(format.parse(request.getParameter("fecha")));
 				libro.setEdicion(request.getParameter("edicion"));
 				libro.setPrecio(Double.parseDouble(request.getParameter("precio")));
 				libro.setCategoria(cl.GetOne(new Main.Entidades.Categoria(Integer.parseInt((request.getParameter("categoria"))))));
+				libro.setImagen(request.getParameter("imagen"));
 				
 				LibroLogic ll = new LibroLogic();
 				if(ll.Insert(libro))
@@ -77,6 +70,14 @@ public class altaLibro extends HttpServlet {
 				throw new RuntimeException();
 			}
 		}
+	}
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
 	}
 
 }

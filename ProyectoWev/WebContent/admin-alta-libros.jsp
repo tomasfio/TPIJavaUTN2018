@@ -1,6 +1,4 @@
-<%@page import="Main.Negocio.CategoriaLogic"%>
 <%@page import="Main.Entidades.Categoria" %>
-<%@page import="java.util.Collection" %>
 <%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,7 +27,7 @@
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Alta de un nuevo libro</h1> <hr>
 
-                    <form class="form-group" action="altaLibro" method="post">
+                    <form class="form-group" action="AltaLibro" enctype="multipart/form-data" method="get">
                     	<div class="form-group">
                     		<input type="number" class="form-control" name="ISBN" placeholder="ISBN del libro..." required>
                     	</div>
@@ -61,8 +59,14 @@
                              <%	
                              	}
                 			  }
+                           	  else{
+                           		  request.getRequestDispatcher("FormAltaLibro").forward(request,response);
+                           	  }
                 			 %>
                             </select>
+                        </div>
+                        <div class="form-group">
+                        	<input type="file" name="imagen" />
                         </div>
                         <div class="form-group">
                             <button type="reset" value="Reset" class="btn btn-default" >Limpiar</button>

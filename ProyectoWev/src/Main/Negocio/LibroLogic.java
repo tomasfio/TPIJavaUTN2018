@@ -23,11 +23,19 @@ public class LibroLogic {
 		return libData.GetOne(lib);
 	}
 	
+	public ArrayList<Libro> GetByCategoria(Libro lib) {
+		return libData.GetByCategoria(lib);
+	}
+	
 	public boolean Update(Libro lib) {
 		return libData.Update(lib);
 	}
 	
 	public boolean Delete(Libro lib) {
 		return libData.Delete(lib);
+	}
+	
+	public ArrayList<Libro> GetLibro(Libro libro){
+		return libData.GetLibro(libro);
 	}
 }
