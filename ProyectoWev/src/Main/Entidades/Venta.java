@@ -9,6 +9,12 @@ public class Venta {
 	private Entrega Entrega;
 	private ArrayList<DetalleVenta> DetallesVentas;
 	
+	public Venta() {
+		this.DetallesVentas = new ArrayList<DetalleVenta>();
+		this.Entrega = new Entrega();
+		this.Usuario = new Usuario();
+	}
+	
 	public int getIdVenta() {
 		return idVenta;
 	}

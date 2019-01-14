@@ -7,7 +7,7 @@ import Main.Entidades.*;
 
 public class VentaData {
 
-	public boolean Insert(Venta ven)
+	public Venta Insert(Venta ven)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -16,19 +16,27 @@ public class VentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Ventas(idUsuario,importe,idEntrega) VALUES(?,?,?)";
+			sql = "INSERT INTO Ventas(idUsuario,importe) VALUES(?,?)";
 			
-			pstm = con.prepareStatement(sql);
+			pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setInt(1,ven.getUsuario().getIdUsuario());
 			pstm.setDouble(2, ven.getImporte());
-			pstm.setInt(3, ven.getEntrega().getIdEntrega());
 			
 			int resultado = pstm.executeUpdate();
 			
-			if(resultado == 1)
-				return true;
+			if(resultado == 1){
+				Venta venta = new Venta();
+				
+				ResultSet rs = pstm.getGeneratedKeys();
+				if(rs.next())
+				{
+					venta.setIdVenta(rs.getInt(1));
+				}
+				
+				return venta;
+			}
 			else
-				return false;
+				return null;
 		}
 		catch(Exception ex)
 		{

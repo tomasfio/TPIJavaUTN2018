@@ -6,6 +6,8 @@ public class DetalleVenta {
 	private Date fechaVenta;
 	private Libro Libro;
 	private Venta Venta;
+	
+	
 	public Venta getVenta() {
 		return Venta;
 	}

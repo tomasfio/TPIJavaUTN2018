@@ -31,6 +31,7 @@ public class EntregaData {
 				ent.setIdEntrega(rs.getInt("idEntrega"));
 				ent.setEstado(rs.getString("entrega"));
 				ent.setFechaEntrega(rs.getDate("fechaEntrega"));
+				ent.setDireccion(rs.getString("direccion"));
 				entregas.add(ent);
 			}
 			return entregas;
@@ -79,6 +80,7 @@ public class EntregaData {
 				ent.setIdEntrega(rs.getInt("idEntrega"));
 				ent.setEstado(rs.getString("estado"));
 				ent.setFechaEntrega(rs.getDate("fechaEntrega"));
+				ent.setDireccion(rs.getString("direccion"));
 			}
 			return ent;
 		}
@@ -93,6 +95,46 @@ public class EntregaData {
 			{
 				if(pstm != null) pstm.close();
 				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
+	public boolean Insert(Entrega ent) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "INSERT INTO entregas(estado,fechaEntrega,direccion,idVenta) VALUES(?,NULL,?,?)";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, ent.getEstado());
+			pstm.setString(2, ent.getDireccion());
+			pstm.setInt(3, ent.getVenta().getIdVenta());
+			
+			int resultado = pstm.executeUpdate();
+			
+			if(resultado == 1)
+				return true;
+			else
+				return false;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally 
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
 			}
 			catch(Exception ex)
 			{

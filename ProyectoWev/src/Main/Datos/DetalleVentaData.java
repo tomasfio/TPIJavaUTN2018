@@ -2,6 +2,7 @@ package Main.Datos;
 
 import Main.Entidades.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.Collection;
 
@@ -18,7 +19,7 @@ public class DetalleVentaData {
 			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad) VALUES(?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setDate(1, (java.sql.Date)det.getFechaVenta());
+			pstm.setString(1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(det.getFechaVenta()));
 			pstm.setInt(2, det.getVenta().getIdVenta());
 			pstm.setInt(3, det.getLibro().getISBN());
 			pstm.setInt(4, det.getCantidad());

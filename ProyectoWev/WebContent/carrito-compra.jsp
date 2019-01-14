@@ -10,6 +10,20 @@
 		    	<%@include file="css/shop-homepage.css"%>
 		    	<%@include file="css/edit-style.css"%>
 	    </style>
+	    
+	    <script type="text/javascript">
+	    	function cambioCheckBox(){
+	    		var obj = document.getElementById("envio");
+	    		var text = document.getElementById("direccion");
+	    		if(obj.checked == true){
+	    			text.type = "text";
+	    		}
+	    		else{
+	    			text.type = "hidden";
+	    		}
+	    	}
+	    </script>
+	    
 	</head>
     <body>
 
@@ -19,7 +33,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">NavegaciÃ³n</span>
+                    <span class="sr-only">Navegación</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -35,20 +49,21 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+
 					<%
 						if(request.getSession().getAttribute("user") != null){
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
                     			<li><a href="#?user=<%=usu.getUsuario() %>"><span class="glyphicon glyphicon-shopping-cart"></span> Ver entregas</a></li>
-								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesiÃ³n</a></li>
+								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
 							<%
 						}
 						else
 						{
 							%>
 								<li><a href="registro-login.jsp">Registrarse</a></li>
-	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesiÃ³n</a></li>
+	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
 							<%
 						}
 					%>
@@ -100,45 +115,49 @@
                 <div class="row carousel-holder">
 
                     <div class="col-md-12">
-                        <h1 align="center">Ultimo libros publicados</h1>
-                        <%
-                        	if(request.getAttribute("listaLibros") != null){
-                        		ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
-                        		for(Libro lib : libros){
-                        			%>
-                        				<h2><%=lib.getTitulo() %></h2>
-                        				<img style="float:left; margin:10px;" alt="" src="./img/<%=lib.getImagen() %>">
-                        				
-                        				<p>Autor: <%=lib.getAutor() %></p>
-                        				<p>Descripcion: <%=lib.getDescripcion() %></p>
-                        				<p>Editorial: <%=lib.getEdicion() %></p>
-                        				<p>Categoria: <%=lib.getCategoria().getNombre() %>
-                        				<h4>Precio: <%=lib.getPrecio() %></h4>
-                        				
-                        				<%
-                        					if(request.getSession().getAttribute("user") != null){
-                        						%>
-	                        						<form class="form-inline" action="AgregarAlCarrito" method="post">
-		                        						<div>
-	                        								<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=lib.getISBN() %> />
-                        									<input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="cantidad"/>
-                        									<button class="form-control" type="submit">Agregar al carrito</button>
-		                        						</div>
-	                        						</form>
-                        						<%
-                        					}
-                        				%> 
-                        			<%
-                        		}
-                        	}
-                        %>
-                    </div>
+                        <h1 align="center">Carrito de compras</h1>
+                        	<table class="table table-striped">
+                        		<thead>
+                        			<tr>
+                        				<td><b>Titulo</b></td>
+                        				<td><b>Cantidad</b></td>
+                        				<td><b>Subtotal</b></td>
+                       				</tr>
+                   				</thead> 
+                   				<tbody>
+                   					<%
+                   					if(request.getAttribute("listaDetalleVenta") != null)
+                   					{
 
+                   						ArrayList<DetalleVenta> detallesVentas = (ArrayList<DetalleVenta>)request.getAttribute("listaDetalleVenta");
+                   						for(DetalleVenta detVenta : detallesVentas)
+                   						{
+                   							%>
+                   								<tr>
+                   									<td><%=detVenta.getLibro().getTitulo() %></td>
+                   									<td><%=detVenta.getCantidad() %></td>
+                   									<td><%=detVenta.getCantidad()*detVenta.getLibro().getPrecio() %></td>
+                   								</tr>
+                   							<%
+                   						}
+                   					}
+                   					%>
+                   				</tbody>
+                   				<tfoot>
+                   					<tr>
+                   						<td>Total <%=request.getAttribute("importeTotal") !=null ? request.getAttribute("importeTotal") : 0 %></td>
+                   					</tr>
+                   				</tfoot>
+                        	</table>
+                        	<form action="RegistrarVenta" method="post" class="form-inline">
+                       			<input class="form-control" type="checkbox" id="envio" name="envio" onClick="cambioCheckBox()"/>Envio a domicilio<br>
+                       			<input class="form-control" type="hidden" name="direccion" id="direccion" placeholder="direccion"/><br>
+                       			<button class="form-control" type="submit">Registrar venta</button>
+                        	</form>
+                    </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <!-- jQuery -->
