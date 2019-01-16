@@ -17,9 +17,11 @@
 	    		var text = document.getElementById("direccion");
 	    		if(obj.checked == true){
 	    			text.type = "text";
+	    			text.required = "true";
 	    		}
 	    		else{
 	    			text.type = "hidden";
+	    			text.required = "false";
 	    		}
 	    	}
 	    </script>
@@ -149,8 +151,8 @@
                    					</tr>
                    				</tfoot>
                         	</table>
-                        	<form action="RegistrarVenta" method="post" class="form-inline">
-                       			<input class="form-control" type="checkbox" id="envio" name="envio" onClick="cambioCheckBox()"/>Envio a domicilio<br>
+                        	<form action="RegistrarVenta" method="get" class="form-inline" enctype="multipart/form-data">
+                       			<input class="form-control" type="checkbox" id="envio" name="envio" value="true" onClick="cambioCheckBox()"/>Envio a domicilio<br>
                        			<input class="form-control" type="hidden" name="direccion" id="direccion" placeholder="direccion"/><br>
                        			<button class="form-control" type="submit">Registrar venta</button>
                         	</form>

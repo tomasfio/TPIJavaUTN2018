@@ -15,6 +15,10 @@ EntregaData entData;
 	}
 	
 	public boolean RegistrarVenta(Venta venta) {
+		if(venta.getEntrega() != null && venta.getEntrega().getDireccion().isEmpty()) {
+			return false;
+		}
+		
 		Venta idVenta = venData.Insert(venta);
 		if( idVenta != null) {
 			venta.setIdVenta(idVenta.getIdVenta());

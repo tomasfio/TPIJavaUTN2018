@@ -45,16 +45,21 @@ public class RegistrarVenta extends HttpServlet {
 					envio.setEstado("Recibido");
 					envio.setDireccion(request.getParameter("direccion"));
 					venta.setEntrega(envio);
+					
+					
 				}else
 				{
 					venta.setEntrega(null);
 				}
 				VentaLogic vl = new VentaLogic();
-				vl.RegistrarVenta(venta);
+				if(!vl.RegistrarVenta(venta)) {
+					request.getRequestDispatcher("CarritoCompra").forward(request, response);
+				}
+				else {
+					request.getSession().setAttribute("carritoCompra",null);
+					request.getRequestDispatcher("Index").forward(request, response);				
+				}
 			}
-			
-			request.getSession().setAttribute("carritoCompra",null);
-			request.getRequestDispatcher("Index").forward(request, response);
 		}
 	}
 
