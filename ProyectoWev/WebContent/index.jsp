@@ -80,14 +80,11 @@
 	                     		ArrayList<Categoria> categorias = (ArrayList<Categoria>)request.getAttribute("listaCategoria");
 	                     		for(Categoria cat : categorias){
 	                     			%>
-	                     			<div div class="panel-heading">
+	                     			<div class="panel-heading">
 	                     				<h4 class="panel-title"><a href="Index?idCat=<%=cat.getIdCategoria() %>" ><%=cat.getNombre() %></a></h4>
                      				</div>
 	                     			<%
 	                     		}
-	                     		
-	                     	}else{
-	                     		request.getRequestDispatcher("Index").forward(request, response);
 	                     	}
 	                     %>
                      </ul>
@@ -106,7 +103,7 @@
                         		ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
                         		for(Libro lib : libros){
                         			%>
-                        				<h2><%=lib.getTitulo() %></h2>
+                        				<h2><a href="LibroComentario?isbn=<%=lib.getISBN() %>" ><%=lib.getTitulo() %></a></h2>
                         				<img style="float:left; margin:10px;" alt="" src="./img/<%=lib.getImagen() %>">
                         				
                         				<p>Autor: <%=lib.getAutor() %></p>

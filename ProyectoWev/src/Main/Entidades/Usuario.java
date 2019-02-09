@@ -3,6 +3,10 @@ package Main.Entidades;
 import java.util.Date;
 
 public class Usuario {
+	public Usuario() {}
+	public Usuario(int id) {
+		this.setIdUsuario(id);
+	}
 
 	private int idUsuario;
 	private String usuario;

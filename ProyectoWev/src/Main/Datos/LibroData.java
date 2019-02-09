@@ -181,7 +181,6 @@ public class LibroData {
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
-				
 				lib.setCategoria(catData.GetOne(cat));
 				
 				Libros.add(lib);
@@ -237,7 +236,7 @@ public class LibroData {
 				libro.setFecha(rs.getDate("fecha"));
 				libro.setEdicion(rs.getString("edicion"));
 				libro.setPrecio(rs.getDouble("precio"));
-				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				libro.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));

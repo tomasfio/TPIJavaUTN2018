@@ -1,6 +1,8 @@
 package Main.Negocio;
 
+import Main.Entidades.Comentario;
 import Main.Entidades.Libro;
+import Main.Datos.ComentarioData;
 import Main.Datos.LibroData;
 import java.util.ArrayList;
 
@@ -20,7 +22,13 @@ public class LibroLogic {
 	}
 	
 	public Libro GetOne(Libro lib) {
-		return libData.GetOne(lib);
+		Libro libro = new Libro();
+		libro = libData.GetOne(lib);
+		
+		ComentarioData comData = new ComentarioData();
+		libro.setComentario(comData.GetByLibro(new Comentario(libro.getISBN())));
+		
+		return libro;
 	}
 	
 	public ArrayList<Libro> GetByCategoria(Libro lib) {

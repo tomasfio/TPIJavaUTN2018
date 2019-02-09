@@ -1,15 +1,22 @@
 package Main.Entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Libro {
-	public Libro() {}
+	public Libro() {
+		this.Categoria = new Categoria();
+		this.Comentario = new ArrayList<>();
+	}
 	public Libro(int isbn) {
 		this.ISBN = isbn;
+		this.Categoria = new Categoria();
+		this.Comentario = new ArrayList<>();
 	}
 	public Libro(int isbn,int idCat) {
 		this.ISBN = isbn;
 		this.Categoria = new Categoria(idCat);
+		this.Comentario = new ArrayList<>();
 	}
 	
 	private int ISBN;
@@ -21,6 +28,7 @@ public class Libro {
 	private double precio;
 	private Categoria Categoria;
 	private String imagen;
+	private ArrayList<Comentario> Comentario;
 	
 	public int getISBN() {
 		return ISBN;
@@ -75,5 +83,11 @@ public class Libro {
 	}	
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	public ArrayList<Comentario> getComentario() {
+		return Comentario;
+	}
+	public void setComentario(ArrayList<Comentario> comentario) {
+		Comentario = comentario;
 	}
 }

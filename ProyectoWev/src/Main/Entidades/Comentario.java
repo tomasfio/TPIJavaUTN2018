@@ -3,6 +3,11 @@ package Main.Entidades;
 import java.util.Date;
 
 public class Comentario {
+	public Comentario() {}
+	public Comentario(int isbn) {
+		this.Libro = new Libro(isbn);
+	}
+	
 	private Date fechaHora;
 	private Usuario Usuario;
 	private Libro Libro;
