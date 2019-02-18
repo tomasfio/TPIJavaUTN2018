@@ -13,6 +13,15 @@
         </style>
     </head>
     <body>
+	   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	       <div class="container">
+	           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	               <ul class="nav navbar-nav navbar-right">
+						<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+	               </ul>
+	           </div>
+	       </div>
+	   </nav>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -25,7 +34,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-md-offset-1">
+                <div class="col-md-7 col-md-offset-1" style="margin:0px 0px 0px 0px;">
                     <h1>Ultimas ventas</h1>
                     <table class="table table-responsive table-hover">
                         <thead>
@@ -43,26 +52,32 @@
                         			%>
                         			<tbody>
 	                        			<tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-<%=i%>">
-		                                    <td><i class="fa fa-plus" aria-hidden="true"></i></td>
-		                                    <td align="center"></td>
+		                                    <td align="center"><%=ven.getFecha() %></td>
 		                                    <td align="center"><%=ven.getUsuario().getUsuario() %></td>
 		                                    <td align="center"><%=ven.getImporte() %></td>
+		                                    <td></td>
 		                                </tr>
                                		</tbody>
-                        				<tbody id="group-of-rows-<%=i%>" class="collapse">
+                       				<tbody id="group-of-rows-<%=i%>" class="collapse">
+	                       				<tr>
+		                                    <td align="center"><b>Titulo</b></td>
+		                                    <td align="center"><b>Precio libro</b></td>
+		                                    <td align="center"><b>Cantidad</b></td>
+		                                    <td align="center"><b>Subtotal</b></td>
+		                                </tr>
                         			<%
                         			for(DetalleVenta det : ven.getDetallesVentas()){
                         				%>
-			                                <tr>
-			                                    <td align="center"><%=det.getLibro().getTitulo() %></td>
-			                                    <td align="center"><%=det.getSubTotal()/det.getCantidad() %></td>
-			                                    <td align="center"><%=det.getCantidad() %></td>
-			                                    <td align="center"><%=det.getSubTotal() %></td>
-			                                </tr>
+		                                <tr>
+		                                    <td align="center"><i><%=det.getLibro().getTitulo() %></i></td>
+		                                    <td align="center"><i><%=det.getSubTotal()/det.getCantidad() %></i></td>
+		                                    <td align="center"><i><%=det.getCantidad() %></i></td>
+		                                    <td align="center"><i><%=det.getSubTotal() %></i></td>
+		                                </tr>
                         				<%
                         			}
                         			%>
-		                        		</tbody>
+	                        		</tbody>
 	                        		<%
                         			i++;
                         		}

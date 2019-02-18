@@ -1,6 +1,7 @@
 package Main.Negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import Main.Datos.*;
 import Main.Entidades.*;
@@ -26,6 +27,8 @@ EntregaData entData;
 		if(venta.getEntrega() != null && venta.getEntrega().getDireccion().isEmpty()) {
 			return false;
 		}
+		
+		venta.setFecha(new Date());
 		
 		Venta idVenta = venData.Insert(venta);
 		if( idVenta != null) {

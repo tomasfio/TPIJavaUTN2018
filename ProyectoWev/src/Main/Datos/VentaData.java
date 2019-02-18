@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+
 import Main.Entidades.*;
 
 public class VentaData {
@@ -17,11 +19,12 @@ public class VentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "INSERT INTO Ventas(idUsuario,importe) VALUES(?,?)";
+			sql = "INSERT INTO Ventas(idUsuario,importe,fechaVenta) VALUES(?,?,?)";
 			
 			pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstm.setInt(1,ven.getUsuario().getIdUsuario());
 			pstm.setDouble(2, ven.getImporte());
+			pstm.setString(3, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(ven.getFecha()));
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -38,89 +41,6 @@ public class VentaData {
 			}
 			else
 				return null;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
-		}
-		finally
-		{
-			try
-			{
-				if(pstm != null) pstm.close();
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
-			}
-		}
-	}
-	
-	public boolean Delete(Venta ven)
-	{
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try
-		{
-			con = Base.getConnection();
-			String sql = "";
-			sql = "DELETE FROM ventas WHERE idVenta = ?";
-			
-			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, ven.getIdVenta());
-			
-			int resultado = pstm.executeUpdate();
-			
-			if(resultado == 1)
-				return true;
-			else
-				return false;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
-		}
-		finally
-		{
-			try
-			{
-				if(pstm != null) pstm.close();
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				throw new RuntimeException();
-			}
-		}
-	}
-	
-	public boolean Update(Venta ven)
-	{
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try
-		{
-			con = Base.getConnection();
-			String sql = "";
-			sql = "UPDATE ventas SET idUsuario = ? ,importe = ?, idEntrega = ? WHERE idVenta = ?";
-			
-			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, ven.getUsuario().getIdUsuario());
-			pstm.setDouble(2, ven.getImporte());
-			pstm.setInt(3, ven.getEntrega().getIdEntrega());
-			pstm.setInt(4, ven.getIdVenta());
-			
-			int res = pstm.executeUpdate();
-			
-			if(res == 0)
-				return false;
-			else
-				return true;
 		}
 		catch(Exception ex)
 		{
@@ -169,6 +89,7 @@ public class VentaData {
 				Usuario usu = new Usuario();
 				usu.setIdUsuario(rs.getInt("idUsuario"));
 				ven.setUsuario(usuData.GetOne(usu));
+				ven.setFecha(rs.getDate("fechaVenta"));
 			}
 			return ven;
 		}
@@ -223,6 +144,7 @@ public class VentaData {
 				ven.setUsuario(usuData.GetOne(usu));
 				ven.setImporte(rs.getDouble("importe"));
 				ven.setDetallesVentas(detData.GetByVenta(new DetalleVenta(ven.getIdVenta())));
+				ven.setFecha(rs.getDate("fechaVenta"));
 				ventas.add(ven);
 			}
 			return ventas;

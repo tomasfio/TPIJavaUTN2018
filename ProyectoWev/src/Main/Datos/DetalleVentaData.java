@@ -17,14 +17,14 @@ public class DetalleVentaData {
 		try
 		{
 			con = Base.getConnection();
-			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad,subtotal) VALUES(?,?,?,?,0)";
+			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad,subtotal) VALUES(?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(det.getFechaVenta()));
 			pstm.setInt(2, det.getVenta().getIdVenta());
 			pstm.setInt(3, det.getLibro().getISBN());
 			pstm.setInt(4, det.getCantidad());
-//			pstm.setDouble(5, det.getSubTotal());
+			pstm.setDouble(5, det.getSubTotal());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -39,92 +39,6 @@ public class DetalleVentaData {
 			throw new RuntimeException(ex);
 		}
 		finally 
-		{
-			try
-			{
-				if(pstm != null) pstm.close();
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
-			}
-		}
-	}
-		
-	public boolean Delete(DetalleVenta det)
-	{
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try
-		{
-			con = Base.getConnection();
-			String sql = "";
-			sql = "DELETE FROM detalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
-			
-			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, det.getVenta().getIdVenta());
-			pstm.setInt(2, det.getLibro().getISBN());
-			pstm.setDate(3, (java.sql.Date)det.getFechaVenta());
-			
-			int resultado = pstm.executeUpdate();
-			
-			if(resultado == 1)
-				return true;
-			else
-				return false;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
-		}
-		finally
-		{
-			try
-			{
-				if(pstm != null) pstm.close();
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				throw new RuntimeException();
-			}
-		}
-	}
-
-	public boolean Update(DetalleVenta det)
-	{
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try
-		{
-			con = Base.getConnection();
-			String sql = "";
-			sql = "UPDATE detalleVentas SET cantidad = ?,subtotal = ? WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ? ";
-			
-			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, det.getCantidad());
-			pstm.setDouble(2, det.getVenta().getIdVenta());
-			pstm.setInt(3, det.getLibro().getISBN());
-			pstm.setDate(4, (java.sql.Date)det.getFechaVenta());
-			pstm.setDouble(5, det.getSubTotal());
-			
-			int res = pstm.executeUpdate();
-			
-			if(res == 0)
-				return false;
-			else
-				return true;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
-		}
-		finally
 		{
 			try
 			{

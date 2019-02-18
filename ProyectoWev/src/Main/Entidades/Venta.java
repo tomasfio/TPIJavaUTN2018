@@ -7,6 +7,7 @@ public class Venta {
 	private Usuario Usuario;
 	private double importe;
 	private Entrega Entrega;
+	private Date fecha;
 	private ArrayList<DetalleVenta> DetallesVentas;
 	
 	public Venta() {
@@ -52,5 +53,11 @@ public class Venta {
 	public void setDetallesVentas(ArrayList<DetalleVenta> detallesVentas)
 	{
 		DetallesVentas = detallesVentas;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 }

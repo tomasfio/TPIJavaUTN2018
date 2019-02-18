@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Main.Negocio.*;
+import Main.Util.Autentificacion;
 import Main.Entidades.*;
 
 /**
@@ -30,6 +31,11 @@ public class ListaVenta extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Autentificacion aut = new Autentificacion();
+		if(!aut.AutentificacionAdministrador((Usuario)request.getSession().getAttribute("user"))) {
+    		response.sendRedirect(request.getContextPath() + "/login.jsp");
+		}
+		
 		VentaLogic vl = new VentaLogic();
 		ArrayList<Venta> ventas = vl.GetAll();
 		request.setAttribute("ventas", ventas);
