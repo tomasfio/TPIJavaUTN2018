@@ -2,33 +2,52 @@ package Main.Datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.log4j.Level;
+
+import Main.Util.LogException;
 
 public class Base {
 	private static Connection con=null;
 	
-	public static Connection getConnection()
+	public static Connection getConnection() throws LogException
 	{
 		try {
+			FileInputStream inputStream = new FileInputStream("C:\\Users\\Tomas\\git\\TPIJavaUTN2018\\ProyectoWev\\Resource\\jdbc.properties");
 			if(con == null)
 			{
 				// con esto determinamos cuando finalize el progreso
 				Runtime.getRuntime().addShutdownHook(new MiShDwnHook());
 				
-				//ResourceBundle rb=ResourceBundle.getBundle("jdbc");
-				String driver = "com.mysql.cj.jdbc.Driver"; //rb.getString("driver");
-				String url = "jdbc:mysql://localhost:3306/tpjava?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //rb.getString("url");
-				String pwd = "admin"; //rb.getString("pwd");
-				String usr = "root"; //rb.getString("usr");
+				Properties props = new Properties();
+				props.load(inputStream);
+				
+				String driver = props.getProperty("driver");
+				String url = props.getProperty("url");
+				String pwd = props.getProperty("psw");
+				String usr = props.getProperty("usr");
 				
 				Class.forName(driver);
 				con = DriverManager.getConnection(url,usr,pwd);
 			}
 			return con;
 		}
+		catch(IOException exIO) {
+			LogException log = new LogException(exIO,"Error al buscar archivo proporties para conexion a base de datos",Level.FATAL);
+			throw log;
+		} 
+		catch (ClassNotFoundException | SQLException exSql) {
+			LogException log = new LogException(exSql,"Error al crear la conexion, no se pudo conectar a mysql",Level.FATAL);
+			throw log;
+        }
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException("error al crear la conexion",ex);
+			LogException log = new LogException(ex,"Error al crear la conexion",Level.FATAL);
+			throw log;
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package Main.Datos;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 import java.sql.*;
@@ -168,7 +169,6 @@ public class VentaData {
 				Usuario usu = new Usuario();
 				usu.setIdUsuario(rs.getInt("idUsuario"));
 				ven.setUsuario(usuData.GetOne(usu));
-				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
 			}
 			return ven;
 		}
@@ -192,22 +192,24 @@ public class VentaData {
 		}
 	}
 	
-	public Collection<Venta> GetAll()
+	public ArrayList<Venta> GetAll()
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		UsuarioData usuData = new UsuarioData();
 		EntregaData entData = new EntregaData();
+		DetalleVentaData detData = new DetalleVentaData();
+		
 		try
 		{
 			con = Base.getConnection();
-			String sql = "SELECT * FROM Ventas";
+			String sql = "SELECT * FROM Ventas ORDER BY idventa DESC LIMIT 30";
 			
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			
-			Vector<Venta> ventas = new Vector<Venta>();
+			ArrayList<Venta> ventas = new ArrayList<Venta>();
 			Venta ven = null;
 			
 			while(rs.next())
@@ -220,7 +222,7 @@ public class VentaData {
 				
 				ven.setUsuario(usuData.GetOne(usu));
 				ven.setImporte(rs.getDouble("importe"));
-				ven.setEntrega(entData.GetOne(rs.getInt("idEntrega")));
+				ven.setDetallesVentas(detData.GetByVenta(new DetalleVenta(ven.getIdVenta())));
 				ventas.add(ven);
 			}
 			return ventas;

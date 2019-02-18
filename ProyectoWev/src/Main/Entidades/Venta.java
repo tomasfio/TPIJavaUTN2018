@@ -14,6 +14,12 @@ public class Venta {
 		this.Entrega = new Entrega();
 		this.Usuario = new Usuario();
 	}
+	public Venta(int id) {
+		this.DetallesVentas = new ArrayList<DetalleVenta>();
+		this.Entrega = new Entrega();
+		this.Usuario = new Usuario();
+		this.idVenta = id;
+	}
 	
 	public int getIdVenta() {
 		return idVenta;

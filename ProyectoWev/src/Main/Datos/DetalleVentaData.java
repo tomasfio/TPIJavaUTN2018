@@ -4,6 +4,7 @@ import Main.Entidades.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class DetalleVentaData {
@@ -16,13 +17,14 @@ public class DetalleVentaData {
 		try
 		{
 			con = Base.getConnection();
-			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO detallesVentas(fechaVenta,idVenta,ISBN,cantidad,subtotal) VALUES(?,?,?,?,0)";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(det.getFechaVenta()));
 			pstm.setInt(2, det.getVenta().getIdVenta());
 			pstm.setInt(3, det.getLibro().getISBN());
 			pstm.setInt(4, det.getCantidad());
+//			pstm.setDouble(5, det.getSubTotal());
 			
 			int resultado = pstm.executeUpdate();
 			
@@ -101,13 +103,14 @@ public class DetalleVentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE detalleVentas SET cantidad = ? WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
+			sql = "UPDATE detalleVentas SET cantidad = ?,subtotal = ? WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ? ";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1, det.getCantidad());
 			pstm.setDouble(2, det.getVenta().getIdVenta());
 			pstm.setInt(3, det.getLibro().getISBN());
 			pstm.setDate(4, (java.sql.Date)det.getFechaVenta());
+			pstm.setDouble(5, det.getSubTotal());
 			
 			int res = pstm.executeUpdate();
 			
@@ -135,7 +138,7 @@ public class DetalleVentaData {
 		}
 	}
 
-	public DetalleVenta GetOne(int idVenta,int isbn, Date fechaVenta)
+	public ArrayList<DetalleVenta> GetByVenta(DetalleVenta deta)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -147,15 +150,14 @@ public class DetalleVentaData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM DetalleVentas WHERE idVenta = ? AND ISBN = ? AND fechaVenta = ?";
+			sql = "SELECT * FROM DetallesVentas WHERE idVenta = ? ";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, idVenta);
-			pstm.setInt(2, isbn);
-			pstm.setDate(3, fechaVenta);
+			pstm.setInt(1,deta.getVenta().getIdVenta());
 			rs = pstm.executeQuery();
 			
 			DetalleVenta det = null;
+			ArrayList<DetalleVenta> detalles = new ArrayList<DetalleVenta>();
 			
 			while(rs.next())
 			{
@@ -164,8 +166,11 @@ public class DetalleVentaData {
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
 				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
+				det.setSubTotal(rs.getDouble("subtotal"));
+				
+				detalles.add(det);
 			}
-			return det;
+			return detalles;
 		}
 		catch(Exception ex)
 		{
@@ -214,6 +219,7 @@ public class DetalleVentaData {
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
 				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
+				det.setSubTotal(rs.getDouble("subtotal"));
 				detalles.add(det);
 			}
 			return detalles;

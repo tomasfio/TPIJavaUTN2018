@@ -3,9 +3,16 @@ package Main.Entidades;
 import java.util.Date;
 
 public class DetalleVenta {
+	public DetalleVenta() {}
+	public DetalleVenta(int idVenta)
+	{
+		this.Venta = new Venta(idVenta);
+	}
+	
 	private Date fechaVenta;
 	private Libro Libro;
 	private Venta Venta;
+	private double subTotal;
 	
 	
 	public Venta getVenta() {
@@ -35,5 +42,11 @@ public class DetalleVenta {
 	}
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+	public double getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
 	}
 }

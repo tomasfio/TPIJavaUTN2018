@@ -30,7 +30,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="contact.php">Contacto</a>
+                        <a href="Contacto">Contacto</a>
                     </li>
                 </ul>
 

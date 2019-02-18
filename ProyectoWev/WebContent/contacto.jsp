@@ -39,7 +39,7 @@
 						if(request.getSession().getAttribute("user") != null){
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
-                    			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
+                    			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>                 			
 								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
 							<%
 						}
@@ -92,47 +92,62 @@
           </div>
 
             <div class="col-md-9">
-
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <h1 align="center">Ultimo libros publicados</h1>
-                        <%
-                        	if(request.getAttribute("listaLibros") != null){
-                        		ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
-                        		for(Libro lib : libros){
-                        			%>
-                        				<h2><a href="LibroComentario?isbn=<%=lib.getISBN() %>" ><%=lib.getTitulo() %></a></h2>
-                        				<img style="float:left; margin:10px;" alt="" src="./img/<%=lib.getImagen() %>">
-                        				
-                        				<p>Autor: <%=lib.getAutor() %></p>
-                        				<p>Descripcion: <%=lib.getDescripcion() %></p>
-                        				<p>Editorial: <%=lib.getEdicion() %></p>
-                        				<p>Categoria: <%=lib.getCategoria().getNombre() %>
-                        				<h4>Precio: <%=lib.getPrecio() %></h4>
-                        				
-                        				<%
-                        					if(request.getSession().getAttribute("user") != null){
-                        						%>
-	                        						<form class="form-inline" action="AgregarAlCarrito" method="post">
-		                        						<div>
-	                        								<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=lib.getISBN() %> />
-                        									<input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="cantidad"/>
-                        									<button class="form-control" type="submit">Agregar al carrito</button>
-		                        						</div>
-	                        						</form>
-                        						<%
-                        					}
-                        				%> 
-                        			<%
-                        		}
-                        	}
-                        %>
+            
+            <%
+             if(request.getAttribute("falloEnvio") != null){
+             	if((Boolean)request.getAttribute("falloEnvio") == true){
+             		%>
+             		<p>Hubo un problema en el envio de mail, intentelo nuevamente en unos minutos.</p>
+             		<%
+             	}
+             }
+             %>
+             <%
+             if(request.getAttribute("envioExitoso") != null){
+             	if((Boolean)request.getAttribute("envioExitoso") == true){
+             		%>
+             		<p>Se ha enviado el mail exitosamente</p>
+             		<%
+             	}
+             }
+             %>
+                <form action="EnviarMail" method="post">
+                    <div class="row carousel-holder">
+                        <div class="col-md-12">
+                            <label for="email">Email del usuario: </label>
+                            <%
+                                if(request.getAttribute("email")!= null){
+                                    %>
+                                    <input class="form-control" type="email" name="email" id="email" value="<%=request.getAttribute("email") %>" readonly="readonly">
+                                    <% 
+                                }
+                                else{
+                                    %>
+                                    <input class="form-control" type="email" name="email" id="email" required>
+                                    <%
+                                }
+                            %>
+                            <br>
+                            <label for="asunto">Asunto: </label>
+                            <input class="form-control" type="text" name="asunto" id="asunto" required>
+                            <br>
+                            <label for="texto">Texto: </label>
+                            <textarea class="form-control" name="texto" id="texto" cols="50" rows="10" required></textarea>
+                            <br>
+                            <button type="submit" class="form-control">Enviar mail</button>
+                            <%
+                            if(request.getAttribute("faltaDatos") != null){
+                            	if((Boolean)request.getAttribute("faltaDatos") == true){
+                            		%>
+                            		<p>Los campos email,asunto y texto no pueden estar vacios</p>
+                            		<%
+                            	}
+                            }
+                            %>
+                        </div>
                     </div>
-
-                </div>
+                </form>
             </div>
-
         </div>
 
     </div>

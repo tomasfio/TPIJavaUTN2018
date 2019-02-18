@@ -18,6 +18,7 @@
                         <li role="presentation"><a href="ListaCategorias">Listado de Categorias</a>
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
+                        <li role="presentation"><a href="ListaVenta">Lista de ventas</a></li>
                     </ul>
                 </div>
 

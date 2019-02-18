@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="contact.php">Contacto</a>
+                        <a href="Contacto">Contacto</a>
                     </li>
                 </ul>
 
@@ -57,7 +57,6 @@
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
-                    			<li><a href="#?user=<%=usu.getUsuario() %>"><span class="glyphicon glyphicon-shopping-cart"></span> Ver entregas</a></li>
 								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
 							<%
 						}
@@ -153,7 +152,7 @@
                         	</table>
                         	<form action="RegistrarVenta" method="get" class="form-inline" enctype="multipart/form-data">
                        			<input class="form-control" type="checkbox" id="envio" name="envio" value="true" onClick="cambioCheckBox()"/>Envio a domicilio<br>
-                       			<input class="form-control" type="hidden" name="direccion" id="direccion" placeholder="direccion"/><br>
+                       			<input class="form-control" type="hidden" name="direccion" id="direccion" placeholder="direccion"/><br><br>
                        			<button class="form-control" type="submit">Registrar venta</button>
                         	</form>
                     </div>

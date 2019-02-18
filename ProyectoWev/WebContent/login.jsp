@@ -25,7 +25,7 @@
                     <input type="text" class="form-control" id="usuario" name="usuario" required/>
                 </div>
                 <div class="form-group">
-                    <label for="password">Contraseña</label>
+                    <label for="password">Contraseï¿½a</label>
                     <input type="password" class="form-control" id="pass" name="pass" required>
                 </div>
                 <button type="submit" class="btn btn-info align" style="align: right;">
@@ -36,7 +36,7 @@
         		if((boolean)request.getAttribute("autentificacion") == false){
         			%>
 	        			<div class="form-group">
-	        				<label>El usuario y/o contraseña son incorrectos</label>
+	        				<label>El usuario y/o contraseï¿½a son incorrectos</label>
 	        			</div>
         			<%
         			}
@@ -46,9 +46,9 @@
      
         <!-- Pie -->
         <div class="container-footer">
-            <a href="#" class="btn btn-danger btn-default pull-left">
+            <a href="Index" class="btn btn-danger btn-default pull-left">
             <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
-            <p>¿No tienes cuenta? <a href="registro-login.jsp">Registrarse</a></p>
+            <p>ï¿½No tienes cuenta? <a href="registro-login.jsp">Registrarse</a></p>
 
         </div>
     </div>
