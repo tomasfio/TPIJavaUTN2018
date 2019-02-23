@@ -1,27 +1,30 @@
 package Main.Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Main.Entidades.*;
+import Main.Entidades.Libro;
+import Main.Entidades.Usuario;
+import Main.Negocio.LibroLogic;
 import Main.Util.Autentificacion;
-import Main.Negocio.*;
 
 /**
- * Servlet implementation class ListaEntregas
+ * Servlet implementation class ListaMasVendidos
  */
-@WebServlet("/ListaEntregas")
-public class ListaEntregas extends HttpServlet {
+@WebServlet("/ListaMasVendidos")
+public class ListaMasVendidos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListaEntregas() {
+    public ListaMasVendidos() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,11 +38,15 @@ public class ListaEntregas extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			VentaLogic vl = new VentaLogic();
+			LibroLogic ll = new LibroLogic();
 			
-			request.setAttribute("listaEntregas", vl.GetVentaWithEntregas());
+			Integer[][] cantidad = ll.GetCantidadVendida();
+			ArrayList<Libro> librosOrdenados = ll.GetLibrosOrdenadosVentas(cantidad[0]);
+
+			request.setAttribute("listaLibros", librosOrdenados);
+			request.setAttribute("ventas", cantidad[1]);
 			
-			request.getRequestDispatcher("admin-entrega.jsp").forward(request, response);
+			request.getRequestDispatcher("admin-mas-vendidos.jsp").forward(request, response);
 		}
 	}
 

@@ -3,14 +3,17 @@ package Main.Negocio;
 import Main.Entidades.Comentario;
 import Main.Entidades.Libro;
 import Main.Datos.ComentarioData;
+import Main.Datos.DetalleVentaData;
 import Main.Datos.LibroData;
 import java.util.ArrayList;
 
 public class LibroLogic {
 	LibroData libData;
+	DetalleVentaData detData;
 	
 	public LibroLogic(){
 		libData = new LibroData();
+		detData = new DetalleVentaData();
 	}
 	
 	public ArrayList<Libro> GetAll(){
@@ -19,6 +22,23 @@ public class LibroLogic {
 	
 	public boolean Insert(Libro lib) {
 		return libData.Insert(lib);
+	}
+	
+	public Integer[][] GetCantidadVendida(){
+		return detData.GetCantidadVendida();
+	}
+	
+	public ArrayList<Libro> GetLibrosOrdenadosVentas(Integer[] cantidad){
+		ArrayList<Libro> librosOrdenados = new ArrayList<Libro>();
+		
+		for(int isbn : cantidad) {
+			Libro libro = new Libro();
+			libro = libData.GetOne(new Libro(isbn));
+			
+			librosOrdenados.add(libro);
+		}
+		return librosOrdenados;
+		
 	}
 	
 	public Libro GetOne(Libro lib) {

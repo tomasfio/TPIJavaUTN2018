@@ -1,6 +1,8 @@
 package Main.Datos;
 
 import Main.Entidades.*;
+import Main.Util.Rows;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -85,6 +87,53 @@ public class DetalleVentaData {
 				detalles.add(det);
 			}
 			return detalles;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
+	public Integer[][] GetCantidadVendida()
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT isbn,SUM(cantidad)'ventas' FROM detallesventas GROUP BY isbn ORDER BY SUM(cantidad)DESC";
+			
+			pstm = con.prepareStatement(sql);
+
+			Rows rows = new Rows();
+			Integer[][] cantidad = new Integer[2][rows.GetRowCount(rs = pstm.executeQuery())];
+			rs = pstm.executeQuery();
+			int i = 0;
+			
+			while(rs.next())
+			{
+				cantidad[0][i] = rs.getInt("isbn");
+				cantidad[1][i] = rs.getInt("ventas");
+				i++;
+			}
+			return cantidad;
 		}
 		catch(Exception ex)
 		{

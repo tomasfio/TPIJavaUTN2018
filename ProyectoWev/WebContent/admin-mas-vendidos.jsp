@@ -1,5 +1,4 @@
-<%@page import="Main.Entidades.Venta" %>
-<%@page import="Main.Entidades.DetalleVenta" %>
+<%@page import="Main.Entidades.Libro" %>
 <%@page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
@@ -37,49 +36,32 @@
                 </div>
 
                 <div class="col-md-7 col-md-offset-1" style="margin:0px 0px 0px 0px; width:75%;">
-                    <h1>Ultimas ventas</h1>
+                    <h1>Libros mas vendidos</h1>
                     <table class="table table-responsive table-hover">
                         <thead>
                             <tr>
-                                <th align="center">Fecha venta</th>
-                                <th align="center">Usuario</th>
-                                <th align="center">Total</th>
+                                <td align="center"><strong>ISBN</strong></td>
+                                <td align="center"><strong>Titulo</strong></th>
+                                <td align="center"><strong>Autor</strong></td>
+                                <td align="center"><strong>Cantidad</strong></td>
                             </tr>
                         </thead>
                         <%
-                        	if(request.getAttribute("ventas") != null){
-                        		int i = 1;
-                        		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getAttribute("ventas");
-                        		for(Venta ven : (ArrayList<Venta>)request.getAttribute("ventas")){
+                        	if(request.getAttribute("listaLibros") != null){
+                        		ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
+                        		Integer[] cantidad = (Integer[])request.getAttribute("ventas");
+                        		int i = 0;
+                        		for(Libro lib : libros){
                         			%>
                         			<tbody>
 	                        			<tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-<%=i%>">
-		                                    <td align="center"><%=ven.getFecha() %></td>
-		                                    <td align="center"><%=ven.getUsuario().getUsuario() %></td>
-		                                    <td align="center"><%=ven.getImporte() %></td>
+		                                    <td align="center"><%=lib.getISBN() %></td>
+		                                    <td align="center"><%=lib.getTitulo() %></td>
+		                                    <td align="center"><%=lib.getAutor() %></td>
+		                                    <td align="center"><%=cantidad[i] %></td>
 		                                    <td></td>
 		                                </tr>
                                		</tbody>
-                       				<tbody id="group-of-rows-<%=i%>" class="collapse">
-	                       				<tr>
-		                                    <td align="center"><b>Titulo</b></td>
-		                                    <td align="center"><b>Precio libro</b></td>
-		                                    <td align="center"><b>Cantidad</b></td>
-		                                    <td align="center"><b>Subtotal</b></td>
-		                                </tr>
-                        			<%
-                        			for(DetalleVenta det : ven.getDetallesVentas()){
-                        				%>
-		                                <tr>
-		                                    <td align="center"><i><%=det.getLibro().getTitulo() %></i></td>
-		                                    <td align="center"><i><%=det.getSubTotal()/det.getCantidad() %></i></td>
-		                                    <td align="center"><i><%=det.getCantidad() %></i></td>
-		                                    <td align="center"><i><%=det.getSubTotal() %></i></td>
-		                                </tr>
-                        				<%
-                        			}
-                        			%>
-	                        		</tbody>
 	                        		<%
                         			i++;
                         		}
