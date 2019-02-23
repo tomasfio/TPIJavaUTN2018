@@ -12,6 +12,7 @@
 	    </style>
 	</head>
     <body>
+    
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -102,80 +103,81 @@
                     	if(request.getAttribute("libro") != null){
                     		Libro libro = (Libro)request.getAttribute("libro");
                    			%>
-                   				<h2><a href="#" ><%=libro.getTitulo() %></a></h2>
-                   				<img style="float:left; margin:10px;" alt="" src="./img/<%=libro.getImagen() %>">
-                   				
-                   				<p>Autor: <%=libro.getAutor() %></p>
-                   				<p>Descripcion: <%=libro.getDescripcion() %></p>
-                   				<p>Editorial: <%=libro.getEdicion() %></p>
-                   				<p>Categoria: <%=libro.getCategoria().getNombre() %>
-                   				<h4>Precio: <%=libro.getPrecio() %></h4>
-                   				</div>
-                   				<br>
-                   				<%
-                   					if(request.getSession().getAttribute("user") != null){
-                   						%>
-                    						<form class="form-inline" action="AgregarAlCarrito" method="post">
-                     							<div>
-                    								<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=libro.getISBN() %> />
-                   									<input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="cantidad"/>
-                   									<button class="form-control" type="submit">Agregar al carrito</button>
-                     							</div>
-                    						</form>
-                   						<%
-                   					}
-                   				%> 
-               				</div>
-      					</div>
-      					<div class="containrs">
-         				<h3>Comentarios</h3>
-     					<div class="col-md-12">
- 						<table class="table table-bordered">
-		          		<tbody> 
-             			<%
-             			for(Comentario com : libro.getComentario()){
-             				%>
-					            <tr> 
-					            	<th>
-                					<h4><%=com.getUsuario().getUsuario() %></h4>
-	                				<p><%=com.getComentario() %></p>
-	                				<p style="font: 10px Arial">Fecha del comentario: <%=com.getFechaHora() %></p>
-	                				</th>
-                				</tr>
-             				<%
-             			}
-             			if(request.getSession().getAttribute("user") != null)
-             			{
-             			%>
-              					</tbody>
-              				</table>
-         					</div>
-           			</div>
+           				<h2><a href="#" ><%=libro.getTitulo() %></a></h2>
+           				<img style="float:left; margin:10px;" alt="" src="./img/<%=libro.getImagen() %>">
+           				
+           				<p>Autor: <%=libro.getAutor() %></p>
+           				<p>Descripcion: <%=libro.getDescripcion() %></p>
+           				<p>Editorial: <%=libro.getEdicion() %></p>
+           				<p>Categoria: <%=libro.getCategoria().getNombre() %>
+           				<h4>Precio: <%=libro.getPrecio() %></h4>
+           				</div>
+           				<br>
+           				<%
+           					if(request.getSession().getAttribute("user") != null){
+           						%>
+            						<form class="form-inline" action="AgregarAlCarrito" method="post">
+             							<div>
+            								<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=libro.getISBN() %> />
+           									<input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="cantidad"/>
+           									<button class="form-control" type="submit">Agregar al carrito</button>
+             							</div>
+            						</form>
+           						<%
+           					}
+           				%> 
+      				<div class="containrs">
+       					<h3>Comentarios</h3>
+	   					<div class="col-md-12">
+							<table class="table table-bordered">
+			          		<tbody> 
+			           			<%
+			           			for(Comentario com : libro.getComentario()){
+			           				%>
+						            <tr> 
+						            	<th>
+			              					<h4><%=com.getUsuario().getUsuario() %></h4>
+			               				<p><%=com.getComentario() %></p>
+			               				<p style="font: 10px Arial">Fecha del comentario: <%=com.getFechaHora() %></p>
+			               				</th>
+			              				</tr>
+			           				<%
+			           			}
+			           			if(request.getSession().getAttribute("user") != null)
+			           			{
+			           			%>
+            					</tbody>
+            				</table>
+       					</div>
+         			</div>
            			<form class="form-inline" action="AgregarComentario" method="post">
  						<div>
-								<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=libro.getISBN() %> />
-								<textarea rows = "5" cols = "50" class="form-control" type="textarea" name="comentario" id="cometario" placeholder="Comentario..."></textarea><br>
-								<button class="form-control" type="submit">Agregar al comentario</button>
+							<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=libro.getISBN() %> />
+							<textarea rows = "5" cols = "50" class="form-control" type="textarea" name="comentario" id="cometario" placeholder="Comentario..."></textarea>
+							<br><br>
+							<button class="form-control" type="submit">Agregar al comentario</button>
  						</div>
 					</form>
-           			<%	
-           			}
-           		}
-                if(request.getAttribute("faltoComentario") != null){
-                	if((boolean)request.getAttribute("faltoComentario")){
-                		%>
-                		<p>Tiene que ingresar un comentario.</p>
-                		<%
-                	}
-                }
-                if(request.getAttribute("falloComentario") != null){
-                	if((boolean)request.getAttribute("falloComentario")){
-                		%>
-                		<p>No se pudo guardar el comentario por un error,trate nuevamente en unos minutos.</p>
-                		<%
-                	}
-                }
-                %>
+	           			<%	
+	           			}
+	           		}
+	                if(request.getAttribute("faltoComentario") != null){
+	                	if((boolean)request.getAttribute("faltoComentario")){
+	                		%>
+	                		<p>Tiene que ingresar un comentario.</p>
+	                		<%
+	                	}
+	                }
+	                if(request.getAttribute("falloComentario") != null){
+	                	if((boolean)request.getAttribute("falloComentario")){
+	                		%>
+	                		<p>No se pudo guardar el comentario por un error,trate nuevamente en unos minutos.</p>
+	                		<%
+	                	}
+	                }
+	                %>
+      				</div>
+				</div>
             </div>
         </div>
 

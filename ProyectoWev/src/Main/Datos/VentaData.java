@@ -168,4 +168,64 @@ public class VentaData {
 			}
 		}
 	}
+	
+	public ArrayList<Venta> GetVentaWithEntregas()
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		UsuarioData usuData = new UsuarioData();
+		EntregaData entData = new EntregaData();
+		DetalleVentaData detData = new DetalleVentaData();
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "SELECT * FROM Ventas ORDER BY idventa DESC LIMIT 30";
+			
+			pstm = con.prepareStatement(sql);
+			rs = pstm.executeQuery();
+			
+			ArrayList<Venta> ventas = new ArrayList<Venta>();
+			Venta ven = null;
+			
+			while(rs.next())
+			{
+				ven = new Venta();
+				ven.setIdVenta(rs.getInt("idVenta"));
+				
+				Usuario usu = new Usuario();
+				usu.setIdUsuario(rs.getInt("idUsuario"));
+				
+				ven.setUsuario(usuData.GetOne(usu));
+				ven.setImporte(rs.getDouble("importe"));
+				ven.setDetallesVentas(detData.GetByVenta(new DetalleVenta(ven.getIdVenta())));
+				ven.setFecha(rs.getDate("fechaVenta"));
+				ven.setEntrega(entData.GetByVenta(ven));
+				
+				if(ven.getEntrega() != null) {
+					ventas.add(ven);
+				}
+			}
+			return ventas;
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(rs != null) rs.close();
+				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
 }

@@ -31,10 +31,11 @@
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                         <li role="presentation"><a href="ListaVenta">Lista de ventas</a></li>
+                        <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-md-offset-1" style="margin:0px 0px 0px 0px;">
+                <div class="col-md-7 col-md-offset-1" style="margin:0px 0px 0px 0px; width:75%;">
                     <h1>Ultimas ventas</h1>
                     <table class="table table-responsive table-hover">
                         <thead>

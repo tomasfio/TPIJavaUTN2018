@@ -23,6 +23,10 @@ EntregaData entData;
 		return venData.GetAll();
 	}
 	
+	public ArrayList<Venta> GetVentaWithEntregas(){
+		return venData.GetVentaWithEntregas();
+	}
+	
 	public boolean RegistrarVenta(Venta venta) {
 		if(venta.getEntrega() != null && venta.getEntrega().getDireccion().isEmpty()) {
 			return false;
@@ -40,7 +44,7 @@ EntregaData entData;
 			}
 			
 			if(venta.getEntrega() != null) {
-				venta.getEntrega().setIdVenta(venta);
+				venta.getEntrega().setVenta(venta);
 				entData.Insert(venta.getEntrega());
 			}
 			
@@ -82,6 +86,31 @@ EntregaData entData;
 		}
 		mensaje += "\n\n\nMuchas gracias por su compra,\nSaludos.";
 		return mensaje;
+	}
+	
+	public boolean RegistrarEntregas(ArrayList<Venta> entregas) {
+		boolean resultado = true;
+		for(Venta ent : entregas) {
+			if(!entData.Update(ent.getEntrega())) {
+				resultado = false;
+			}
+			else {
+				try {
+					Email email = Email.getInstance();
+					email.send(ent.getUsuario().getEmail(), "Venta Nro." + ent.getIdVenta() + " Envio a domicilio",
+							"Estimado Usuario/a " + ent.getUsuario().getNombre() + " " + ent.getUsuario().getApellido() + "\n" +
+							"Le confirmamos la entrega de compra con el envio a la direccion " + ent.getEntrega().getDireccion() + ".\n" +
+							"Si llega a haber un error con su pedido les pedimos que se contacte con nosotros atraves de la pagina.\n\n\n" +
+							"Muchas gracias por su compra,\nSaludos.");
+				}
+				catch(Exception ex) {
+					
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		return resultado;
 	}
 	
 	public static String repeat(String s, int times) {

@@ -12,7 +12,7 @@ public class Entrega {
 	public Venta getVenta() {
 		return Venta;
 	}
-	public void setIdVenta(Venta Venta) {
+	public void setVenta(Venta Venta) {
 		this.Venta = Venta;
 	}
 	public String getDireccion() {
