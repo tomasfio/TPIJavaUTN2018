@@ -35,30 +35,40 @@ public class RegistrarVenta extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			if(request.getSession().getAttribute("carritoCompra") != null) {
-				Venta venta = (Venta)request.getSession().getAttribute("carritoCompra");
-				
-				venta.setUsuario((Usuario)request.getSession().getAttribute("user"));
-				
-				if(Boolean.parseBoolean(request.getParameter("envio"))) {
-					Entrega envio = new Entrega();
-					envio.setEstado("Recibido");
-					envio.setDireccion(request.getParameter("direccion"));
-					venta.setEntrega(envio);
+			if(request.getParameter("btnRegistrar") != null) {
+				if(request.getSession().getAttribute("carritoCompra") != null) {
+					Venta venta = (Venta)request.getSession().getAttribute("carritoCompra");
 					
+					venta.setUsuario((Usuario)request.getSession().getAttribute("user"));
 					
-				}else
-				{
-					venta.setEntrega(null);
-				}
-				VentaLogic vl = new VentaLogic();
-				if(!vl.RegistrarVenta(venta)) {
-					request.getRequestDispatcher("CarritoCompra").forward(request, response);
+					if(Boolean.parseBoolean(request.getParameter("envio"))) {
+						Entrega envio = new Entrega();
+						envio.setEstado("Recibido");
+						envio.setDireccion(request.getParameter("direccion"));
+						venta.setEntrega(envio);
+						
+						
+					}else
+					{
+						venta.setEntrega(null);
+					}
+					VentaLogic vl = new VentaLogic();
+					if(!vl.RegistrarVenta(venta)) {
+						request.getRequestDispatcher("CarritoCompra").forward(request, response);
+					}
+					else {
+						request.getSession().setAttribute("carritoCompra",null);
+						request.getRequestDispatcher("Index").forward(request, response);				
+					}
 				}
 				else {
-					request.getSession().setAttribute("carritoCompra",null);
-					request.getRequestDispatcher("Index").forward(request, response);				
+					request.getRequestDispatcher("CarritoCompra").forward(request, response);	
+					
 				}
+			}
+			else if(request.getParameter("btnDelete") != null) {
+				request.getSession().setAttribute("carritoCompra", null);
+				request.getRequestDispatcher("CarritoCompra").forward(request, response);	
 			}
 		}
 	}

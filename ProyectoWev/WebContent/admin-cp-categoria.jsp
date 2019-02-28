@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-		<style type="text/css">
-	    	<%@include file="css/styles-css/cp-styles.css"%>
-	    	<%@include file="css/bootstrap.min.css"%>
-	    	<%@include file="css/shop-homepage.css"%>
-	    	<%@include file="../../css/pagination.css"%>
-    	</style>
-
+	<style type="text/css">
+    	<%@include file="css/styles-css/cp-styles.css"%>
+    	<%@include file="css/shop-homepage.css"%>
+    	<%@include file="../../css/pagination.css"%>
+   	</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -40,6 +41,32 @@
 
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Listado de categorias</h1>
+                    <%
+	                	if(request.getAttribute("altaCategoria") != null)
+	                	{
+	                		%>
+	                		<p>Se ha dado de alta la categoria</p>
+	                		<%
+	               		} 
+	                    if(request.getAttribute("bajaCategoria") != null)
+	                	{
+	                		%>
+	                		<p>Se ha dado de baja la categoria</p>
+	                		<%
+	               		} 
+	                    if(request.getAttribute("modifCategoria") != null)
+	                	{
+	                		%>
+	                		<p>Se ha dado de modificado la categoria</p>
+	                		<%
+	               		} 
+	                	if(request.getAttribute("error") != null)
+	                	{
+	                		%>
+	                		<p><%=request.getAttribute("error") %></p>
+	                		<%
+	               		} 
+              			%>
 					<hr>
                      <form class="form-inline" action="CategoriaABM" method="get">
                           <div class="form-group">

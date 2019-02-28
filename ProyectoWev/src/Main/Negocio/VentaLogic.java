@@ -6,6 +6,7 @@ import java.util.Date;
 import Main.Datos.*;
 import Main.Entidades.*;
 import Main.Util.Email;
+import Main.Util.Funciones;
 import Main.Util.LogException;
 
 public class VentaLogic {
@@ -70,11 +71,11 @@ EntregaData entData;
 		mensaje +="\nla misma tiene como identificacion el id " + ven.getIdVenta();
 		mensaje +="\nEl importe total de su compra es igual a " + ven.getImporte();
 		mensaje +="\n\nLos detalles de su compra : ";
-		mensaje +="\nLibro" + repeat(" ",65) +"Cantidad" + repeat(" ",62) + "Precio p/u" + repeat(" ",60) + "Subtotal";
+		mensaje +="\nLibro" + Funciones.repeat(" ",65) +"Cantidad" + Funciones.repeat(" ",62) + "Precio p/u" + Funciones.repeat(" ",60) + "Subtotal";
 		for(DetalleVenta det : ven.getDetallesVentas()) {
-			mensaje +="\n" + det.getLibro().getTitulo() + repeat(" ",70 - det.getLibro().getTitulo().length()) +
-		det.getCantidad() + repeat(" ",70 - Integer.toString(det.getCantidad()).length()) + 
-		(det.getSubTotal()/det.getCantidad()) + repeat(" ",70 - Double.toString((det.getSubTotal()/det.getCantidad())).length()) +
+			mensaje +="\n" + det.getLibro().getTitulo() + Funciones.repeat(" ",70 - det.getLibro().getTitulo().length()) +
+		det.getCantidad() + Funciones.repeat(" ",70 - Integer.toString(det.getCantidad()).length()) + 
+		(det.getSubTotal()/det.getCantidad()) + Funciones.repeat(" ",70 - Double.toString((det.getSubTotal()/det.getCantidad())).length()) +
 		det.getSubTotal();
 		}
 		if(ven.getEntrega() != null) {
@@ -113,9 +114,6 @@ EntregaData entData;
 		return resultado;
 	}
 	
-	public static String repeat(String s, int times) {
-	    if (times <= 0) return "";
-	    else return s + repeat(s, times-1);
-	}
+	
 	
 }

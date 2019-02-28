@@ -60,13 +60,6 @@ public class Email {
 	}
 	
 	public void send(String para,String asunto,String mensaje) {
-		/*Session session = Session.getInstance(props,
-				new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.clave"));
-			}
-		});*/
-		
 		Session session = Session.getDefaultInstance(props);
 		
 		try {

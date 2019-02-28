@@ -4,8 +4,10 @@
     <!-- Autor: Tomás
          Ultima modificacion: 11/09/2018 -->
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style type="text/css">
-    	<%@include file="css/bootstrap.min.css"%>
     	<%@include file="css/styles-css/custom-register.css"%>
     </style>
     <title>Libreria - Registrarse</title>
@@ -49,19 +51,21 @@
                   <label for="psw">Contraseña</label>
                   <input type="password" class="form-control" id="psw" name="psw" placeholder="*********" required>
               </div>
-              
-              <div class="form-group">
-              	 <label for ="psw">Repetir Contraseña</label>
-              	 <input type="password" class="form-control" id="repsw" name="repsw" placeholder="*********" required>
-              </div>
 
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-log-in"></span> Registrarse</button>
             </form>
+            <%
+                	if(request.getAttribute("error") != null){
+                		%>
+                		<p><%=request.getAttribute("error") %></p>
+                		<%
+                		}
+               		%>
         </div>
 
         <!-- Pie -->
         <div class="container-footer">
-            <a href="index.jsp" class="btn btn-danger btn-default pull-left">
+            <a href="Index" class="btn btn-danger btn-default pull-left">
             <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
             <p>¿Ya tienes cuenta? <a href="login.jsp">Ingresar</a></p>
         </div>

@@ -7,6 +7,27 @@ import java.util.*;
 public class CategoriaLogic {
 	CategoriaData catData;
 	
+	public boolean Validar(Categoria cat) {
+		if(cat.getNombre().isEmpty() || cat.getDescipcion().isEmpty()) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean ValidarDelete(Categoria cat) {
+		LibroData libData = new LibroData();
+		Libro lib = new Libro();
+		lib.setCategoria(cat);
+		if(libData.GetByCategoria(lib).size() != 0)
+		{
+			return false;			
+		}
+
+		return true;
+	}
+	
 	public CategoriaLogic()
 	{
 		catData = new CategoriaData();
@@ -17,7 +38,7 @@ public class CategoriaLogic {
 		return catData.GetAll();
 	}
 	
-	public Categoria Insert(Categoria cat)
+	public boolean Insert(Categoria cat)
 	{
 		return catData.Insert(cat);
 	}

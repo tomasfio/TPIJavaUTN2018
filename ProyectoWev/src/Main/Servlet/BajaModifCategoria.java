@@ -43,13 +43,25 @@ public class BajaModifCategoria extends HttpServlet {
 				cat.setDescripcion(request.getParameter("descripcion_modificar"));
 				
 				CategoriaLogic cl = new CategoriaLogic();
-				if(cl.Update(cat)) {
-					request.setAttribute("modifCategoria", true);
-					request.getRequestDispatcher("ListaCategorias").forward(request, response);
+				if(cl.Validar(cat)) {
+					if(cl.Update(cat)) {
+						request.setAttribute("modifCategoria", true);
+						request.getRequestDispatcher("ListaCategorias").forward(request, response);
+					}
+					else
+					{
+						request.setAttribute("categoria", cl.GetOne(cat));
+						request.setAttribute("error", "Hubo un problema y no se pudo modificar la categoria");
+						request.setAttribute("accion", "update");
+						request.getRequestDispatcher("admin-baja-modif-categoria.jsp").forward(request, response);
+					}
 				}
 				else
 				{
-					request.setAttribute("modifCategoria", false);
+					request.setAttribute("categoria", cl.GetOne(cat));
+					request.setAttribute("error", "Hay datos incompletos");
+					request.setAttribute("accion", "update");
+					request.getRequestDispatcher("admin-baja-modif-categoria.jsp").forward(request, response);
 				}
 			}
 			else if(request.getParameter("btnDelete") !=null)
@@ -58,14 +70,22 @@ public class BajaModifCategoria extends HttpServlet {
 				cat.setIdCategoria(Integer.parseInt(request.getParameter("id_baja")));
 				
 				CategoriaLogic cl = new CategoriaLogic();
-				if(cl.Detele(cat))
-				{
-					request.setAttribute("bajaCategoria", true);
-					request.getRequestDispatcher("ListaCategorias").forward(request, response);
+				if(cl.ValidarDelete(cat)) {
+					if(cl.Detele(cat))
+					{
+						request.setAttribute("bajaCategoria", true);
+						request.getRequestDispatcher("ListaCategorias").forward(request, response);
+					}
+					else
+					{
+						request.setAttribute("categoria", cl.GetOne(cat));
+						request.setAttribute("error", "Hubo un problema y no se pudo dar de baja la categoria");
+						request.setAttribute("accion", "delete");
+						request.getRequestDispatcher("admin-baja-modif-categoria.jsp").forward(request, response);
+					}
 				}
-				else
-				{
-					request.setAttribute("bajaCategoria", false);
+				else {
+					request.setAttribute("error", "No se puede eliminar la categoria porque tiene registros asociados a el");
 					request.getRequestDispatcher("ListaCategorias").forward(request, response);
 				}
 			}

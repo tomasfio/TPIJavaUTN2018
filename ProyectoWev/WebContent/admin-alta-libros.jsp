@@ -4,8 +4,10 @@
 <html lang="es">
 <head>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
    	<style type="text/css">
-    	<%@include file="css/bootstrap.min.css"%>
     	<%@include file="css/styles-css/cp-styles.css"%>
     	<%@include file="css/shop-homepage.css"%>
     </style>
@@ -37,6 +39,14 @@
 
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Alta de un nuevo libro</h1> <hr>
+                    <%
+	                	if(request.getAttribute("error") != null)
+	                	{
+	                		%>
+	                		<p><%=request.getAttribute("error") %></p>
+	                		<%
+	               		} 
+               		%>
 
                     <form class="form-group" action="AltaLibro" enctype="multipart/form-data" method="get">
                     	<div class="form-group">
@@ -46,13 +56,13 @@
                             <input type="text" class="form-control" name="titulo" placeholder="Titulo del libro..." required>
                         </div>
                         <div class="form-group">
-                        	<input type="text" class="form-control" name="descripcion" placeholder="Descripcion del libro... " required>
+                        	<textarea cols="88" rows="5" name="descripcion_modificar" class="from-control"  placeholder="Descripcion del libro... " required></textarea>
                         </div>
                         <div class="form-group">
                         	<input type="text" class="form-control" name="autor" placeholder="Autor del libro..." required>
                         </div>
                         <div class="form-group">
-                        	<input type="date" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
+                        	<input type="text" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
                         </div>
                         <div class="form-group">
                         	<input type="text" class="form-control" name="edicion" placeholder="Edicion del libro..." required>
@@ -70,14 +80,11 @@
                              <%	
                              	}
                 			  }
-                           	  else{
-                           		  request.getRequestDispatcher("FormAltaLibro").forward(request,response);
-                           	  }
                 			 %>
                             </select>
                         </div>
                         <div class="form-group">
-                        	<input type="file" name="imagen" />
+                        	<input type="file" class="form-control" name="imagen" />
                         </div>
                         <div class="form-group">
                             <button type="reset" value="Reset" class="btn btn-default" >Limpiar</button>

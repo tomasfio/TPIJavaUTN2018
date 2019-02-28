@@ -6,10 +6,12 @@
 	<head>
 		<style type="text/css">
 		    	<%@include file="css/styles-css/custom-index.css" %>
-		    	<%@include file="css/bootstrap.min.css"%>
 		    	<%@include file="css/shop-homepage.css"%>
 		    	<%@include file="css/edit-style.css"%>
 	    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
     <body>
 

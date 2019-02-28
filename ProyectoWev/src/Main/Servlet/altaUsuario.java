@@ -57,13 +57,27 @@ public class altaUsuario extends HttpServlet {
 			UsuarioLogic ul = new UsuarioLogic();
 			if(ul.GetByUserName(usu))
 			{
-				ul.Insert(usu);
-				//Mensaje que se registro el usuario correctamente'
+				if(ul.Validar(usu)) {
+					if(ul.Insert(usu)){
+						request.setAttribute("exito", "El nombre de usuario elegido ya fue usado");
+						request.getRequestDispatcher("ListaUsuario").forward(request, response);
+					}
+					else {
+						request.setAttribute("error", "Hubo un problema y no se pudo registrar en la base de datos.");
+						request.getRequestDispatcher("admin-alta-user.jsp").forward(request, response);
+					}
+				}
+				else {
+				}
+				request.setAttribute("error", "Tiene que completar todos los campos para el registro\nLa contraseña debe tener 8 caracteres como minimo.");
+				request.getRequestDispatcher("admin-alta-user.jsp").forward(request, response);
 			}
 			else
 			{
-				//Mensaje de nombre de usuario ya registrado
+				request.setAttribute("error", "El nombre de usuario elegido ya fue usado");
+				request.getRequestDispatcher("admin-alta-user.jsp").forward(request, response);
 			}
+			
 		}
 	}
 

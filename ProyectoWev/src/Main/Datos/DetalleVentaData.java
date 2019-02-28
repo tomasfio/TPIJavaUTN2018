@@ -108,6 +108,60 @@ public class DetalleVentaData {
 		}
 	}
 	
+	public ArrayList<DetalleVenta> GetByLibro(DetalleVenta deta)
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		LibroData libData = new LibroData();
+		VentaData venData = new VentaData();
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT * FROM DetallesVentas WHERE isbn = ? ";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1,deta.getLibro().getISBN());
+			rs = pstm.executeQuery();
+			
+			DetalleVenta det = null;
+			ArrayList<DetalleVenta> detalles = new ArrayList<DetalleVenta>();
+			
+			while(rs.next())
+			{
+				det = new DetalleVenta();
+				det.setFechaVenta(rs.getDate("fechaVenta"));
+				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
+				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
+				det.setCantidad(rs.getInt("cantidad"));
+				det.setSubTotal(rs.getDouble("subtotal"));
+				
+				detalles.add(det);
+			}
+			return detalles;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
 	public Integer[][] GetCantidadVendida()
 	{
 		Connection con = null;

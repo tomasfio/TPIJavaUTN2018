@@ -42,14 +42,24 @@ public class BajaModifUsuario extends HttpServlet {
 				usu.setIdUsuario(Integer.parseInt(request.getParameter("id_baja")));
 				
 				UsuarioLogic ul = new UsuarioLogic();
-				if(ul.Delete(usu))
-				{
-					request.setAttribute("bajaUsuario", true);
-					request.getRequestDispatcher("ListaUsuario").forward(request, response);
+				if(ul.ValidarDelete(usu)) {
+					if(ul.Delete(usu))
+					{
+						request.setAttribute("bajaUsuario", true);
+						request.getRequestDispatcher("ListaUsuario").forward(request, response);
+					}
+					else
+					{
+						Usuario usuario = ul.GetOne(usu);
+						request.setAttribute("usuario", usuario);
+						request.setAttribute("accion", "delete");
+						request.setAttribute("error", "Hubo un error y no se pudo dar de baja el usuario");
+						request.getRequestDispatcher("admin-baja-modif-user.jsp").forward(request, response);
+					}
 				}
-				else
-				{
-					request.setAttribute("bajaUsuario", false);
+				else {
+					request.setAttribute("error", "No se puede borrar el usuario porque tiene registros asociados");
+					request.getRequestDispatcher("ListaUsuario").forward(request, response);
 				}
 			}
 			else if(request.getParameter("btnUpdate") != null) {
@@ -61,12 +71,25 @@ public class BajaModifUsuario extends HttpServlet {
 				usu.setUsuario(request.getParameter("usuario_modificar"));
 				
 				UsuarioLogic ul = new UsuarioLogic();
-				if(ul.Update(usu)) {
-					request.setAttribute("modificarUsuario", true);
-					request.getRequestDispatcher("ListaUsuario").forward(request, response);
+				if(ul.ValidarUpdate(usu)) {
+					if(ul.Update(usu)) {
+						request.setAttribute("modificarUsuario", true);
+						request.getRequestDispatcher("ListaUsuario").forward(request, response);
+					}
+					else {
+						Usuario usuario = ul.GetOne(usu);
+						request.setAttribute("usuario", usuario);
+						request.setAttribute("accion", "update");
+						request.setAttribute("error", "Hubo un error y no se pudo dar de modificar el usuario el usuario");
+						request.getRequestDispatcher("admin-baja-modif-user.jsp").forward(request, response);
+					}
 				}
 				else {
-					request.setAttribute("modificarUsuario", false);
+					Usuario usuario = ul.GetOne(usu);
+					request.setAttribute("usuario", usuario);
+					request.setAttribute("accion", "update");
+					request.setAttribute("error", "Hay campos con datos incompletos y/o incorrectos");
+					request.getRequestDispatcher("admin-baja-modif-user.jsp").forward(request, response);
 				}
 			}
 		}

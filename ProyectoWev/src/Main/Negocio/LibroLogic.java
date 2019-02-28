@@ -1,6 +1,7 @@
 package Main.Negocio;
 
 import Main.Entidades.Comentario;
+import Main.Entidades.DetalleVenta;
 import Main.Entidades.Libro;
 import Main.Datos.ComentarioData;
 import Main.Datos.DetalleVentaData;
@@ -10,6 +11,26 @@ import java.util.ArrayList;
 public class LibroLogic {
 	LibroData libData;
 	DetalleVentaData detData;
+	
+	public boolean Validar(Libro lib) {
+		
+		if(lib.getTitulo().isEmpty() || lib.getDescripcion().isEmpty() ||
+				lib.getAutor().isEmpty() || lib.getFecha().toString().isEmpty() ||
+				lib.getEdicion().isEmpty() || lib.getPrecio() < 0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean ValidarDelete(Libro lib) {
+		DetalleVenta detLibro = new DetalleVenta();
+		detLibro.setLibro(lib);
+		if(detData.GetByLibro(detLibro).size() != 0)
+			return false;
+		else
+			return true;
+	}
 	
 	public LibroLogic(){
 		libData = new LibroData();

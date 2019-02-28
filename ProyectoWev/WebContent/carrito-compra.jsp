@@ -6,10 +6,12 @@
 	<head>
 		<style type="text/css">
 		    	<%@include file="css/styles-css/custom-index.css" %>
-		    	<%@include file="css/bootstrap.min.css"%>
 		    	<%@include file="css/shop-homepage.css"%>
 		    	<%@include file="css/edit-style.css"%>
 	    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	    
 	    <script type="text/javascript">
 	    	function cambioCheckBox(){
@@ -153,7 +155,10 @@
                         	<form action="RegistrarVenta" method="get" class="form-inline" enctype="multipart/form-data">
                        			<input class="form-control" type="checkbox" id="envio" name="envio" value="true" onClick="cambioCheckBox()"/>Envio a domicilio<br>
                        			<input class="form-control" type="hidden" name="direccion" id="direccion" placeholder="direccion"/><br><br>
-                       			<button class="form-control" type="submit">Registrar venta</button>
+                       			<button class="btn btn-warning" type="submit" name="btnRegistrar" value="registrar">Registrar venta</button>
+                      			<div class="form-group pull-right">
+                            		 <button type="submit" class="btn btn-danger" name="btnDelete" value="delete">Vaciar carrito</button>
+                       	 		</div>
                         	</form>
                     </div>
                 </div>

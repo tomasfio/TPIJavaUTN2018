@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Vector;
 import java.util.ArrayList;
 import Main.Entidades.*;
+import Main.Util.Rows;
+
 import java.sql.*;
 
 public class UsuarioData {
@@ -259,7 +261,7 @@ public class UsuarioData {
 		try
 		{
 			con = Base.getConnection();
-			String sql = "SELECT * FROM Usuarios WHERE nombre = ?";
+			String sql = "SELECT * FROM Usuarios WHERE usuario = ?";
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, usu.getUsuario());
 			rs = pstm.executeQuery();
@@ -388,6 +390,45 @@ public class UsuarioData {
 			{
 				if(rs != null) rs.close();
 				if(pstm != null) pstm.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
+	public int GetVentaByUsu(Usuario usu)
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT * FROM Ventas WHERE idUsuario = ? ";
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1,usu.getIdUsuario());
+			rs = pstm.executeQuery();
+			Rows rows = new Rows();
+			
+			return rows.GetRowCount(rs);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
 			}
 			catch(Exception ex)
 			{

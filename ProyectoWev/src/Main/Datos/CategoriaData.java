@@ -100,7 +100,7 @@ public class CategoriaData {
 		}
 	}
 	
-	public Categoria Insert(Categoria cat)
+	public boolean Insert(Categoria cat)
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -116,9 +116,9 @@ public class CategoriaData {
 			pstm.setString(2, cat.getDescipcion());
 			int resultado = pstm.executeUpdate();
 			if(resultado == 1)
-				return cat;
+				return true;
 			else
-				return null;
+				return false;
 		}
 		catch(Exception ex)
 		{

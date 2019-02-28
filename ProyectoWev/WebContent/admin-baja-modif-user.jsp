@@ -5,11 +5,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-		<style type="text/css">
-	    	<%@include file="css/styles-css/cp-styles.css"%>
-	    	<%@include file="css/bootstrap.min.css"%>
-	    	<%@include file="css/shop-homepage.css"%>
-	    </style>
+	<style type="text/css">
+    	<%@include file="css/styles-css/cp-styles.css"%>
+    	<%@include file="css/shop-homepage.css"%>
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     </head>
 
@@ -26,7 +28,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <p class="lead">Bienvenido <%//Usuario%></p>
+                    <p class="lead">Bienvenido</p>
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation"><a href="ListaCategorias">Listado de Categorias</a>
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
@@ -48,7 +50,15 @@
                     		if(request.getAttribute("accion") == "update")
                     		{
                      %>
-                        <h1>Modificación de usuario</h1>
+                        <h1>Modificacion de usuario</h1>
+                        	<%
+			                	if(request.getAttribute("error") != null)
+			                	{
+			                		%>
+			                		<p><%=request.getAttribute("error") %></p>
+			                		<%
+			               		} 
+		               		%>
                         <hr>
                             <div class="form-group">
                                 <label for="id">ID seleccionado:</label>

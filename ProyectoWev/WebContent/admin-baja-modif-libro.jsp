@@ -4,11 +4,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-		<style type="text/css">
-	    	<%@include file="css/styles-css/cp-styles.css"%>
-	    	<%@include file="css/bootstrap.min.css"%>
-	    	<%@include file="css/shop-homepage.css"%>
-	    </style>
+	<style type="text/css">
+    	<%@include file="css/styles-css/cp-styles.css"%>
+    	<%@include file="css/shop-homepage.css"%>
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     </head>
 
@@ -48,6 +50,14 @@
                     		{
                      %>
                         <h1>Modificacion de categoria</h1>
+                        <%
+		                	if(request.getAttribute("error") != null)
+		                	{
+		                		%>
+		                		<p><%=request.getAttribute("error") %></p>
+		                		<%
+		               		} 
+	               		%>
                         <hr>
                             <div class="form-group">
                                 <label for="isbn">ISBN seleccionado:</label>
@@ -59,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripcion:</label>
-                                <input type="text" class="form-control" name="descripcion_modificar" value="<%=lib.getDescripcion() %>" required>
+                                <textarea cols="88" rows="5" name="descripcion_modificar" class="from-control" value="" required><%=lib.getDescripcion() %></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="autor">Autor:</label>
@@ -93,7 +103,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripcion:</label>
-                                <input type="text" class="form-control" name="descripcion_baja" value="<%=lib.getDescripcion() %>" readonly="readonly">
+                                <textarea cols="88" rows="5" name="descripcion_baja" class="from-control" readonly="readonly"><%=lib.getDescripcion() %></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="autor">Autor:</label>

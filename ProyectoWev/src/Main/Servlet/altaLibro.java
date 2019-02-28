@@ -50,24 +50,34 @@ public class altaLibro extends HttpServlet {
 				libro.setImagen(request.getParameter("imagen"));
 				
 				LibroLogic ll = new LibroLogic();
-				if(ll.Insert(libro))
-				{
-					request.setAttribute("registroLibro", true);
+				if(ll.Validar(libro)) {
+					if(ll.Insert(libro))
+					{
+						request.setAttribute("registroLibro", true);
+					}
+					else
+					{
+						request.setAttribute("registroLibro", false);
+					}
+					request.getRequestDispatcher("ListaLibros").forward(request, response);
 				}
-				else
-				{
-					request.setAttribute("registroLibro", false);
+				else {
+					CategoriaLogic cl1 = new CategoriaLogic();
+					request.setAttribute("error", "Hay campos incompletos y/o invalidos");
+					request.setAttribute("ListaCategoria", cl1.GetAll());
+					request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
 				}
-				
-				request.getRequestDispatcher("ListaLibros").forward(request, response);
 			}
-			/*catch (ParseException e){
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}*/
-			catch(Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException();
+			catch (ParseException e ) {
+				CategoriaLogic cl = new CategoriaLogic();
+				request.setAttribute("error", "El ISBN,la fecha ingresada y/o el precio ingresado tiene format invalido");
+				request.setAttribute("ListaCategoria", cl.GetAll());
+				request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
+			}catch(NumberFormatException e) {
+				CategoriaLogic cl = new CategoriaLogic();
+				request.setAttribute("error", "El ISBN,la fecha ingresada y/o el precio ingresado tiene format invalido");
+				request.setAttribute("ListaCategoria", cl.GetAll());
+				request.getRequestDispatcher("admin-alta-libros.jsp").forward(request, response);
 			}
 		}
 	}

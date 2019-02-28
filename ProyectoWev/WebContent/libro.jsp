@@ -6,10 +6,12 @@
 	<head>
 		<style type="text/css">
 		    	<%@include file="css/styles-css/custom-index.css" %>
-		    	<%@include file="css/bootstrap.min.css"%>
 		    	<%@include file="css/shop-homepage.css"%>
 		    	<%@include file="css/edit-style.css"%>
 	    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
     <body>
     
@@ -42,14 +44,14 @@
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
                     			<li><a href="#?user=<%=usu.getUsuario() %>"><span class="glyphicon glyphicon-shopping-cart"></span> Ver entregas</a></li>
-								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
 							<%
 						}
 						else
 						{
 							%>
 								<li><a href="registro-login.jsp">Registrarse</a></li>
-	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
+	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
 							<%
 						}
 					%>

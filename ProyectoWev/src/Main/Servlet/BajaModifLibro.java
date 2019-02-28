@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Main.Entidades.Libro;
 import Main.Entidades.Usuario;
 import Main.Negocio.LibroLogic;
 import Main.Util.Autentificacion;
@@ -41,45 +42,79 @@ public class BajaModifLibro extends HttpServlet {
 		}
 		else {
 			if(request.getParameter("btnUpdate") != null) {
-				Main.Entidades.Libro lib = new Main.Entidades.Libro();
-				lib.setISBN(Integer.parseInt(request.getParameter("isbn_modificar")));
-				lib.setTitulo(request.getParameter("titulo_modificar"));
-				lib.setDescripcion(request.getParameter("descripcion_modificar"));
-				lib.setAutor(request.getParameter("autor_modificar"));
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 				try {
+					Main.Entidades.Libro lib = new Main.Entidades.Libro();
+					lib.setISBN(Integer.parseInt(request.getParameter("isbn_modificar")));
+					lib.setTitulo(request.getParameter("titulo_modificar"));
+					lib.setDescripcion(request.getParameter("descripcion_modificar"));
+					lib.setAutor(request.getParameter("autor_modificar"));
+					SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 					lib.setFecha(dateFormat.parse(request.getParameter("fecha_modificar")));
-				} catch (ParseException e) {
-					request.setAttribute("errorDatos", "La fecha ingresada tiene format invalido");
-					request.setAttribute("", request.getParameter("isbn_modificar"));
-					request.setAttribute("btnUpdate", true);
-					request.getRequestDispatcher("LibroABM").forward(request, response);
+					 
+					lib.setEdicion(request.getParameter("edicion_modificar"));
+					lib.setPrecio(Double.parseDouble(request.getParameter("precio_modificar")));
+					
+					
+					LibroLogic ll = new LibroLogic();
+					if(ll.Validar(lib)) {
+						if(ll.Update(lib)) {
+							request.setAttribute("modifLibro", true);
+							request.getRequestDispatcher("ListaLibros").forward(request, response);
+						}
+						else {
+							Libro libro = ll.GetOne(lib);
+							request.setAttribute("libro", libro);
+							request.setAttribute("accion", "update");
+							request.setAttribute("error", "Hubo un error y no se pudo modificar el libro");
+							request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
+						}
+					}
+					else {
+						Libro libro = ll.GetOne(lib);
+						request.setAttribute("libro", libro);
+						request.setAttribute("accion", "update");
+						request.setAttribute("error", "Hay campos con datos incompletos y/o incorrectos");
+						request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
+					}
 				}
-				lib.setEdicion(request.getParameter("edicion_modificar"));
-				lib.setPrecio(Double.parseDouble(request.getParameter("precio_modificar")));
+				catch (ParseException e ) {
+					LibroLogic ll = new LibroLogic();
+					request.setAttribute("error", "La fecha ingresada y/o el precio ingresado tiene format invalido");
+					request.setAttribute("libro", ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn_modificar")))));
+					request.setAttribute("accion", "update");
+					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
+				}catch(NumberFormatException e) {
+					LibroLogic ll = new LibroLogic();
+					request.setAttribute("error", "La fecha ingresada y/o el precio ingresado tiene format invalido");
+					request.setAttribute("libro", ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn_modificar")))));
+					request.setAttribute("accion", "update");
+					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
+				}
 				
-				LibroLogic ll = new LibroLogic();
-				if(ll.Update(lib)) {
-					request.setAttribute("modifLibro", true);
-					request.getRequestDispatcher("ListaLibros").forward(request, response);
-				}
-				else {
-					request.setAttribute("modifLibro", false);
-				}
 			}
 			else if(request.getParameter("btnDelete") != null) {
-				Main.Entidades.Libro lib = new Main.Entidades.Libro();
+				Libro lib = new Libro();
 				lib.setISBN(Integer.parseInt(request.getParameter("isbn_baja")));
 				
 				LibroLogic ll = new LibroLogic();
-				if(ll.Delete(lib)) {
-					request.setAttribute("bajaLibro", true);
+				if(ll.ValidarDelete(lib)) {
+					if(ll.Delete(lib)) {
+						request.setAttribute("bajaLibro", true);
+						request.getRequestDispatcher("ListaLibros").forward(request, response);
+					}
+					else {
+						Libro libro = ll.GetOne(lib);
+						request.setAttribute("libro", libro);
+						request.setAttribute("accion", "delete");
+						request.setAttribute("error", "Hubo un error y no se pudo dar de baja el libro");
+						request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
+					}
 				}
 				else {
-					request.setAttribute("bajaLibro", false);
+					request.setAttribute("error", "No puedes eliminar el libro porque tiene registro asociados a el");
+					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
 				}
 				
-				request.getRequestDispatcher("ListaLibros").forward(request, response);
 			}
 		}
 	}

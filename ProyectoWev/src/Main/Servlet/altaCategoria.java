@@ -51,10 +51,21 @@ public class altaCategoria extends HttpServlet {
 			cat.setDescripcion(request.getParameter("descripcion"));
 			
 			CategoriaLogic cl = new CategoriaLogic();
-			
-			cat = cl.Insert(cat);
-			
-			request.getRequestDispatcher("ListaCategorias").forward(request, response);
+			if(cl.Validar(cat))
+			{
+				if(cl.Insert(cat)) {
+					request.setAttribute("altaCategoria", true);
+					request.getRequestDispatcher("ListaCategorias").forward(request, response);
+				}
+				else {
+					request.setAttribute("error", "Hubo un problema y no se pudo dar de alta la categoria");
+					request.getRequestDispatcher("admin-alta-categoria.jsp").forward(request, response);
+				}
+			}
+			else {
+				request.setAttribute("error", "Hay datos incompletos");
+				request.getRequestDispatcher("admin-alta-categoria.jsp").forward(request, response);
+			}
 		}
 	}
 

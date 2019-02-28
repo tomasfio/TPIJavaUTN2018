@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-		<style type="text/css">
-	    	<%@include file="css/styles-css/cp-styles.css"%>
-	    	<%@include file="css/bootstrap.min.css"%>
-	    	<%@include file="css/shop-homepage.css"%>
-	    </style>
 
-    </head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<style type="text/css">
+    	<%@include file="css/styles-css/cp-styles.css"%>
+    	<%@include file="css/shop-homepage.css"%>
+    </style>
+
+   </head>
 
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -32,6 +35,15 @@
                         <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>
+                
+                <%
+                	if(request.getAttribute("error") != null)
+                	{
+                		%>
+                		<p><%=request.getAttribute("error") %></p>
+                		<%
+               		} 
+               		%>
 
                 <div class="col-md-7 col-md-offset-1">
                     <h1>Alta de un nuevo usuario</h1>
