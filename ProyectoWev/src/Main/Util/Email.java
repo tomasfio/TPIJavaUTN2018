@@ -35,9 +35,9 @@ public class Email {
 		return instance;
 	}
 	
-	private Email() throws LogException, FileNotFoundException {
+	private Email() throws FileNotFoundException {
 		try {
-			FileInputStream inputStream = new FileInputStream("C:\\Users\\Tomas\\git\\TPIJavaUTN2018\\ProyectoWev\\Resource\\app.properties");
+			FileInputStream inputStream = new FileInputStream("C:TPIJavaUTN2018\\ProyectoWev\\Resource\\app.properties");
 			
 			props = new Properties();
 			props.load(inputStream);
@@ -50,12 +50,10 @@ public class Email {
 		 	props.put("mail.smtp.password","1234Abcd");
 		}
 		catch(IOException exIO) {
-			LogException log = new LogException(exIO,"Error al buscar archivo proporties para envio de mails",Level.ERROR);
-			throw log;
+			new LogException(exIO,"Error al buscar archivo proporties para envio de mails",Level.ERROR);
 		}
 		catch(Exception ex) {
-			LogException log = new LogException(ex,"Error al instanciar clase Email",Level.ERROR);
-			throw log;
+			new LogException(ex,"Error al instanciar clase Email",Level.ERROR);
 		}
 	}
 	
@@ -75,13 +73,10 @@ public class Email {
 			t.close();
 		}
 		catch(MessagingException exMsg) {
-
-			exMsg.printStackTrace();
-			throw new RuntimeException(exMsg);
+			new LogException(exMsg,"Datos mal configurados en el mail",Level.ERROR);
 		}
 		catch(Exception ex) {
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Error al intertar enviar mails",Level.ERROR);
 		}
 	}
 }

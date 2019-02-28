@@ -1,7 +1,12 @@
 package Main.Datos;
 
 import Main.Entidades.*;
+import Main.Util.LogException;
+
 import java.util.ArrayList;
+
+import org.apache.log4j.Level;
+
 import java.sql.*;
 
 public class CategoriaData {
@@ -35,8 +40,8 @@ public class CategoriaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetAll de categorias",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -47,8 +52,7 @@ public class CategoriaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -82,8 +86,8 @@ public class CategoriaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetOne de categorias",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -94,8 +98,7 @@ public class CategoriaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -122,8 +125,8 @@ public class CategoriaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Insert de categorias",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -133,8 +136,7 @@ public class CategoriaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -166,8 +168,8 @@ public class CategoriaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Delete de categorias",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -177,8 +179,7 @@ public class CategoriaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -212,8 +213,8 @@ public class CategoriaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Update de categorias",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -223,8 +224,7 @@ public class CategoriaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}

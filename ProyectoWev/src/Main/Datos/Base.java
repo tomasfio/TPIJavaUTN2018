@@ -14,7 +14,7 @@ import Main.Util.LogException;
 public class Base {
 	private static Connection con=null;
 	
-	public static Connection getConnection() throws LogException
+	public static Connection getConnection()
 	{
 		try {
 			FileInputStream inputStream = new FileInputStream("C:\\Users\\Tomas\\git\\TPIJavaUTN2018\\ProyectoWev\\Resource\\jdbc.properties");
@@ -37,17 +37,17 @@ public class Base {
 			return con;
 		}
 		catch(IOException exIO) {
-			LogException log = new LogException(exIO,"Error al buscar archivo proporties para conexion a base de datos",Level.FATAL);
-			throw log;
+			new LogException(exIO,"Error al buscar archivo proporties para conexion a base de datos",Level.FATAL);
+			return null;
 		} 
 		catch (ClassNotFoundException | SQLException exSql) {
-			LogException log = new LogException(exSql,"Error al crear la conexion, no se pudo conectar a mysql",Level.FATAL);
-			throw log;
+			new LogException(exSql,"Error al crear la conexion, no se pudo conectar a mysql",Level.FATAL);
+			return null;
         }
 		catch(Exception ex)
 		{
-			LogException log = new LogException(ex,"Error al crear la conexion",Level.FATAL);
-			throw log;
+			new LogException(ex,"Error al crear la conexion",Level.FATAL);
+			return null;
 		}
 	}
 	
@@ -64,8 +64,7 @@ public class Base {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				new LogException(ex,"Fallo cortar la conexion a la base de datos",Level.FATAL); 
 			}
 		}
 	}

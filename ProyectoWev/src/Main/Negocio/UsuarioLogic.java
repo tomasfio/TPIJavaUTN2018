@@ -46,7 +46,7 @@ public class UsuarioLogic {
 		usuData = new UsuarioData();
 	}
 	
-	public Collection<Usuario> GetAll(){
+	public ArrayList<Usuario> GetAll(){
 		return usuData.GetAll();
 	}
 	

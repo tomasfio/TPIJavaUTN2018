@@ -53,9 +53,9 @@ EntregaData entData;
 				Email email = Email.getInstance();
 				email.send(venta.getUsuario().getEmail(), "Venta Nro." + venta.getIdVenta(), CuerpoMensaje(venta));
 			}
+			//Se devuelve true porque aunque fallo el envio, se registro igual la venta
 			catch(Exception ex) {
-				
-				ex.printStackTrace();
+				return true;
 			}
 			
 			return true;

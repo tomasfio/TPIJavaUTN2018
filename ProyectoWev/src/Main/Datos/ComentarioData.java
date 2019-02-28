@@ -1,11 +1,15 @@
 package Main.Datos;
 
 import Main.Entidades.*;
+import Main.Util.LogException;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
+
+import org.apache.log4j.Level;
 
 public class ComentarioData {
 	
@@ -33,10 +37,12 @@ public class ComentarioData {
 				return false;
 		}
 		catch(SQLException ex) {
+			new LogException(ex,"Error en el sql de la consulta",Level.FATAL);
 			return false;
 		}
 		catch(Exception ex)
 		{
+			new LogException(ex,"Fallo el metodo Insert de Comentarios",Level.ERROR);
 			return false;
 		}
 		finally 
@@ -85,10 +91,12 @@ public class ComentarioData {
 			return comentarios;
 		}
 		catch(SQLException ex) {
+			new LogException(ex,"Error en la consulta de GetByLibro de Comentarios",Level.ERROR);
 			return null;
 		}
 		catch(Exception ex)
 		{
+			new LogException(ex,"Fallo el metodo GetByLibro de Comentarios",Level.ERROR);
 			return null;
 		}
 		finally

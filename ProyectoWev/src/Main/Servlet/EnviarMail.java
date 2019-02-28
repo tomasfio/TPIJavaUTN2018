@@ -43,10 +43,9 @@ public class EnviarMail extends HttpServlet {
 			try {
 				email = Email.getInstance();
 				email.send("pruebajava2018@gmail.com", asunto, body);
-			} catch (LogException e) {
+			} catch (Exception e) {
 				request.setAttribute("falloEnvio", true);
 				request.getRequestDispatcher("Contacto").forward(request, response);
-				e.printStackTrace();
 			}
 			request.setAttribute("envioExitoso", true);
 			request.getRequestDispatcher("Contacto").forward(request, response);

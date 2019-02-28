@@ -5,7 +5,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class LogException extends Exception{
-	private Throwable innerException;
 	private String message;
 
 	
@@ -18,7 +17,6 @@ public class LogException extends Exception{
 	}
 	
 	public LogException(Throwable e, String message){
-		this.innerException=e;
 		this.setMessage(message);
 	}
 	
@@ -27,5 +25,5 @@ public class LogException extends Exception{
 		Logger logger = LogManager.getLogger(getClass());
 		logger.log(errorLevel,message);
 	}
-	
 }
+

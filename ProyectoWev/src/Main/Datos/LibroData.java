@@ -1,10 +1,14 @@
 package Main.Datos;
 
 import java.util.ArrayList;
+
+import org.apache.log4j.Level;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
 import Main.Entidades.*;
+import Main.Util.LogException;
 
 public class LibroData {
 	
@@ -39,8 +43,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Insert de Libro",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -50,8 +54,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -79,8 +82,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Delete de Libro",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -90,8 +93,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -125,8 +127,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Update de Libro",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -136,8 +138,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -154,7 +155,7 @@ public class LibroData {
 			String sql = "";
 			sql = "SELECT * FROM libros " +
 				"WHERE titulo LIKE ? OR descripcion LIKE ? " +
-				"OR autor LIKE ? OR edicion LIKE ?";
+				"OR autor LIKE ? OR edicion LIKE ? ORDER BY fecha";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -177,7 +178,7 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
-				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "Error_imagen_no_encontrada.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -189,8 +190,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetLibro de Libro",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -201,8 +202,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -236,7 +236,7 @@ public class LibroData {
 				libro.setFecha(rs.getDate("fecha"));
 				libro.setEdicion(rs.getString("edicion"));
 				libro.setPrecio(rs.getDouble("precio"));
-				libro.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				libro.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "Error_imagen_no_encontrada.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -247,8 +247,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetOne de Libro",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -259,8 +259,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -276,7 +275,7 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM libros";
+			sql = "SELECT * FROM libros ORDER BY fecha";
 			
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
@@ -294,7 +293,7 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
-				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "Error_imagen_no_encontrada.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -307,8 +306,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetAll de Libro",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -319,8 +318,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -353,7 +351,7 @@ public class LibroData {
 				lib.setFecha(rs.getDate("fecha"));
 				lib.setEdicion(rs.getString("edicion"));
 				lib.setPrecio(rs.getDouble("precio"));
-				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "sin_imagen.jpg");
+				lib.setImagen(rs.getString("imagen") != null ? rs.getString("imagen") : "Error_imagen_no_encontrada.jpg");
 				
 				Categoria cat = new Categoria();
 				cat.setIdCategoria(rs.getInt("idCategoria"));
@@ -366,8 +364,8 @@ public class LibroData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetByCategoria de Libro",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -378,8 +376,7 @@ public class LibroData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}

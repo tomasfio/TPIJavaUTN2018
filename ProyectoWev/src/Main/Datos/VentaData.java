@@ -3,10 +3,14 @@ package Main.Datos;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
+
+import org.apache.log4j.Level;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
 import Main.Entidades.*;
+import Main.Util.LogException;
 
 public class VentaData {
 
@@ -44,8 +48,8 @@ public class VentaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Insert de Venta",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -55,8 +59,7 @@ public class VentaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -67,7 +70,6 @@ public class VentaData {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		UsuarioData usuData = new UsuarioData();
-		EntregaData entData = new EntregaData();
 		
 		try
 		{
@@ -95,8 +97,8 @@ public class VentaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetOne de Venta",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -107,8 +109,7 @@ public class VentaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -151,8 +152,8 @@ public class VentaData {
 		}
 		catch(Exception ex) 
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetAll de Venta",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -163,8 +164,7 @@ public class VentaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -211,8 +211,8 @@ public class VentaData {
 		}
 		catch(Exception ex) 
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetVentaWithEntrega de Venta",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -223,8 +223,7 @@ public class VentaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}

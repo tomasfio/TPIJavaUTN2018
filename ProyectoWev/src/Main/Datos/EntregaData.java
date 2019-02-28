@@ -1,8 +1,13 @@
 package Main.Datos;
 
 import Main.Entidades.*;
+import Main.Util.LogException;
+
 import java.util.Collection;
 import java.util.Vector;
+
+import org.apache.log4j.Level;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
@@ -39,8 +44,8 @@ public class EntregaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetAll de Entrega",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -51,8 +56,7 @@ public class EntregaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -88,8 +92,8 @@ public class EntregaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetByVenta de Entrega",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -100,8 +104,7 @@ public class EntregaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -136,8 +139,8 @@ public class EntregaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetOne de Entrega",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -148,8 +151,7 @@ public class EntregaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -177,8 +179,8 @@ public class EntregaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Insert de Entrega",Level.ERROR);
+			return false;
 		}
 		finally 
 		{
@@ -188,8 +190,7 @@ public class EntregaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -218,8 +219,8 @@ public class EntregaData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Update de Entrega",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -229,8 +230,7 @@ public class EntregaData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}

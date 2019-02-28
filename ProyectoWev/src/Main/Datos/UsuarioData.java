@@ -2,8 +2,12 @@ package Main.Datos;
 
 import java.util.Collection;
 import java.util.Vector;
+
+import org.apache.log4j.Level;
+
 import java.util.ArrayList;
 import Main.Entidades.*;
+import Main.Util.LogException;
 import Main.Util.Rows;
 
 import java.sql.*;
@@ -42,8 +46,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex) 
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetByTipoUsuario de Usuario",Level.ERROR);
+			return null;
 		}
 		finally 
 		{
@@ -54,8 +58,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -93,8 +96,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Insert de Usuario",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -104,8 +107,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -137,8 +139,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Delete de Usuario",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -148,8 +150,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -184,8 +185,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo Update de Usuario",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -195,8 +196,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 	}
@@ -234,8 +234,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetOne de Usuario",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -246,8 +246,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -278,8 +277,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetByUserName de Usuario",Level.ERROR);
+			return false;
 		}
 		finally
 		{
@@ -290,62 +289,10 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return false;
 			}
 		}
 		
-	}
-	
-	public Collection<Usuario> GetAll()
-	{
-		Connection con = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		
-		try
-		{
-			con = Base.getConnection();
-			String sql = "";
-			sql += "SELECT * FROM Usuarios";
-			
-			pstm = con.prepareStatement(sql);
-			rs = pstm.executeQuery();
-			
-			Vector<Usuario> Usuarios = new Vector<Usuario>();
-			Usuario usu = null;
-			
-			while(rs.next())
-			{
-				usu = new Usuario();
-				usu.setIdUsuario(rs.getInt("idUsuario"));
-				usu.setUsuario(rs.getString("usuario"));
-				usu.setNombre(rs.getString("nombre"));
-				usu.setApellido(rs.getString("apellido"));
-				usu.setEmail(rs.getString("email"));
-				usu.setTipoUsuario(rs.getInt("tipoUsuario"));
-				Usuarios.add(usu);
-			}
-			return Usuarios;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
-		}
-		finally
-		{
-			try 
-			{
-				if(rs != null) rs.close();
-				if(pstm != null) pstm.close();
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
-			}
-		}
 	}
 	
 	public Usuario GetByUsuCon(Usuario usuario)
@@ -381,8 +328,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetByUserCon de Usuario",Level.ERROR);
+			return null;
 		}
 		finally
 		{
@@ -393,8 +340,7 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return null;
 			}
 		}
 	}
@@ -420,8 +366,8 @@ public class UsuarioData {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			new LogException(ex,"Fallo el metodo GetVentaByUsu de Usuario",Level.ERROR);
+			return 0;
 		}
 		finally
 		{
@@ -432,10 +378,60 @@ public class UsuarioData {
 			}
 			catch(Exception ex)
 			{
-				ex.printStackTrace();
-				throw new RuntimeException(ex);
+				return 0;
 			}
 		}
 	}
 
+	public ArrayList<Usuario> GetAll()
+	{
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			con = Base.getConnection();
+			String sql = "";
+			sql = "SELECT * FROM Usuarios ";
+			
+			pstm = con.prepareStatement(sql);
+			rs = pstm.executeQuery();
+			
+			Usuario usu = null;
+			ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+			
+			while(rs.next())
+			{
+				usu = new Usuario();
+				usu.setIdUsuario(rs.getInt("idUsuario"));
+				usu.setUsuario(rs.getString("usuario"));
+				usu.setNombre(rs.getString("nombre"));
+				usu.setApellido(rs.getString("apellido"));
+				usu.setEmail(rs.getString("email"));
+				usu.setTipoUsuario(rs.getInt("tipoUsuario"));
+				usu.setFechaDeAlta(rs.getDate("fechaDeAlta"));
+				usuarios.add(usu);
+			}
+			return usuarios;
+			
+		}
+		catch(Exception ex)
+		{
+			new LogException(ex,"Fallo el metodo GetVentaByUsu de Usuario",Level.ERROR);
+			return null;
+		}
+		finally
+		{
+			try
+			{
+				if(pstm != null) pstm.close();
+				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				return null;
+			}
+		}
+	}
 }
