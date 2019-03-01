@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comentario {
 	public Comentario() {}
-	public Comentario(int isbn) {
+	public Comentario(String isbn) {
 		this.Libro = new Libro(isbn);
 	}
 	

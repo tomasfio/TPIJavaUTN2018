@@ -36,7 +36,7 @@ public class LibroABM extends HttpServlet {
 		else {
 			if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) {
 				Libro libro = new Libro();
-				libro.setISBN(Integer.parseInt(request.getParameter("isbn")));
+				libro.setISBN(request.getParameter("isbn"));
 				
 				LibroLogic ll = new LibroLogic();
 				libro = ll.GetOne(libro);

@@ -8,18 +8,18 @@ public class Libro {
 		this.Categoria = new Categoria();
 		this.Comentario = new ArrayList<>();
 	}
-	public Libro(int isbn) {
+	public Libro(String isbn) {
 		this.ISBN = isbn;
 		this.Categoria = new Categoria();
 		this.Comentario = new ArrayList<>();
 	}
-	public Libro(int isbn,int idCat) {
+	public Libro(String isbn,int idCat) {
 		this.ISBN = isbn;
 		this.Categoria = new Categoria(idCat);
 		this.Comentario = new ArrayList<>();
 	}
 	
-	private int ISBN;
+	private String ISBN;
 	private String titulo;
 	private String descripcion;
 	private String autor;
@@ -30,11 +30,11 @@ public class Libro {
 	private String imagen;
 	private ArrayList<Comentario> Comentario;
 	
-	public int getISBN() {
-		return ISBN;
+	public String getISBN() {
+		return this.ISBN;
 	}
-	public void setISBN(int iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String iSBN) {
+		this.ISBN = iSBN;
 	}
 	public String getTitulo() {
 		return titulo;

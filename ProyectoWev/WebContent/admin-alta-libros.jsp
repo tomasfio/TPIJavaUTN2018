@@ -50,7 +50,7 @@
 
                     <form class="form-group" action="AltaLibro" enctype="multipart/form-data" method="get">
                     	<div class="form-group">
-                    		<input type="number" class="form-control" name="ISBN" placeholder="ISBN del libro..." required>
+                    		<input type="text" class="form-control" name="ISBN" placeholder="ISBN del libro..." required>
                     	</div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="titulo" placeholder="Titulo del libro..." required>

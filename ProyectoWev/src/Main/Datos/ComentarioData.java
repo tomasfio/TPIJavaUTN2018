@@ -26,7 +26,7 @@ public class ComentarioData {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(com.getFechaHora()));
 			pstm.setInt(2, com.getUsuario().getIdUsuario());
-			pstm.setInt(3, com.getLibro().getISBN());
+			pstm.setString(3, com.getLibro().getISBN());
 			pstm.setString(4, com.getComentario());
 			
 			int resultado = pstm.executeUpdate();
@@ -73,7 +73,7 @@ public class ComentarioData {
 			sql = "SELECT * FROM comentarios WHERE ISBN = ? ORDER BY fechaHora LIMIT 20";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, com.getLibro().getISBN());
+			pstm.setString(1, com.getLibro().getISBN());
 			rs = pstm.executeQuery();
 
 			ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
@@ -83,7 +83,7 @@ public class ComentarioData {
 				com = new Comentario();
 				com.setFechaHora(rs.getDate("fechaHora"));
 				com.setUsuario(usuData.GetOne(new Usuario(rs.getInt("usuarioID"))));
-				com.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
+				com.setLibro(libData.GetOne(new Libro(rs.getString("ISBN"))));
 				com.setComentario(rs.getString("comentario"));
 				
 				comentarios.add(com);

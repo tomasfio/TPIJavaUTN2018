@@ -37,7 +37,8 @@ public class Email {
 	
 	private Email() throws FileNotFoundException {
 		try {
-			FileInputStream inputStream = new FileInputStream("C:TPIJavaUTN2018\\ProyectoWev\\Resource\\app.properties");
+			FileInputStream inputStream = new FileInputStream("C:\\Users\\Tomas\\git\\TPIJavaUTN2018\\ProyectoWev\\Resource\\app.properties");
+		
 			
 			props = new Properties();
 			props.load(inputStream);

@@ -44,7 +44,7 @@ public class BajaModifLibro extends HttpServlet {
 			if(request.getParameter("btnUpdate") != null) {
 				try {
 					Main.Entidades.Libro lib = new Main.Entidades.Libro();
-					lib.setISBN(Integer.parseInt(request.getParameter("isbn_modificar")));
+					lib.setISBN(request.getParameter("isbn_modificar"));
 					lib.setTitulo(request.getParameter("titulo_modificar"));
 					lib.setDescripcion(request.getParameter("descripcion_modificar"));
 					lib.setAutor(request.getParameter("autor_modificar"));
@@ -81,13 +81,13 @@ public class BajaModifLibro extends HttpServlet {
 				catch (ParseException e ) {
 					LibroLogic ll = new LibroLogic();
 					request.setAttribute("error", "La fecha ingresada y/o el precio ingresado tiene format invalido");
-					request.setAttribute("libro", ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn_modificar")))));
+					request.setAttribute("libro", ll.GetOne(new Libro(request.getParameter("isbn_modificar"))));
 					request.setAttribute("accion", "update");
 					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
 				}catch(NumberFormatException e) {
 					LibroLogic ll = new LibroLogic();
 					request.setAttribute("error", "La fecha ingresada y/o el precio ingresado tiene format invalido");
-					request.setAttribute("libro", ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn_modificar")))));
+					request.setAttribute("libro", ll.GetOne(new Libro(request.getParameter("isbn_modificar"))));
 					request.setAttribute("accion", "update");
 					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request, response);
 				}
@@ -95,7 +95,7 @@ public class BajaModifLibro extends HttpServlet {
 			}
 			else if(request.getParameter("btnDelete") != null) {
 				Libro lib = new Libro();
-				lib.setISBN(Integer.parseInt(request.getParameter("isbn_baja")));
+				lib.setISBN(request.getParameter("isbn_baja"));
 				
 				LibroLogic ll = new LibroLogic();
 				if(ll.ValidarDelete(lib)) {

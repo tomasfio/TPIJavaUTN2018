@@ -61,7 +61,7 @@
                         <hr>
                             <div class="form-group">
                                 <label for="isbn">ISBN seleccionado:</label>
-                                <input type="number" class="form-control" name="isbn_modificar" id="isbn_modificar" value="<%=lib.getISBN() %>" readonly="readonly">
+                                <input type="text" class="form-control" name="isbn_modificar" id="isbn_modificar" value="<%=lib.getISBN() %>" readonly="readonly">
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Titulo:</label>
@@ -98,7 +98,7 @@
 	                        <hr>
                             <div class="form-group">
                                 <label for="isbn">ISBN seleccionado:</label>
-                                <input type="number" class="form-control" name="isbn_baja" id="isbn_baja" value="<%=lib.getISBN() %>" readonly="readonly">
+                                <input type="text" class="form-control" name="isbn_baja" id="isbn_baja" value="<%=lib.getISBN() %>" readonly="readonly">
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Titulo:</label>

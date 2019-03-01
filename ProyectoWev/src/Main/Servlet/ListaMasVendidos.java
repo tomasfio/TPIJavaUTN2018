@@ -40,7 +40,7 @@ public class ListaMasVendidos extends HttpServlet {
 		else {
 			LibroLogic ll = new LibroLogic();
 			
-			Integer[][] cantidad = ll.GetCantidadVendida();
+			String[][] cantidad = ll.GetCantidadVendida();
 			ArrayList<Libro> librosOrdenados = ll.GetLibrosOrdenadosVentas(cantidad[0]);
 
 			request.setAttribute("listaLibros", librosOrdenados);

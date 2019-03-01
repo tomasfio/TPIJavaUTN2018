@@ -43,7 +43,6 @@
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
-                    			<li><a href="#?user=<%=usu.getUsuario() %>"><span class="glyphicon glyphicon-shopping-cart"></span> Ver entregas</a></li>
 								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
 							<%
 						}
@@ -155,7 +154,7 @@
            			<form class="form-inline" action="AgregarComentario" method="post">
  						<div>
 							<input class="form-control" type="hidden" name="isbn" id="isbn" value=<%=libro.getISBN() %> />
-							<textarea rows = "5" cols = "50" class="form-control" type="textarea" name="comentario" id="cometario" placeholder="Comentario..."></textarea>
+							<textarea rows = "5" cols = "50" class="form-control" name="comentario" id="cometario" placeholder="Comentario..."></textarea>
 							<br><br>
 							<button class="form-control" type="submit">Agregar al comentario</button>
  						</div>

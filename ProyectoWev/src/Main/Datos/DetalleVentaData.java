@@ -28,7 +28,7 @@ public class DetalleVentaData {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(det.getFechaVenta()));
 			pstm.setInt(2, det.getVenta().getIdVenta());
-			pstm.setInt(3, det.getLibro().getISBN());
+			pstm.setString(3, det.getLibro().getISBN());
 			pstm.setInt(4, det.getCantidad());
 			pstm.setDouble(5, det.getSubTotal());
 			
@@ -83,7 +83,7 @@ public class DetalleVentaData {
 				det = new DetalleVenta();
 				det.setFechaVenta(rs.getDate("fechaVenta"));
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
-				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
+				det.setLibro(libData.GetOne(new Libro(rs.getString("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
 				det.setSubTotal(rs.getDouble("subtotal"));
 				
@@ -125,7 +125,7 @@ public class DetalleVentaData {
 			sql = "SELECT * FROM DetallesVentas WHERE isbn = ? ";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1,deta.getLibro().getISBN());
+			pstm.setString(1,deta.getLibro().getISBN());
 			rs = pstm.executeQuery();
 			
 			DetalleVenta det = null;
@@ -136,7 +136,7 @@ public class DetalleVentaData {
 				det = new DetalleVenta();
 				det.setFechaVenta(rs.getDate("fechaVenta"));
 				det.setVenta(venData.GetOne(rs.getInt("idVenta")));
-				det.setLibro(libData.GetOne(new Libro(rs.getInt("ISBN"))));
+				det.setLibro(libData.GetOne(new Libro(rs.getString("ISBN"))));
 				det.setCantidad(rs.getInt("cantidad"));
 				det.setSubTotal(rs.getDouble("subtotal"));
 				
@@ -163,7 +163,7 @@ public class DetalleVentaData {
 		}
 	}
 	
-	public Integer[][] GetCantidadVendida()
+	public String[][] GetCantidadVendida()
 	{
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -178,14 +178,14 @@ public class DetalleVentaData {
 			pstm = con.prepareStatement(sql);
 
 			Rows rows = new Rows();
-			Integer[][] cantidad = new Integer[2][rows.GetRowCount(rs = pstm.executeQuery())];
+			String[][] cantidad = new String[2][rows.GetRowCount(rs = pstm.executeQuery())];
 			rs = pstm.executeQuery();
 			int i = 0;
 			
 			while(rs.next())
 			{
-				cantidad[0][i] = rs.getInt("isbn");
-				cantidad[1][i] = rs.getInt("ventas");
+				cantidad[0][i] = rs.getString("isbn");
+				cantidad[1][i] = rs.getString("ventas");
 				i++;
 			}
 			return cantidad;

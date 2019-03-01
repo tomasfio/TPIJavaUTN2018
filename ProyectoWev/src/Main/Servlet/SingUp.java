@@ -46,7 +46,7 @@ public class SingUp extends HttpServlet {
 		usu.setContraseña(request.getParameter("psw"));
 		Date fechaActual = new Date();
 		usu.setFechaDeAlta(fechaActual);
-		usu.setTipoUsuario(0);
+		usu.setTipoUsuario(1);
 		
 		UsuarioLogic ul = new UsuarioLogic();
 		if(ul.GetByUserName(usu))

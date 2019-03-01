@@ -37,7 +37,7 @@ public class Index extends HttpServlet {
 		}
 		else if(request.getParameter("idCat") !=null)
 		{
-			request.setAttribute("listaLibros", ll.GetByCategoria(new Libro(0,Integer.parseInt(request.getParameter("idCat")))));
+			request.setAttribute("listaLibros", ll.GetByCategoria(new Libro("0",Integer.parseInt(request.getParameter("idCat")))));
 		}
 		else
 		{

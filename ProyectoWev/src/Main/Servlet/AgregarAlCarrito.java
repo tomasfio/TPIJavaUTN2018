@@ -51,7 +51,7 @@ public class AgregarAlCarrito extends HttpServlet {
 			LibroLogic ll = new LibroLogic();
 			
 			DetalleVenta detVenta = new DetalleVenta();
-			detVenta.setLibro(ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn")))));
+			detVenta.setLibro(ll.GetOne(new Libro(request.getParameter("isbn"))));
 			detVenta.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
 			detVenta.setSubTotal(detVenta.getCantidad()*detVenta.getLibro().getPrecio());
 			detVenta.setFechaVenta(new Date());

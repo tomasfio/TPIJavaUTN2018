@@ -33,7 +33,7 @@ public class AgregarComentario extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Comentario comentario = new Comentario();
 		comentario.setUsuario((Usuario)request.getSession().getAttribute("user"));
-		comentario.setLibro(new Libro(Integer.parseInt(request.getParameter("isbn"))));
+		comentario.setLibro(new Libro(request.getParameter("isbn")));
 		comentario.setComentario(request.getParameter("comentario"));
 		comentario.setFechaHora(new Date());
 		

@@ -30,7 +30,7 @@ public class LibroComentario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LibroLogic ll = new LibroLogic();
-		request.setAttribute("libro", ll.GetOne(new Libro(Integer.parseInt(request.getParameter("isbn")))));
+		request.setAttribute("libro", ll.GetOne(new Libro(request.getParameter("isbn"))));
 		
 		CategoriaLogic cl = new CategoriaLogic();
 		request.setAttribute("listaCategoria", cl.GetAll());

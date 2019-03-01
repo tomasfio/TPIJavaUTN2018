@@ -45,14 +45,14 @@ public class LibroLogic {
 		return libData.Insert(lib);
 	}
 	
-	public Integer[][] GetCantidadVendida(){
+	public String[][] GetCantidadVendida(){
 		return detData.GetCantidadVendida();
 	}
 	
-	public ArrayList<Libro> GetLibrosOrdenadosVentas(Integer[] cantidad){
+	public ArrayList<Libro> GetLibrosOrdenadosVentas(String[] cantidad){
 		ArrayList<Libro> librosOrdenados = new ArrayList<Libro>();
 		
-		for(int isbn : cantidad) {
+		for(String isbn : cantidad) {
 			Libro libro = new Libro();
 			libro = libData.GetOne(new Libro(isbn));
 			

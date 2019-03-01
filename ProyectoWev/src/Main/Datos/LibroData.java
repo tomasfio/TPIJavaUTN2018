@@ -24,7 +24,7 @@ public class LibroData {
 			sql = "INSERT INTO Libros(ISBN,titulo,descripcion,autor,fecha,edicion,precio,idCategoria,imagen) VALUES(?,?,?,?,?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1,lib.getISBN());
+			pstm.setString(1,lib.getISBN());
 			pstm.setString(2, lib.getTitulo());
 			pstm.setString(3, lib.getDescripcion());
 			pstm.setString(4, lib.getAutor());
@@ -71,7 +71,7 @@ public class LibroData {
 			sql = "DELETE FROM libros WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, lib.getISBN());
+			pstm.setString(1, lib.getISBN());
 			
 			int rtdo = pstm.executeUpdate();
 			
@@ -117,7 +117,7 @@ public class LibroData {
 			pstm.setString(5, lib.getEdicion());
 			pstm.setDouble(6, lib.getPrecio());
 			pstm.setString(7, lib.getImagen());
-			pstm.setInt(8, lib.getISBN());
+			pstm.setString(8, lib.getISBN());
 			
 			int res = pstm.executeUpdate();
 			
@@ -172,7 +172,7 @@ public class LibroData {
 			while(rs.next())
 			{
 				lib = new Libro();
-				lib.setISBN(rs.getInt("ISBN"));
+				lib.setISBN(rs.getString("ISBN"));
 				lib.setTitulo(rs.getString("titulo"));
 				lib.setDescripcion(rs.getString("descripcion"));
 				lib.setAutor(rs.getString("autor"));
@@ -222,7 +222,7 @@ public class LibroData {
 			sql = "SELECT * FROM libros WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, lib.getISBN());
+			pstm.setString(1, lib.getISBN());
 			rs = pstm.executeQuery();
 			
 			Libro libro = null;
@@ -230,7 +230,7 @@ public class LibroData {
 			while(rs.next())
 			{
 				libro = new Libro();
-				libro.setISBN(rs.getInt("ISBN"));
+				libro.setISBN(rs.getString("ISBN"));
 				libro.setTitulo(rs.getString("titulo"));
 				libro.setDescripcion(rs.getString("descripcion"));
 				libro.setAutor(rs.getString("autor"));
@@ -287,7 +287,7 @@ public class LibroData {
 			while(rs.next())
 			{
 				lib = new Libro();
-				lib.setISBN(rs.getInt("ISBN"));
+				lib.setISBN(rs.getString("ISBN"));
 				lib.setTitulo(rs.getString("titulo"));
 				lib.setDescripcion(rs.getString("descripcion"));
 				lib.setAutor(rs.getString("autor"));
@@ -345,7 +345,7 @@ public class LibroData {
 			while(rs.next())
 			{
 				lib = new Libro();
-				lib.setISBN(rs.getInt("ISBN"));
+				lib.setISBN(rs.getString("ISBN"));
 				lib.setTitulo(rs.getString("titulo"));
 				lib.setDescripcion(rs.getString("descripcion"));
 				lib.setAutor(rs.getString("autor"));

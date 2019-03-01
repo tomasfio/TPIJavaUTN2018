@@ -78,7 +78,7 @@
                       <table class="table table-striped">
                           <thead>
                               <tr>
-                                  <td><b>ID</b></td>
+                                  <td><b>ISBN</b></td>
                                   <td><b>Nombre</b></td>
                                   <td><b>Autor</b></td>
                                   <td><b>Fecha</b></td>
@@ -94,7 +94,7 @@
                               	for(Libro lib : libros){
                               %>
                               	<tr>
-	                                  <td><%=Integer.toString(lib.getISBN()) %></td>
+	                                  <td><%=lib.getISBN() %></td>
 	                                  <td><%=lib.getTitulo().toString() %></td>
 	                                  <td><%=lib.getAutor() %></td>
 	                                  <td><%=lib.getFecha().toString() %></td>
