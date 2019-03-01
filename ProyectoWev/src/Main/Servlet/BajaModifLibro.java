@@ -53,6 +53,7 @@ public class BajaModifLibro extends HttpServlet {
 					 
 					lib.setEdicion(request.getParameter("edicion_modificar"));
 					lib.setPrecio(Double.parseDouble(request.getParameter("precio_modificar")));
+					lib.setImagen(request.getParameter("imagen"));
 					
 					
 					LibroLogic ll = new LibroLogic();

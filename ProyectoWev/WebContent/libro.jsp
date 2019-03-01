@@ -106,7 +106,7 @@
                     		Libro libro = (Libro)request.getAttribute("libro");
                    			%>
            				<h2><a href="#" ><%=libro.getTitulo() %></a></h2>
-           				<img style="float:left; margin:10px;" alt="" src="./img/<%=libro.getImagen() %>">
+           				<img style="float:left; margin:10px;width : 181px;height : 278px;" alt="" src="./img/<%=libro.getImagen() %>">
            				
            				<p>Autor: <%=libro.getAutor() %></p>
            				<p>Descripcion: <%=libro.getDescripcion() %></p>

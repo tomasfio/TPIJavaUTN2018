@@ -104,7 +104,7 @@
                         			%>
                     				<div class="col-md-12">
                         				<h2><a href="LibroComentario?isbn=<%=lib.getISBN() %>" ><%=lib.getTitulo() %></a></h2>
-                        				<img style="float:left; margin:10px;" alt="" src="./img/<%=lib.getImagen() %>">
+                        				<img style="float:left; margin:10px;width : 181px;height : 278px;" alt="" src="./img/<%=lib.getImagen() %>">
                         				
                         				<p>Autor: <%=lib.getAutor() %></p>
                         				<p>Descripcion: <%=lib.getDescripcion() %></p>

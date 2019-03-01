@@ -107,7 +107,7 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "UPDATE libros SET titulo = ?, descripcion = ?,autor = ?,fecha = ?,edicion = ?, precio = ? WHERE ISBN = ?";
+			sql = "UPDATE libros SET titulo = ?, descripcion = ?,autor = ?,fecha = ?,edicion = ?, precio = ?,imagen = ? WHERE ISBN = ?";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, lib.getTitulo());
@@ -116,7 +116,8 @@ public class LibroData {
 			pstm.setString(4, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(lib.getFecha()));
 			pstm.setString(5, lib.getEdicion());
 			pstm.setDouble(6, lib.getPrecio());
-			pstm.setInt(7, lib.getISBN());
+			pstm.setString(7, lib.getImagen());
+			pstm.setInt(8, lib.getISBN());
 			
 			int res = pstm.executeUpdate();
 			

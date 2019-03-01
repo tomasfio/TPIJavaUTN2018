@@ -34,7 +34,7 @@
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                         <li role="presentation"><a href="ListaVenta">Lista de Ventas</a></li>
-                        <li role="presentation"><a href="ListaVenta">Lista de Libros mas vendidos</a></li>
+                        <li role="presentation"><a href="ListaMasVendidos">Lista de Libros mas vendidos</a></li>
                         <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>

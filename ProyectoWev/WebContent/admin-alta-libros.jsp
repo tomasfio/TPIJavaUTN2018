@@ -32,7 +32,7 @@
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                         <li role="presentation"><a href="ListaVenta">Lista de Ventas</a></li>
-                        <li role="presentation"><a href="ListaVenta">Lista de Libros mas vendidos</a></li>
+                        <li role="presentation"><a href="ListaMasVendidos">Lista de Libros mas vendidos</a></li>
                         <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>
@@ -56,13 +56,13 @@
                             <input type="text" class="form-control" name="titulo" placeholder="Titulo del libro..." required>
                         </div>
                         <div class="form-group">
-                        	<textarea cols="88" rows="5" name="descripcion_modificar" class="from-control"  placeholder="Descripcion del libro... " required></textarea>
+                        	<textarea cols="88" rows="5" name="descripcion" id="descripcion" type="textarea" class="from-control"  placeholder="Descripcion del libro... " required></textarea>
                         </div>
                         <div class="form-group">
                         	<input type="text" class="form-control" name="autor" placeholder="Autor del libro..." required>
                         </div>
                         <div class="form-group">
-                        	<input type="text" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
+                        	<input type="date" class="form-control" name="fecha" placeholder="Fecha de publicacion del libro..." required>
                         </div>
                         <div class="form-group">
                         	<input type="text" class="form-control" name="edicion" placeholder="Edicion del libro..." required>

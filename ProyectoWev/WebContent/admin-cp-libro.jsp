@@ -39,7 +39,7 @@
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                         <li role="presentation"><a href="ListaVenta">Lista de Ventas</a></li>
-                        <li role="presentation"><a href="ListaVenta">Lista de Libros mas vendidos</a></li>
+                        <li role="presentation"><a href="ListaMasVendidos">Lista de Libros mas vendidos</a></li>
                         <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>
@@ -80,7 +80,6 @@
                               <tr>
                                   <td><b>ID</b></td>
                                   <td><b>Nombre</b></td>
-                                  <td><b>Descripcion</b></td>
                                   <td><b>Autor</b></td>
                                   <td><b>Fecha</b></td>
                                   <td><b>Edicion</b></td>
@@ -97,7 +96,6 @@
                               	<tr>
 	                                  <td><%=Integer.toString(lib.getISBN()) %></td>
 	                                  <td><%=lib.getTitulo().toString() %></td>
-	                                  <td><%=lib.getDescripcion() %></td> 
 	                                  <td><%=lib.getAutor() %></td>
 	                                  <td><%=lib.getFecha().toString() %></td>
 	                                  <td><%=lib.getEdicion().toString() %></td>

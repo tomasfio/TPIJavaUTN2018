@@ -33,7 +33,7 @@
                         <li role="presentation"><a href="ListaLibros">Listado de Libros</a></li>
                         <li role="presentation"><a href="ListaUsuario">Listado de Usuarios</a></li>
                         <li role="presentation"><a href="ListaVenta">Lista de Ventas</a></li>
-                        <li role="presentation"><a href="ListaVenta">Lista de Libros mas vendidos</a></li>
+                        <li role="presentation"><a href="ListaMasVendidos">Lista de Libros mas vendidos</a></li>
                         <li role="presentation"><a href="ListaEntregas">Lista de entregas pendientes</a></li>
                     </ul>
                 </div>
@@ -43,7 +43,7 @@
                     	if(request.getAttribute("libro") != null)
                     	{
                     %>
-                    <form class="form-group" action="BajaModifLibro" method="GET">
+                    <form class="form-group" action="BajaModifLibro" enctype="multipart/form-data" method="GET">
                     <%
                     		Libro lib = (Libro)request.getAttribute("libro");  
                     		if(request.getAttribute("accion") == "update")
@@ -87,6 +87,9 @@
                                 <label for="precio">Precio:</label>
                                 <input type="number" step="any" min="0" class="form-control" name="precio_modificar" value="<%=lib.getPrecio() %>" required>
                             </div>
+                            <div class="form-group">
+                        		<input type="file" class="form-control" name="imagen" value="<%=lib.getImagen() %>"/>
+                        	</div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-warning" name="btnUpdate" value="Modificar libro">
                             </div>
