@@ -48,7 +48,8 @@ public class RegistrarVenta extends HttpServlet {
 						venta.setEntrega(envio);
 						
 						
-					}else
+					}
+					else
 					{
 						venta.setEntrega(null);
 					}
@@ -63,7 +64,6 @@ public class RegistrarVenta extends HttpServlet {
 				}
 				else {
 					request.getRequestDispatcher("CarritoCompra").forward(request, response);	
-					
 				}
 			}
 			else if(request.getParameter("btnDelete") != null) {

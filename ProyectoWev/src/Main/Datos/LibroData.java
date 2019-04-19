@@ -156,7 +156,7 @@ public class LibroData {
 			String sql = "";
 			sql = "SELECT * FROM libros " +
 				"WHERE titulo LIKE ? OR descripcion LIKE ? " +
-				"OR autor LIKE ? OR edicion LIKE ? ORDER BY fecha";
+				"OR autor LIKE ? OR edicion LIKE ? ORDER BY fecha DESC";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -276,7 +276,7 @@ public class LibroData {
 		{
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM libros ORDER BY fecha";
+			sql = "SELECT * FROM libros ORDER BY fecha DESC";
 			
 			pstm = con.prepareStatement(sql);
 			rs = pstm.executeQuery();
@@ -333,7 +333,7 @@ public class LibroData {
 		try {
 			con = Base.getConnection();
 			String sql = "";
-			sql = "SELECT * FROM libros WHERE idCategoria = ? ORDER BY fecha";
+			sql = "SELECT * FROM libros WHERE idCategoria = ? ORDER BY fecha DESC";
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1, libro.getCategoria().getIdCategoria());

@@ -4,6 +4,46 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
+
+			<script type="text/javascript">
+			
+				function cambioCheckBox(){
+					var obj = document.getElementById("envio");
+					var text = document.getElementById("direccion");
+					if(obj.checked == true){
+						text.type = "text";
+						text.required = "true";
+					}
+					else{
+						text.type = "hidden";
+						text.required = "false";
+					}
+				}
+
+				function modificarCantidad(isbn, fecha){
+					let tr = document.getElementById('det' + isbn + fecha);
+					let titulo = tr.getElementsByTagName('td')[0];
+					let cantidad = tr.getElementsByTagName('td')[1];
+					tr.innerHTML = '<td>' + titulo.innerHTML + '</td>' +
+						'<td><input style="width: 70px" class="form-control" type="number" id="cantidad" value="' + cantidad.innerHTML + '" /></td>' +
+						'<td><a id="ref" style="displat:none; visibility: hidden"></a></td>' +
+						'<td><button type="submit" class="btn btn-primary" onClick="Modificar(\'' + isbn + '\',\'' + fecha +  '\')">Aceptar</button></td>	' +
+						'<td><a type="button" class="btn btn-danger" href="CarritoCompra">Cancelar</a></td>';
+				}
+				
+				function Modificar(isbn, fecha){
+					console.log('Modificar');
+					let tr = document.getElementById('det' + isbn + fecha);
+					let cantidad = tr.getElementsByTagName('input')[0].value;
+					let href = tr.getElementsByTagName('td')[2];
+					href.innerHTML = '<a id="ref" style="displat:none; visibility: hidden" href="ModificarVenta?isbn='+ isbn +'&fecha=' + fecha + '&cantidad=' + cantidad +'"></a>';
+					href.getElementsByTagName('a')[0].click();
+				}
+
+			</script>
+
+
+
 		<style type="text/css">
 		    	<%@include file="css/styles-css/custom-index.css" %>
 		    	<%@include file="css/shop-homepage.css"%>
@@ -12,22 +52,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	    
-	    <script type="text/javascript">
-	    	function cambioCheckBox(){
-	    		var obj = document.getElementById("envio");
-	    		var text = document.getElementById("direccion");
-	    		if(obj.checked == true){
-	    			text.type = "text";
-	    			text.required = "true";
-	    		}
-	    		else{
-	    			text.type = "hidden";
-	    			text.required = "false";
-	    		}
-	    	}
-	    </script>
-	    
+    
 	</head>
     <body>
 
@@ -37,7 +62,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Navegación</span>
+                    <span class="sr-only">Navegaciï¿½n</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -59,14 +84,14 @@
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>
-								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
 							<%
 						}
 						else
 						{
 							%>
 								<li><a href="registro-login.jsp">Registrarse</a></li>
-	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
+	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesiï¿½n</a></li>
 							<%
 						}
 					%>
@@ -125,6 +150,8 @@
                         				<td><b>Titulo</b></td>
                         				<td><b>Cantidad</b></td>
                         				<td><b>Subtotal</b></td>
+                        				<td><b></b></td>
+                        				<td><b></b></td>
                        				</tr>
                    				</thead> 
                    				<tbody>
@@ -136,11 +163,13 @@
                    						for(DetalleVenta detVenta : detallesVentas)
                    						{
                    							%>
-                   								<tr>
-                   									<td><%=detVenta.getLibro().getTitulo() %></td>
-                   									<td><%=detVenta.getCantidad() %></td>
-                   									<td><%=detVenta.getCantidad()*detVenta.getLibro().getPrecio() %></td>
-                   								</tr>
+      										<tr id="det<%=detVenta.getLibro().getISBN() %><%=detVenta.getFechaVenta() %>">
+												<td id="titulo"><%=detVenta.getLibro().getTitulo() %></td>
+												<td id="cantidad"><%=detVenta.getCantidad() %></td>
+												<td id="subtotal"><%=detVenta.getCantidad()*detVenta.getLibro().getPrecio() %></td>
+												<td><button type="button" class="btn btn-warning" name="btnModificar" value="modificar" onClick="modificarCantidad('<%=detVenta.getLibro().getISBN() %>', '<%=detVenta.getFechaVenta() %>')">Modificar</button></td>
+												<td><button type="button" class="btn btn-danger" name="btnEliminar" value="eliminar" onClick="eliminarProducto('<%=detVenta.getLibro().getISBN() %>', '<%=detVenta.getFechaVenta() %>')">Eliminar</button></td>														      										
+                							</tr>
                    							<%
                    						}
                    					}

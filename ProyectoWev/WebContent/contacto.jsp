@@ -42,14 +42,14 @@
 							Usuario usu = (Usuario)request.getSession().getAttribute("user");
 							%> 
                     			<li><a href="CarritoCompra"><span class="glyphicon glyphicon-shopping-cart"></span> Ir al carro</a></li>                 			
-								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+								<li><a href="LogOut"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
 							<%
 						}
 						else
 						{
 							%>
 								<li><a href="registro-login.jsp">Registrarse</a></li>
-	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
+	                            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
 							<%
 						}
 					%>
@@ -116,7 +116,7 @@
                 <form action="EnviarMail" method="post">
                     <div class="row carousel-holder">
                         <div class="col-md-12">
-                            <label for="email">Email del usuario: </label>
+                            <label for="email">Email : </label>
                             <%
                                 if(request.getAttribute("email")!= null){
                                     %>

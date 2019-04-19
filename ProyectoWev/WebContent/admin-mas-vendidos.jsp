@@ -51,7 +51,7 @@
                         <%
                         	if(request.getAttribute("listaLibros") != null){
                         		ArrayList<Libro> libros = (ArrayList<Libro>)request.getAttribute("listaLibros");
-                        		Integer[] cantidad = (Integer[])request.getAttribute("ventas");
+                        		String[] cantidad = (String[])request.getAttribute("ventas");
                         		int i = 0;
                         		for(Libro lib : libros){
                         			%>
