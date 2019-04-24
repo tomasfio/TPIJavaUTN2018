@@ -39,6 +39,14 @@
 					href.innerHTML = '<a id="ref" style="displat:none; visibility: hidden" href="ModificarVenta?isbn='+ isbn +'&fecha=' + fecha + '&cantidad=' + cantidad +'"></a>';
 					href.getElementsByTagName('a')[0].click();
 				}
+				
+				function eliminarProducto(isbn, fecha){
+					if(confirm("¿Esta seguro de querer eliminar el producto del carrito de compras?")){
+						let tr = document.getElementById('det' + isbn + fecha);
+						tr.innerHTML = '<a id="ref" style="displat:none; visibility: hidden" href="EliminarVenta?isbn='+ isbn +'&fecha=' + fecha + '"></a>';
+						tr.getElementsByTagName('a')[0].click();
+					}
+				}
 
 			</script>
 
@@ -168,8 +176,8 @@
 												<td id="cantidad"><%=detVenta.getCantidad() %></td>
 												<td id="subtotal"><%=detVenta.getCantidad()*detVenta.getLibro().getPrecio() %></td>
 												<td><button type="button" class="btn btn-warning" name="btnModificar" value="modificar" onClick="modificarCantidad('<%=detVenta.getLibro().getISBN() %>', '<%=detVenta.getFechaVenta() %>')">Modificar</button></td>
-												<td><button type="button" class="btn btn-danger" name="btnEliminar" value="eliminar" onClick="eliminarProducto('<%=detVenta.getLibro().getISBN() %>', '<%=detVenta.getFechaVenta() %>')">Eliminar</button></td>														      										
-                							</tr>
+												<td><a type="button" class="btn btn-danger" name="btnEliminar" value="eliminar" href="EliminarVenta?isbn=<%=detVenta.getLibro().getISBN() %>&fecha=<%=detVenta.getFechaVenta() %>">Eliminar</a></td>														      										
+               								</tr>
                    							<%
                    						}
                    					}

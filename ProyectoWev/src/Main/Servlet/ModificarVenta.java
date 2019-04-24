@@ -64,6 +64,8 @@ public class ModificarVenta extends HttpServlet {
 							detVen.setSubTotal(detVen.getCantidad()*detVen.getLibro().getPrecio());
 							
 							venta.setImporte(venta.getImporte() + detVen.getSubTotal());
+
+							break;
 						}
 					}
 					
