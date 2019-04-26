@@ -34,29 +34,39 @@ public class LibroABM extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) {
-				Libro libro = new Libro();
-				libro.setISBN(request.getParameter("isbn"));
-				
-				LibroLogic ll = new LibroLogic();
-				libro = ll.GetOne(libro);
-				if(libro != null) {
-					request.setAttribute("libro", libro);
-					if(request.getParameter("btnUpdate") != null) {
-						request.setAttribute("accion", "update");;
+			try {
+				if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) {
+					Libro libro = new Libro();
+					libro.setISBN(request.getParameter("isbn"));
+					
+					LibroLogic ll = new LibroLogic();
+					libro = ll.GetOne(libro);
+					if(libro != null) {
+						request.setAttribute("libro", libro);
+						if(request.getParameter("btnUpdate") != null) {
+							request.setAttribute("accion", "update");;
+						}
+						else {
+							request.setAttribute("accion", "delete");
+						}
+						request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request,response);
 					}
 					else {
-						request.setAttribute("accion", "delete");
+						request.setAttribute("existeLibro", false);
+						request.getRequestDispatcher("ListaLibros").forward(request, response);
 					}
-					request.getRequestDispatcher("admin-baja-modif-libro.jsp").forward(request,response);
 				}
 				else {
-					request.setAttribute("existeLibro", false);
-					request.getRequestDispatcher("ListaLibros").forward(request, response);
+					request.getRequestDispatcher("FormAltaLibro").forward(request, response);
 				}
 			}
-			else {
-				request.getRequestDispatcher("FormAltaLibro").forward(request, response);
+			catch(NumberFormatException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese el libro nuevamente");
+			    request.getRequestDispatcher("ListaLibros").forward(request, response);
+			}
+			catch(NullPointerException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese el libro nuevamente");
+			    request.getRequestDispatcher("ListaLibros").forward(request, response);
 			}
 		}
 	}

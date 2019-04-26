@@ -36,36 +36,48 @@ public class UsuarioABM extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			 if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) 
-			 {
-				 Usuario usu = new Usuario();
-				 usu.setIdUsuario(Integer.parseInt(request.getParameter("id_user")));
-				 
-				 UsuarioLogic ul = new UsuarioLogic();
-				 Usuario usuario = ul.GetOne(usu);
-				 if(usuario != null)
+			try {
+
+				 if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null) 
 				 {
-					 request.setAttribute("usuario", usuario);
-					 if(request.getParameter("btnUpdate") != null)
+					 Usuario usu = new Usuario();
+					 usu.setIdUsuario(Integer.parseInt(request.getParameter("id_user")));
+					 
+					 UsuarioLogic ul = new UsuarioLogic();
+					 Usuario usuario = ul.GetOne(usu);
+					 if(usuario != null)
 					 {
-						 request.setAttribute("accion", "update");
+						 request.setAttribute("usuario", usuario);
+						 if(request.getParameter("btnUpdate") != null)
+						 {
+							 request.setAttribute("accion", "update");
+						 }
+						 else
+						 {
+							 request.setAttribute("accion", "delete");
+						 }
+						 request.getRequestDispatcher("admin-baja-modif-user.jsp").forward(request, response);
 					 }
 					 else
 					 {
-						 request.setAttribute("accion", "delete");
+						 request.setAttribute("existeUsuario", false);
+						 request.getRequestDispatcher("ListaUsuario").forward(request, response);
 					 }
-					 request.getRequestDispatcher("admin-baja-modif-user.jsp").forward(request, response);
 				 }
 				 else
 				 {
-					 request.setAttribute("existeUsuario", false);
-					 request.getRequestDispatcher("ListaUsuario").forward(request, response);
+					 request.getRequestDispatcher("admin-alta-user.jsp").forward(request, response);
 				 }
-			 }
-			 else
-			 {
-				 request.getRequestDispatcher("admin-alta-user.jsp").forward(request, response);
-			 } 
+			} 
+			catch(NumberFormatException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese el usuario nuevamente");
+			    request.getRequestDispatcher("ListaUsuario").forward(request, response);
+			}
+			catch(NullPointerException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese el usuario nuevamente");
+			    request.getRequestDispatcher("ListaUsuario").forward(request, response);
+			}
+			
 		}
 	}
 

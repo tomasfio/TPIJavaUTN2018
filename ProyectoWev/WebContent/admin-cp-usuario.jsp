@@ -41,7 +41,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-md-offset-1">
+                <div class="col-md-9">
                 	<%
 	                	if(request.getAttribute("error") != null)
 	                	{
@@ -90,6 +90,8 @@
                                   <td><b>Nombre</b></td>
                                   <td><b>Apellido</b></td>
                                   <td><b>Email</b></td>
+                                  <td></td>
+                                  <td></td>
                               </tr>
                           </thead>
                           <tbody>
@@ -104,6 +106,8 @@
                                   <td><%=usu.getNombre().toString() %></td>
                                   <td><%=usu.getApellido().toString() %></td>
                                   <td><%=usu.getEmail().toString() %></td>
+                                  <td><a type="button" class="btn btn-warning" href="UsuarioABM?id_user=<%=usu.getIdUsuario() %>&btnUpdate=update">Modificar</a></td>
+                                  <td><a type="button" class="btn btn-danger" href="UsuarioABM?id_user=<%=usu.getIdUsuario() %>&btnDelete=delete">Eliminar</a></td>
                               </tr>
                               <%
                               	}

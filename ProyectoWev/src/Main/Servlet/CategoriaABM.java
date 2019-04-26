@@ -35,35 +35,45 @@ public class CategoriaABM extends HttpServlet {
     		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 		else {
-			if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null)
-			{
-				Main.Entidades.Categoria cat = new Main.Entidades.Categoria();
-				cat.setIdCategoria(Integer.parseInt(request.getParameter("id_categoria")));
-				
-				CategoriaLogic cl = new CategoriaLogic();
-				Main.Entidades.Categoria categoria = cl.GetOne(cat);
-				if(categoria != null)
+			try {
+				if(request.getParameter("btnUpdate") != null || request.getParameter("btnDelete") != null)
 				{
-					request.setAttribute("categoria", categoria);
-					if(request.getParameter("btnUpdate") != null)
+					Main.Entidades.Categoria cat = new Main.Entidades.Categoria();
+					cat.setIdCategoria(Integer.parseInt(request.getParameter("id_categoria")));
+					
+					CategoriaLogic cl = new CategoriaLogic();
+					Main.Entidades.Categoria categoria = cl.GetOne(cat);
+					if(categoria != null)
 					{
-						request.setAttribute("accion", "update");
+						request.setAttribute("categoria", categoria);
+						if(request.getParameter("btnUpdate") != null)
+						{
+							request.setAttribute("accion", "update");
+						}
+						else
+						{
+							request.setAttribute("accion", "delete");
+						}
+						request.getRequestDispatcher("admin-baja-modif-categoria.jsp").forward(request, response);
 					}
 					else
 					{
-						request.setAttribute("accion", "delete");
+						request.setAttribute("existeCategoria", false);
+						request.getRequestDispatcher("ListaCategorias").forward(request, response);
 					}
-					request.getRequestDispatcher("admin-baja-modif-categoria.jsp").forward(request, response);
 				}
 				else
 				{
-					request.setAttribute("existeCategoria", false);
-					request.getRequestDispatcher("ListaCategorias").forward(request, response);
+					request.getRequestDispatcher("admin-alta-categoria.jsp").forward(request, response);
 				}
 			}
-			else
-			{
-				request.getRequestDispatcher("admin-alta-categoria.jsp").forward(request, response);
+			catch(NumberFormatException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese la categoria nuevamente");
+			    request.getRequestDispatcher("ListaCategorias").forward(request, response);
+			}
+			catch(NullPointerException ex) {
+				request.setAttribute("error", "Hubo un problema en la pagina, por favor ingrese la categoria nuevamente");
+			    request.getRequestDispatcher("ListaCategorias").forward(request, response);
 			}
 		}
 	}

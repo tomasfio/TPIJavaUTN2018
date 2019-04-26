@@ -44,7 +44,25 @@
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-md-offset-1">
+                <div class="col-md-9">
+                
+                <% 
+	             	if(request.getAttribute("existeLibro") != null)
+	             	{
+	             		if(!(boolean)request.getAttribute("existeLibro"))
+	             		{
+	             			%><p>El id ingresado no pertenece a ninguna libro registrado en el sistema</p><%
+	             		}
+	             	}
+           		%>
+           		<%
+		          	if(request.getAttribute("error") != null)
+		          	{
+		          		%>
+		          		<p><%=request.getAttribute("error") %></p>
+		          		<%
+	         		} 
+        		%>
                     <h1>Listado de libros</h1>
 					<hr>
                      <form class="form-inline" action="LibroABM" method="get">
@@ -52,39 +70,22 @@
                               <a class="btn btn-success" href="FormAltaLibro" role="button">Nuevo libro</a>
                           </div>
                           <div class="form-group pull-right">
-                              <input type="number" min='0' class="form-control" name="isbn" id="isbn" placeholder="Ingrese ISBN" required>
+                              <input type="text" class="form-control" name="isbn" id="isbn" placeholder="Ingrese ISBN" required>
                               <button type="submit" class="btn btn-warning" name="btnUpdate" value="update">Modificar</button>
                               <button type="submit" class="btn btn-danger" name="btnDelete" value="delete">Eliminar</button>
                           </div>
                       </form>
                       <br>
-                        <% 
-                    	if(request.getAttribute("existeLibro") != null)
-                    	{
-                    		if(!(boolean)request.getAttribute("existeLibro"))
-                    		{
-                    			%><p>El id ingresado no pertenece a ninguna libro registrado en el sistema</p><%
-                    		}
-                    	}
-                   		%>
-                   		<%
-			                	if(request.getAttribute("error") != null)
-			                	{
-			                		%>
-			                		<p><%=request.getAttribute("error") %></p>
-			                		<%
-			               		} 
-		               		%>
                       <table class="table table-striped">
                           <thead>
                               <tr>
                                   <td><b>ISBN</b></td>
                                   <td><b>Nombre</b></td>
                                   <td><b>Autor</b></td>
-                                  <td><b>Fecha</b></td>
                                   <td><b>Edicion</b></td>
-                                  <td><b>Precio</b></td>
                                   <td><b>Categoria</b></td>
+                                  <td></td>
+                                  <td></td>
                               </tr>
                           </thead>
                           <tbody>
@@ -97,10 +98,10 @@
 	                                  <td><%=lib.getISBN() %></td>
 	                                  <td><%=lib.getTitulo().toString() %></td>
 	                                  <td><%=lib.getAutor() %></td>
-	                                  <td><%=lib.getFecha().toString() %></td>
 	                                  <td><%=lib.getEdicion().toString() %></td>
-	                                  <td><%=Double.toString(lib.getPrecio()) %></td>
 	                                  <td><%=lib.getCategoria().getNombre().toString() %></td>
+	                                  <td><a type="button" class="btn btn-warning" href="LibroABM?isbn=<%=lib.getISBN() %>&btnUpdate=update">Modificar</a></td>
+	                                  <td><a type="button" class="btn btn-danger" href="LibroABM?isbn=<%=lib.getISBN() %>&btnUpdate=delete">Eliminar</a></td>
                               	</tr>
                              <%
                               	}

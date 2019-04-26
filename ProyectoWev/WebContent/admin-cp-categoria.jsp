@@ -39,7 +39,22 @@
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-md-offset-1">
+                <div class="col-md-9">
+                    <% 
+                    	if(request.getAttribute("existeCategoria") != null)
+                    	{
+                    		if(!(boolean)request.getAttribute("existeCategoria"))
+                    		{
+                    			%><p>El id ingresado no pertenece a ninguna categoria registrado en el sistema</p><%
+                    		}
+                    	}
+	                	if(request.getAttribute("error") != null)
+	                	{
+	                		%>
+	                		<p><%=request.getAttribute("error") %></p>
+	                		<%
+	               		} 
+               		%>
                     <h1>Listado de categorias</h1>
                     <%
 	                	if(request.getAttribute("altaCategoria") != null)
@@ -59,13 +74,7 @@
 	                		%>
 	                		<p>Se ha dado de modificado la categoria</p>
 	                		<%
-	               		} 
-	                	if(request.getAttribute("error") != null)
-	                	{
-	                		%>
-	                		<p><%=request.getAttribute("error") %></p>
-	                		<%
-	               		} 
+	               		}
               			%>
 					<hr>
                      <form class="form-inline" action="CategoriaABM" method="get">
@@ -79,21 +88,14 @@
                           </div>
                       </form>
                       <br>
-                        <% 
-                    	if(request.getAttribute("existeCategoria") != null)
-                    	{
-                    		if(!(boolean)request.getAttribute("existeCategoria"))
-                    		{
-                    			%><p>El id ingresado no pertenece a ninguna categoria registrado en el sistema</p><%
-                    		}
-                    	}
-                   		%>
                       <table class="table table-striped">
                           <thead>
                               <tr>
                                   <td><b>ID</b></td>
                                   <td><b>Nombre</b></td>
                                   <td><b>Descripcion</b></td>
+                                  <td></td>
+                                  <td></td>
                               </tr>
                           </thead>
                           <tbody>
@@ -106,6 +108,8 @@
 	                                  <td><%=Integer.toString(cat.getIdCategoria()) %></td>
 	                                  <td><%=cat.getNombre().toString() %></td>
 	                                  <td><%=cat.getDescipcion().toString() %></td> 
+	                                  <td><a type="button" class="btn btn-warning" href="CategoriaABM?id_categoria=<%=cat.getIdCategoria()%>&btnUpdate=update">Modificar</a></td>
+	                                  <td><a type="button" class="btn btn-danger" href="CategoriaABM?id_categoria=<%=cat.getIdCategoria() %>&btnDelete=delete">Eliminar</a></td>
                               	</tr>
                              <%
                               	}
